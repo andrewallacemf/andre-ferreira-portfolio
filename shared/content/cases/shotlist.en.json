@@ -1,0 +1,108 @@
+{
+  "slug": "shotlist",
+  "kicker": "Case",
+  "lede": "We inherited a production-planning platform with 34 open bugs, half-built features and a project module that was a single block. First, diagnosis and stabilization. Then a rebuild in three layers, from the quick shotlist to the agency workspace.",
+  "hero": {
+    "figure": "The three layers of the new architecture: Quick Shotlist (shotlist + moodboard, shareable), Simple Project, and Workflows and Workspaces for teams and agencies.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "A tool built by someone who missed having it",
+      "paragraphs": [
+        "Shotlist was born from the frustration of a photographer and filmmaker who serves commercial and entertainment clients in the United States, mostly in Hollywood. Generic project managers demanded too much setup and learning to serve photography and filmmaking workflows. He built his own platform, bringing shotlist and moodboard together in one collaborative space.",
+        "After two years of development with a previous vendor, he hired our team, in late 2024, to solve usability and experience problems. Communication with him was in English, through constant messages and video calls; within the team, in Portuguese."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "A half-finished product",
+      "paragraphs": [
+        "The platform reached us full of gaps, usability problems, bugs and unfinished features. In the client's own words, in early 2025, it was neither ready to generate revenue nor ready to grow."
+      ],
+      "bullets": [
+        "34 bugs mapped, 11 of them critical: the add-shot button failed often, half the interface vanished in responsive mode, image upload was unstable, performance was poor.",
+        "No payment processing: there was no way to charge for a subscription.",
+        "A structural problem underneath it all: the project module was a monolithic block. Anything new had to be carved into it."
+      ],
+      "figure": "Summary table of the audit: the 34 bugs by severity and urgency, with the 11 critical ones highlighted.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Design Lead, from diagnosis to requirements",
+      "paragraphs": [
+        "I was the project's Design Lead: UX diagnosis, strategy and hands-on work, leading two designers. I was also the author of the scope and requirements documents that served as the basis for the client's approval and for implementation by the engineering team, which rebuilt front end, back end, mobile and infrastructure.",
+        "The work was tracked through weekly and sprint reports, and each feature only went into development after a requirements analysis document and a prototype had been approved."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "Two phases, two contracts",
+      "paragraphs": [
+        "The first phase, from January to May 2025, was a four-month project to diagnose, stabilize and prepare the platform for launch. Its result led to a second contract, from June to December, with a six-month roadmap to rebuild the platform."
+      ],
+      "steps": [
+        { "title": "Audit", "text": "Full interface audit, analysis of user feedback, heuristic analysis with mapping of the problematic flows, component inventory and documentation of visual inconsistencies. Out of it came the recommendations table by severity and urgency. In parallel, engineering audited code and infrastructure." },
+        { "title": "Stabilization", "text": "Redesign of the critical components, visual guides for error states, mobile navigation, standardized responsive components, loading states and micro-feedback, and usability tests of the fixes." },
+        { "title": "Monetization", "text": "Payment and subscription system with plan-based permissions: checkout, subscriber onboarding, transaction feedback states, permission and sharing management." },
+        { "title": "Refinement and launch preparation", "text": "Optimization of the shotlist + moodboard pair, the number one feature for the target audience, in-product support, final tests and documentation." },
+        { "title": "Workshops in Brazil", "text": "For the second phase, the client came to Brazil, and we defined goals and scope in in-person workshops." },
+        { "title": "New architecture", "text": "Three layers aligned with his vision: Quick Shotlist, Simple Project, and Workflows and Workspaces for teams and agencies. Hierarchy Workspace → Workflow → Project." },
+        { "title": "Design system and screens", "text": "Redesigned design system (buttons, inputs, icons, selectors, menu, header, avatar, selection controls, stepper, verification code), refactoring of the basic structure, login and sign-up, Shotlist and Quick Shotlist for web and mobile, the Workspaces concept." },
+        { "title": "Requirements and reviews", "text": "Scope and requirements documents per feature, with business rules, states, permissions, creation wizard and edge cases, plus design reviews recorded for each package of the roadmap." }
+      ],
+      "figure": "Timeline of the two phases: the four stages of early 2025 in the first, the monthly roadmap packages in the second.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "Three decisions that took the monolith apart",
+      "decisions": [
+        {
+          "title": "Three layers of use",
+          "text": "Someone who only needs a shotlist with a moodboard should not have to create a project. Someone doing a project should not have to set up a workspace. Each layer stands on its own and grows into the next when the work asks for it. It was the answer to the generic project manager that demands everything on day one."
+        },
+        {
+          "title": "A modular, widget-based project",
+          "text": "The project page stopped being a block and became a composition of 13 widgets (details, description, deliverables, notes, stage, progress, shotlists, moodboard, logistics, assets, team, schedule), chosen when the project is created. A new feature becomes a new widget, not a carving in the monolith."
+        },
+        {
+          "title": "Action-based permissions and standard stages",
+          "text": "Permissions named after what a person can do (view, edit, moderate) instead of role nouns; standardized project stages from Pending to Complete; a visual distinction between guests with and without an account; archiving. Rules that fit in a document and that the team implements without interpreting."
+        }
+      ],
+      "figure": "The modular project page, with the 13 available widgets and an example composition.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "A whole platform, ready to relaunch",
+      "paragraphs": [
+        "By the end of the two phases the platform had been diagnosed, stabilized and rebuilt: a new design system, a three-layer architecture, modular projects, workspaces and workflows for teams, a native app with the Quick Shotlist, authentication and notifications, and a new marketing site.",
+        "The first phase led to the second contract, and at the end the client was preparing to relaunch. There are no usage metrics in this case, because delivery happened before the relaunch; I would rather say so than invent a number."
+      ],
+      "showFacts": true,
+      "figure": "Quick Shotlist on a phone: shotlist, moodboard and description, shareable without a project.",
+      "aspect": "3 / 4"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this project",
+      "paragraphs": [
+        "Stabilize before rebuilding. The temptation to start from scratch was strong; delivering a platform that worked is what bought the trust for the rebuild.",
+        "A requirements document is a design tool. Writing rules, states and edge cases before Figma saved months of back-and-forth with a client in another time zone and another language.",
+        "And the monolith is almost never in the code. It was in the mental model of a project. Breaking the model into layers and widgets is what let engineering break the code."
+      ]
+    }
+  ],
+  "next": "clickmax-ai-platform"
+}

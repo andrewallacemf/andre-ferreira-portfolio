@@ -1,0 +1,110 @@
+{
+  "slug": "clickmax-design-system",
+  "kicker": "Case",
+  "lede": "A verdade viva do design system estava no código; o Figma era uma spec parada; e a IA do produto renderizava componentes que não conheciam os tokens. Reconstruí a fundação para que os três lessem a mesma fonte.",
+  "hero": {
+    "figure": "Diagrama do pipeline: arquivo de tokens DTCG → variáveis do Figma → Tailwind no código → Storybook → widgets que a IA do produto renderiza. Uma fonte, três consumidores.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Uma plataforma B2B, dois design systems e uma IA no meio",
+      "paragraphs": [
+        "O Clickmax é uma plataforma B2B all-in-one para quem vende online: funis, páginas, produtos, pagamentos, automações, tudo num lugar só, com um assistente de IA embarcado que responde e renderiza interface dentro do produto. Entrei em janeiro de 2025 como especialista em design system, e o escopo cresceu para o design de produto da plataforma.",
+        "Quando cheguei, havia dois design systems em paralelo: o legado, que sustentava a maior parte do produto, e um novo, incompleto e pouco adotado. A verdade viva estava no código. O Figma era uma especificação estática, sem variáveis, com os tokens documentados como tabela."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Três consumidores, nenhum contrato",
+      "paragraphs": [
+        "O sintoma era o de sempre: designers e desenvolvedores divergindo sobre qual era o valor certo de um espaçamento ou de uma cor. A causa era estrutural."
+      ],
+      "bullets": [
+        "O Figma não tinha Variables. Trocar um token significava editar uma tabela e torcer para alguém ler.",
+        "O código tinha centenas de tags de componentes próprios e uma família de widgets do assistente de IA, sem contrato com o design system que os humanos usavam. Uma mudança de token não chegava ao que a IA renderizava.",
+        "A biblioteca do Figma tinha cerca de 90 nós soltos numa página só, sem hierarquia, sem estados, sem documentação.",
+        "Ícones custom espalhados: 268 em uso no código, com nomes e origens diferentes.",
+        "Duas versões anteriores da reconstrução haviam ficado pela metade. Uma terceira precisava provar rápido que era diferente."
+      ],
+      "figure": "Antes e depois do arquivo do Figma: os nós soltos numa página contra a biblioteca organizada em 8 páginas por camada.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Arquitetura, decisão e construção",
+      "paragraphs": [
+        "Sou Senior Product Designer e Design Lead do produto, com um time de três designers. Neste trabalho, defini a arquitetura de tokens, negociei com a engenharia o que mudaria e o que ficaria, construí a fundação e a biblioteca no Figma com apoio de IA, e escrevi o contrato que define o que o assistente do produto pode renderizar.",
+        "A engenharia manteve a stack e o pipeline de código; o time de design construiu componentes por milestone a partir da fundação. Foi trabalho de muita gente, com uma regra minha no centro: uma fonte de verdade, e só ela."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Núcleo primeiro, depois de baixo para cima",
+      "steps": [
+        { "title": "Auditoria", "text": "Inventário do que existia em código e em Figma por nível de composição (átomos, moléculas, organismos), mais a reconciliação dos 268 ícones: 233 mapeados direto para uma biblioteca aberta, 35 mantidos por alias." },
+        { "title": "Fundação de tokens", "text": "Primeira versão do arquivo DTCG com 643 tokens; segunda versão enxuta: 7 paletas primitivas, 58 tokens semânticos em dois modos e 15 escalas tipográficas. O vocabulário semântico virou o léxico comum de humanos e IA." },
+        { "title": "Variáveis no Figma geradas do arquivo", "text": "238 variáveis criadas a partir da fonte: 132 primitivas, 58 semânticas e 48 de componente. O modo escuro foi gerado por automação: 58 valores, nenhum faltando." },
+        { "title": "Port de baixo para cima", "text": "Átomos, depois moléculas, compostos e navegação, com paridade um para um com o Storybook. O Button saiu de 7 variações para 140 (7 tipos × 5 tamanhos × 4 estados) com 3 slots; o Badge chegou a 84 variantes com 49 cores que trocam com o modo." },
+        { "title": "Biblioteca organizada", "text": "Oito páginas: 17 átomos, 47 moléculas, 8 organismos, 1 template e 12 exemplos de uso. Cada componente pronto só quando documentado." },
+        { "title": "Contrato humano + IA", "text": "As 88 tags de componentes próprios foram reduzidas a 4 famílias, e a família de widgets que o assistente renderiza ganhou um manifesto: 14 widgets, todos consumindo os mesmos tokens." },
+        { "title": "Shell e direção visual", "text": "Um App Shell canônico para a nova navegação e uma direção visual aplicada à fundação: superfícies em vidro em 22 pontos, linhas finas em conteúdo, sombra só em superfícies flutuantes." }
+      ],
+      "figure": "Grafo de aliases: paletas primitivas → tokens semânticos → tokens de componente, lado a lado nos modos claro e escuro.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Quatro escolhas que sustentam o resto",
+      "decisions": [
+        {
+          "title": "Uma camada neutra de tokens como fonte única",
+          "text": "Em vez de eleger o Figma ou o código como verdade, criei uma camada neutra no formato DTCG que os dois consomem: o Figma via variáveis geradas, o código via tema do Tailwind, e a IA lendo o mesmo arquivo. Depois do alinhamento com a liderança, o arquivo passou a viver no repositório do produto."
+        },
+        {
+          "title": "Alterar só o que precisa",
+          "text": "A fundação técnica do código era boa. Preservei a stack, o pipeline e os nomes que funcionavam, e mudei apenas o que impedia a fonte única. Duas reconstruções anteriores tinham morrido por tentar refazer tudo."
+        },
+        {
+          "title": "Contrato em duas camadas, liderado pelo design",
+          "text": "Camada um: componentes do produto consumindo tokens. Camada dois: widgets que o assistente de IA pode renderizar, construídos sobre a camada um. A IA passou a ser tratada como mais uma usuária do design system, com as mesmas regras."
+        },
+        {
+          "title": "Pronto é documentado",
+          "text": "Um componente só conta como entregue quando está no Storybook, com paridade um para um com o Figma, e cada componente entra em uma alteração de código separada. Parece burocracia; é o que impede o terceiro design system de virar o quarto."
+        }
+      ],
+      "figure": "Matriz do Button: 7 tipos × 5 tamanhos × 4 estados, com os 3 slots marcados.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "O que já está de pé",
+      "paragraphs": [
+        "A fundação de tokens está entregue e validada, e as variáveis do Figma nascem dela, inclusive o modo escuro, sem edição manual. A biblioteca de componentes está sendo construída por milestone sobre essa fundação, e o contrato de widgets define hoje o que o assistente do produto pode renderizar.",
+        "É um trabalho em produção, não um case fechado com laço. Os números abaixo são contagens do que existe; a medição de impacto, como tempo de handoff e defeitos de interface, vem com a adoção no código, em fases."
+      ],
+      "showFacts": true,
+      "figure": "App Shell canônico da nova navegação, com dados fictícios.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que este trabalho me ensinou",
+      "paragraphs": [
+        "A IA também é usuária do design system. Se ela renderiza interface, precisa do mesmo contrato que um desenvolvedor, e o contrato precisa estar num formato que ela leia. Isso mudou a forma como eu escrevo documentação: menos prosa, mais estrutura.",
+        "Coisas grandes nascem no Figma, coisas pequenas nascem no código. Um seletor de cor que me levou uma hora e meia em código saiu em segundos no Figma; um ajuste de token que exigiria abrir dezenas de componentes no Figma é uma linha no arquivo. Saber onde cada decisão custa menos é metade do trabalho.",
+        "E a lição de sempre, válida também para um time pequeno: um design system é um acordo antes de ser uma biblioteca."
+      ]
+    }
+  ],
+  "next": "einstein-kiosks"
+}

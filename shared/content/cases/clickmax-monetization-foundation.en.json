@@ -1,0 +1,107 @@
+{
+  "slug": "clickmax-monetization-foundation",
+  "kicker": "Case",
+  "lede": "Where do the plan, the credit and the wallet live in a platform where one person can have several workspaces? And how does a free tier that blocked creation become a growth engine without breaking anyone who has already published? This case is about the foundation, not the prices.",
+  "hero": {
+    "figure": "Account architecture map: the wallet on the person, plan and credit on the workspace, a hub aggregating, the project as a filter.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "A multi-workspace platform with a single-workspace account",
+      "paragraphs": [
+        "Clickmax grew as an all-in-one platform: funnels, pages, products, payments, automations, AI. One person can have several workspaces, each with several projects. But the account, plan and billing model had been born for a simpler world, one workspace per person.",
+        "Through 2025 and 2026, I was the designer responsible for thinking through the monetization foundation: the account architecture and the logic of plans, limits and entitlements. It is ongoing work, shared with the product and engineering teams, and what I can show here are the principles and the architecture, without the values."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "A free tier that blocked at the wrong door",
+      "bullets": [
+        "The free tier limited creation: number of funnels, pages, products, contacts. Whoever hit the limit stopped in the middle of a flow, before seeing the product work.",
+        "The paywall ran at creation time, and there was no barrier at publish time, which is where the value actually shows up.",
+        "The wallet was one-to-one with the workspace, which made little sense for people running more than one.",
+        "In the code there was no yes-or-no permission per plan; only quantitative limits. Allowing or denying a whole feature to a plan had nowhere to be expressed.",
+        "Billing work was scattered: 173 issues across 12 projects and 8 teams, with no dependencies between them, and 29 gaps with no issue at all."
+      ],
+      "figure": "Inventory of what existed in the code: 27 billable metrics, 8 of them recountable, 7 kinds of paywall in the interface and no per-plan permission.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Architecture before screens",
+      "paragraphs": [
+        "I drove the structural decisions on where each concept lives and wrote the principles that guide packaging, based on about thirty conversations with product, engineering and business and on reading thirteen market references. The free-tier workstream was later shared with another designer on the team, with me reviewing.",
+        "As in the other workstreams, I read the code with AI assistance before proposing: the list of billable metrics, the kinds of paywall and the absence of per-plan permissions came from that reading, not from assumption."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "From reading the code to a unifying principle",
+      "steps": [
+        { "title": "Reading the code and the issues", "text": "Inventory of what the platform measured, charged and blocked, and mapping of the 173 billing issues scattered across teams." },
+        { "title": "Account architecture decisions", "text": "Where each concept lives: the wallet moves to the person; plan and credit stay on the workspace; a hub aggregates the view for people with several; the project becomes a filter, not a billing unit." },
+        { "title": "Credit as a single currency", "text": "Instead of one quota per feature, one credit spent across several, with rules and staged warnings as the balance runs low." },
+        { "title": "Conceptual matrix", "text": "Four self-serve plans described across 24 dimensions, plus an enterprise plan, to know what each plan allows before discussing what it costs." },
+        { "title": "Gating inventory in three buckets", "text": "Every existing block classified: quantitative limit, feature permission or publish gate. Only then can you decide what stays and what changes." },
+        { "title": "Cluster reorganization", "text": "The 173 issues reorganized into five parts under a single principle: every access question becomes a call of the form \"can this account do this action on this feature?\"." },
+        { "title": "Map of new features", "text": "Nine new features assessed on four factors, to know which plan each one enters and why." }
+      ],
+      "figure": "The conceptual matrix: four plans across 24 dimensions, with abstract cells (allows, limits, not included).",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "The principles that guide packaging",
+      "decisions": [
+        {
+          "title": "Create freely, gate at publish",
+          "text": "The central thesis. People on the free tier can create as much as they want and see the product work; the barrier appears at publish time, managed at the funnel level. Value is perceived before it is charged, and nobody who has already published is surprised."
+        },
+        {
+          "title": "Every concept lives in one place",
+          "text": "Wallet on the person, plan and credit on the workspace, project as a filter. When everything has an address, the interface can explain balance, limit and plan without contradiction."
+        },
+        {
+          "title": "One principle for all access",
+          "text": "Limits, permissions and publish gates answer the same question: can this account do this action on this feature? A rule that fits in a sentence replaces seven kinds of paywall."
+        },
+        {
+          "title": "Package before pricing",
+          "text": "The plan-by-dimension matrix was written without a single value. First what each plan allows; the price comes later, and it is not the subject of this case."
+        }
+      ],
+      "figure": "The three gating buckets (limit, permission, publish) and how each existing block was classified.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "A foundation under construction",
+      "paragraphs": [
+        "The account architecture decisions are made and the first of them, the project as a filter, is in production. The packaging principles and the conceptual matrix guide the team's work on plans and limits, and the billing cluster has been reorganized under a single principle.",
+        "The rest is work in progress, and this case will grow with it. The numbers below come from the inventory, not from results."
+      ],
+      "showFacts": true,
+      "figure": "Map of the five parts of the billing cluster under the unifying principle.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this work",
+      "paragraphs": [
+        "Monetization is information architecture. Before any plan screen, you need to know where each concept lives; most billing confusion comes from concepts without an address.",
+        "Gating at the wrong door costs more than not gating. A free tier that blocks creation keeps people from discovering why they would pay.",
+        "And a one-sentence principle, applied to 173 issues, organizes more than any roadmap."
+      ]
+    }
+  ],
+  "next": "caixa-design-system"
+}

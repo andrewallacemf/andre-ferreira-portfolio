@@ -1,0 +1,191 @@
+---
+/* Long-form case page: /work/<slug>/ and /pt/work/<slug>/.
+   Header (from cases.items) + lede + hero figure, then the sections from the
+   case body JSON. Normal flowing document, one reading column, sticky section
+   index on wide screens. */
+import type { Lang } from '../lib/content';
+import { getContent, getCaseBody, hasCasePage } from '../lib/content';
+import { caseHref, pageHref } from '../lib/paths';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CornerMarks from '../components/CornerMarks.astro';
+import CaseFigure from '../components/CaseFigure.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = getContent(lang);
+const item = t.cases.items.find((c) => c.slug === slug);
+const body = getCaseBody(lang, slug);
+if (!item || !body) throw new Error(`Case page without content: ${slug} (${lang})`);
+const ui = t.casePage;
+const next = body.next ? t.cases.items.find((c) => c.slug === body.next) : undefined;
+const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) : undefined;
+---
+
+<BaseLayout lang={lang} page="case" slug={slug} t={t} title={item.title} description={item.result}>
+  <article class="case-page">
+    <header class="slide case-head">
+      <div class="slide__box slide__box--single case-head__box">
+        <CornerMarks />
+        <p class="eyebrow reveal">
+          <a class="label link" href={pageHref(lang, 'work')}>← {ui.back}</a>
+          <span class="label num">{item.year}</span>
+          <span class="label">{item.client}</span>
+        </p>
+        <h1 class="display reveal">{item.title}</h1>
+        <p class="case-head__lede reveal">{body.lede}</p>
+        <dl class="case-head__meta reveal">
+          <div><dt class="label">{ui.role}</dt><dd>{item.role}</dd></div>
+          <div><dt class="label">{ui.scope}</dt><dd>{item.scope}</dd></div>
+        </dl>
+        <p class="case-head__tags reveal" aria-label={ui.scope}>
+          {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </p>
+      </div>
+    </header>
+
+    {body.hero && (
+      <div class="case-hero">
+        <CaseFigure caption={body.hero.figure} aspect={body.hero.aspect} label={ui.image} />
+      </div>
+    )}
+
+    <div class="case-body">
+      <nav class="case-index wide-only" aria-label={ui.contents}>
+        <p class="label">{ui.contents}</p>
+        <ol>
+          {body.sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
+        </ol>
+      </nav>
+
+      <div class="case-sections">
+        {body.sections.map((s, i) => (
+          <section class="case-section slide" id={s.id} aria-labelledby={`${s.id}-title`}>
+            <p class="label num reveal">{String(i + 1).padStart(2, '0')} · {s.label}</p>
+            <h2 id={`${s.id}-title`} class="title-xl reveal">{s.title}</h2>
+            {s.paragraphs?.map((p) => <p class="case-p reveal">{p}</p>)}
+            {s.bullets && (
+              <ul class="case-bullets reveal">
+                {s.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+            {s.steps && (
+              <ol class="case-steps reveal">
+                {s.steps.map((st, n) => (
+                  <li>
+                    <span class="label num">{String(n + 1).padStart(2, '0')}</span>
+                    <div><h3>{st.title}</h3><p>{st.text}</p></div>
+                  </li>
+                ))}
+              </ol>
+            )}
+            {s.decisions && (
+              <div class="case-decisions reveal">
+                {s.decisions.map((d) => (
+                  <article class="decision">
+                    <h3>{d.title}</h3>
+                    <p>{d.text}</p>
+                  </article>
+                ))}
+              </div>
+            )}
+            {s.showFacts && (
+              <dl class="case-facts reveal" aria-label={ui.facts}>
+                {item.facts.map(([n, l]) => (
+                  <div class="fact"><dt class="fact__n">{n}</dt><dd class="label">{l}</dd></div>
+                ))}
+              </dl>
+            )}
+            {s.figure && (
+              <div class="reveal"><CaseFigure caption={s.figure} aspect={s.aspect} label={ui.image} /></div>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+
+    <footer class="slide case-foot">
+      <div class="slide__box slide__box--single case-foot__box">
+        <CornerMarks />
+        {next && nextHref && (
+          <a class="case-next" href={nextHref} data-cursor={t.cursor.view}>
+            <span class="label">{ui.next} →</span>
+            <span class="case-next__title title-xl">{next.title}</span>
+            <span class="muted">{next.result}</span>
+          </a>
+        )}
+        <a class="link" href={pageHref(lang, 'work')}>← {ui.back}</a>
+        <Footer t={t} />
+      </div>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-page { display: grid; gap: var(--space-8); }
+
+  /* Header block */
+  .case-head { padding-bottom: 0; }
+  .case-head__box { gap: var(--space-6); }
+  .case-head__lede { font-size: var(--text-lg); line-height: var(--leading-snug); max-width: var(--measure); color: var(--fg-muted); }
+  .case-head__meta { display: grid; gap: var(--space-4); margin: 0; max-width: var(--measure); }
+  .case-head__meta dd { margin: 0; }
+  .case-head__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; }
+  .tag {
+    font-size: var(--text-xs); line-height: 1; padding: 0.45em 0.7em;
+    border: var(--hairline) solid var(--line); border-radius: 999px;
+    color: var(--fg-muted); white-space: nowrap;
+  }
+  @media (min-width: 640px) { .case-head__meta { grid-template-columns: 1fr 1fr; } }
+
+  /* Hero figure spans the reading area */
+  .case-hero { padding-inline: var(--gutter); }
+  .case-hero > :global(.figure) { max-width: var(--slide-max); margin-inline: auto; }
+
+  /* Body: index + sections */
+  .case-body {
+    padding-inline: var(--gutter);
+    max-width: var(--slide-max);
+    width: 100%;
+    margin-inline: auto;
+    display: grid;
+    gap: var(--space-8);
+  }
+  .case-index { display: none; }
+  .case-sections { display: grid; gap: var(--space-4); max-width: var(--measure); }
+  .case-section { padding: var(--space-8) 0; display: grid; gap: var(--space-4); border-top: var(--hairline) solid var(--line); }
+  .case-section:first-child { border-top: 0; }
+  .case-p { font-size: var(--text-md); line-height: var(--leading-relaxed, 1.6); }
+  .case-bullets { margin: 0; padding-left: 1.1em; display: grid; gap: var(--space-3); line-height: var(--leading-relaxed, 1.6); }
+  .case-bullets li::marker { color: var(--accent); }
+
+  .case-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+  .case-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: var(--space-3); padding-top: var(--space-3); border-top: var(--hairline) solid var(--line); }
+  .case-steps h3 { font-size: var(--text-md); font-weight: 500; margin: 0 0 var(--space-1); }
+  .case-steps p { margin: 0; color: var(--fg-muted); }
+
+  .case-decisions { display: grid; gap: var(--space-4); }
+  .decision { padding: var(--space-5, 1.25rem) var(--space-6); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); }
+  .decision h3 { font-size: var(--text-md); font-weight: 500; margin: 0 0 var(--space-2); }
+  .decision p { margin: 0; color: var(--fg-muted); }
+
+  .case-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-3); margin: 0; }
+  .fact { padding: var(--space-4); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); display: grid; gap: var(--space-2); }
+  .fact__n { font-size: var(--text-xl); line-height: 1; font-weight: 500; letter-spacing: -0.02em; }
+  .fact dd { margin: 0; }
+
+  /* Foot: next case + back */
+  .case-foot__box { gap: var(--space-8); }
+  .case-next { display: grid; gap: var(--space-3); text-decoration: none; color: inherit; padding: var(--space-6); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+  .case-next__title { text-wrap: balance; }
+  @media (hover: hover) and (pointer: fine) { .case-next:hover { border-color: var(--line-strong); transform: translateY(-4px); } }
+
+  @media (min-width: 1024px) {
+    .case-head__box { padding-top: var(--space-12); }
+    .case-body { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
+    .case-index { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--header-h) + var(--space-8)); }
+    .case-index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+    .case-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); }
+    .case-index a:hover { color: var(--fg); }
+  }
+</style>

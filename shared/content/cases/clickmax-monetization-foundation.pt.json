@@ -1,0 +1,107 @@
+{
+  "slug": "clickmax-monetization-foundation",
+  "kicker": "Case",
+  "lede": "Onde moram o plano, o crédito e a carteira numa plataforma em que uma pessoa pode ter vários workspaces? E como um plano gratuito que travava a criação vira um motor de crescimento sem quebrar quem já publicou? Este case é sobre a fundação, não sobre os preços.",
+  "hero": {
+    "figure": "Mapa da arquitetura de conta: a carteira na pessoa, o plano e o crédito no workspace, o hub agregando, o projeto como filtro.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Uma plataforma multi-workspace com uma conta de um workspace só",
+      "paragraphs": [
+        "O Clickmax cresceu como plataforma all-in-one: funis, páginas, produtos, pagamentos, automações, IA. Uma pessoa pode ter vários workspaces, cada um com vários projetos. Mas o modelo de conta, plano e cobrança tinha nascido para um mundo mais simples, de um workspace por pessoa.",
+        "Ao longo de 2025 e 2026, fui o designer responsável por pensar a fundação de monetização: a arquitetura de conta e a lógica de planos, limites e direitos de uso. É um trabalho em andamento, dividido com o time de produto e de engenharia, e o que posso mostrar aqui são os princípios e a arquitetura, sem os valores."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Um plano gratuito que travava na porta errada",
+      "bullets": [
+        "O plano gratuito limitava a criação: número de funis, páginas, produtos, contatos. Quem batia no limite parava no meio de um fluxo, antes de ter visto o produto funcionar.",
+        "O paywall rodava no momento de criar e não existia nenhuma barreira no momento de publicar, que é onde o valor aparece de fato.",
+        "A carteira era um para um com o workspace, o que fazia pouco sentido para quem opera mais de um.",
+        "No código, não existia nenhuma permissão por plano do tipo sim ou não; só limites quantitativos. Permitir ou negar uma funcionalidade inteira para um plano não tinha onde ser expresso.",
+        "O trabalho sobre cobrança estava espalhado: 173 issues em 12 projetos e 8 times, sem relação de dependência entre elas, e 29 lacunas para as quais não havia issue nenhuma."
+      ],
+      "figure": "Inventário do que existia no código: 27 métricas cobráveis, 8 delas recontáveis, 7 tipos de paywall na interface e nenhuma permissão por plano.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Arquitetura antes de tela",
+      "paragraphs": [
+        "Conduzi as decisões estruturais de onde cada conceito mora e escrevi os princípios que orientam o empacotamento, com base em cerca de trinta conversas com produto, engenharia e negócio e na leitura de treze referências de mercado. A frente do plano gratuito foi depois compartilhada com outro designer do time, com eu revisando.",
+        "Como nas outras frentes, li o código com apoio de IA antes de propor: a lista de métricas cobráveis, os tipos de paywall e a ausência de permissões por plano vieram dessa leitura, não de suposição."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Da leitura do código ao princípio unificador",
+      "steps": [
+        { "title": "Leitura do código e das issues", "text": "Inventário do que a plataforma media, cobrava e bloqueava, e mapeamento das 173 issues de cobrança espalhadas pelos times." },
+        { "title": "Decisões de arquitetura de conta", "text": "Onde mora cada conceito: a carteira passa para a pessoa; o plano e o crédito ficam no workspace; um hub agrega a visão de quem tem vários; o projeto vira um filtro, e não uma unidade de cobrança." },
+        { "title": "Crédito como moeda única", "text": "Em vez de uma cota por funcionalidade, um crédito que se gasta em várias, com regras e avisos escalonados quando o saldo baixa." },
+        { "title": "Matriz conceitual", "text": "Quatro planos self-serve descritos em 24 dimensões, mais um plano corporativo, para saber o que cada plano permite antes de discutir quanto custa." },
+        { "title": "Inventário de gating em três baldes", "text": "Cada bloqueio existente classificado: limite quantitativo, permissão de funcionalidade ou gate de publicação. Só então dá para decidir o que fica e o que muda." },
+        { "title": "Reorganização do cluster", "text": "As 173 issues reorganizadas em cinco partes sob um único princípio: toda pergunta de acesso vira uma chamada do tipo \"esta conta pode fazer esta ação nesta funcionalidade?\"." },
+        { "title": "Mapa de features novas", "text": "Nove funcionalidades novas avaliadas em quatro fatores, para saber em que plano cada uma entra e por quê." }
+      ],
+      "figure": "A matriz conceitual: quatro planos em 24 dimensões, com as células em abstrato (permite, limita, não inclui).",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Os princípios que orientam o empacotamento",
+      "decisions": [
+        {
+          "title": "Criar livre, publicar trava",
+          "text": "A tese central. Quem está no plano gratuito pode criar à vontade e ver o produto funcionar; a barreira aparece na publicação, gerida no nível do funil. O valor é percebido antes de ser cobrado, e quem já publicou não é surpreendido."
+        },
+        {
+          "title": "Cada conceito mora num lugar só",
+          "text": "Carteira na pessoa, plano e crédito no workspace, projeto como filtro. Quando cada coisa tem um endereço, a interface consegue explicar o saldo, o limite e o plano sem contradição."
+        },
+        {
+          "title": "Um princípio para todo acesso",
+          "text": "Limites, permissões e gates de publicação respondem à mesma pergunta: esta conta pode fazer esta ação nesta funcionalidade? Uma regra que cabe numa frase substitui sete tipos de paywall."
+        },
+        {
+          "title": "Empacotar antes de precificar",
+          "text": "A matriz de planos por dimensão foi escrita sem nenhum valor. Primeiro o que cada plano permite; o preço vem depois, e não é assunto deste case."
+        }
+      ],
+      "figure": "Os três baldes de gating (limite, permissão, publicação) e como cada bloqueio existente foi classificado.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "Uma fundação em construção",
+      "paragraphs": [
+        "As decisões de arquitetura de conta estão tomadas e a primeira delas, o projeto como filtro, está em produção. Os princípios de empacotamento e a matriz conceitual orientam o trabalho do time sobre planos e limites, e o cluster de cobrança foi reorganizado sob um princípio único.",
+        "O resto é trabalho em andamento, e este case vai crescer com ele. Os números abaixo são do inventário, não de resultado."
+      ],
+      "showFacts": true,
+      "figure": "Mapa das cinco partes do cluster de cobrança sob o princípio unificador.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste trabalho",
+      "paragraphs": [
+        "Monetização é arquitetura de informação. Antes de qualquer tela de plano, é preciso saber onde mora cada conceito; a maior parte da confusão de cobrança vem de conceitos sem endereço.",
+        "Travar na porta errada custa mais do que não travar. Um gratuito que bloqueia a criação impede a pessoa de descobrir por que pagaria.",
+        "E um princípio de uma frase, aplicado a 173 issues, organiza mais do que qualquer roadmap."
+      ]
+    }
+  ],
+  "next": "caixa-design-system"
+}

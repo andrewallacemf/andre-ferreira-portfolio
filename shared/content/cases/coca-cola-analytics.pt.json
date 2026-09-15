@@ -1,0 +1,105 @@
+{
+  "slug": "coca-cola-analytics",
+  "kicker": "Case",
+  "lede": "O cliente perguntou como aumentar em 30% a adoção da plataforma de dados do marketing. A pesquisa respondeu que um dashboard que leva 30 segundos para carregar não tem um problema de interface. Tem um problema de serviço.",
+  "hero": {
+    "figure": "Dos pain points às ideias: 8 grupos de problemas à esquerda, 13 ideias à direita, ligados pelas perguntas \"como poderíamos\" que fizeram a ponte.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Uma plataforma global de dados que as pessoas evitavam",
+      "paragraphs": [
+        "O time de marketing analytics da The Coca-Cola Company mantém uma plataforma interna que concentra os dashboards usados por marketing e comercial em unidades operacionais no mundo inteiro. A visão do cliente era sair de um analytics em silos, descritivo e dependente de especialistas para um analytics self-service e acionável, com uma meta concreta: 30% a mais de adoção dos produtos de dados.",
+        "Em 2023, pela consultoria em que eu era UX Manager, fomos contratados para quatro meses de trabalho. Foi o primeiro projeto de UX da empresa inteiramente em inglês, com cliente e usuários espalhados por vários países."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "\"Eu desisto\"",
+      "paragraphs": [
+        "Os usuários descreviam a plataforma como sobrecarregada, lenta, pouco intuitiva e sem a flexibilidade ou a granularidade de que precisavam. Muitas tentativas de usar dados terminavam em \"eu desisto\" e num atalho: pedir para alguém fazer, usar os dados do ano anterior ou decidir sem dados.",
+        "O time do cliente acreditava que melhorar a interface dos dashboards bastaria para chegar aos 30%. Essa era a hipótese que a pesquisa precisava testar."
+      ],
+      "figure": "Os oito grupos de problemas encontrados: navegação, design, acrônimos, acurácia, tempo de carregamento, dados ausentes e mais dois, com o número de pain points em cada um.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Lead da frente de plataforma",
+      "paragraphs": [
+        "O projeto rodou com duas frentes em paralelo. Uma de service design, olhando a experiência do serviço de analytics como um todo: entrevistas, personas, jornadas, oportunidades e roadmap. Outra de UX, olhando a plataforma em si. Eu liderei a frente de UX, com dois designers, e dei apoio pontual à de service design.",
+        "Tudo o que é análise da plataforma saiu das minhas mãos: análise heurística, protocolo dos testes, fluxogramas, recomendações e guidelines de interface, propostas de tela. Os testes com usuários, em inglês, foram conduzidos pela lead de service design, com eu registrando as observações. Os dois designers cuidaram da parte operacional das análises e ajudaram a ponderar as recomendações."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Da primeira impressão ao roadmap",
+      "paragraphs": [
+        "Enquanto a frente de service design entrevistava 36 pessoas em nove unidades operacionais e construía seis personas e cinco jornadas, a frente de UX abriu a plataforma."
+      ],
+      "steps": [
+        { "title": "Análise heurística", "text": "Uma primeira leitura estruturada da plataforma pelas heurísticas de Nielsen, para saber onde olhar antes de ouvir os usuários." },
+        { "title": "Testes de usabilidade", "text": "Onze sessões com usuários da empresa, em inglês, sobre quatro dashboards priorizados, com protocolo, critérios de sucesso e relatório." },
+        { "title": "Fluxogramas", "text": "Vinte e dois fluxogramas mapeando o fluxo de cada dashboard e marcando exatamente onde cada pain point acontecia. Um problema localizado no fluxo é um problema que dá para resolver." },
+        { "title": "Cocriação", "text": "Uma sessão interna para transformar pain points em ideias, guiada por perguntas do tipo \"como poderíamos evitar que as pessoas adivinhem o significado dos acrônimos?\" e \"como poderíamos fazer os dashboards carregarem melhor?\"." },
+        { "title": "Treze ideias", "text": "Em cinco categorias (frameworks e taxonomia, tecnologia, processo, pessoas, interface), cada uma com valor para o usuário, valor para o negócio e esforço estimado." }
+      ],
+      "figure": "Um dos 22 fluxogramas, em versão abstrata: o fluxo de um dashboard com os pain points marcados nos passos em que aconteciam.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "O reenquadramento e três respostas",
+      "decisions": [
+        {
+          "title": "Não era um problema de UI",
+          "text": "A conclusão central do trabalho: dashboards que demoravam mais de 30 segundos para carregar, acrônimos sem explicação e dados ausentes não se resolvem com uma camada de interface. A solução exigia mudar a plataforma, o modo de trabalhar e o suporte ao usuário. As treze ideias foram organizadas para dizer isso com clareza."
+        },
+        {
+          "title": "Do resumo ao detalhe",
+          "text": "Uma hierarquia de três níveis na mesma tela: grandes números no topo, gráficos no meio, tabela no fim. O executivo para no primeiro nível; o analista desce até o terceiro. Um dashboard só, dois públicos."
+        },
+        {
+          "title": "Um template com guidelines",
+          "text": "Em vez de redesenhar dashboard por dashboard, um template com elementos prontos e um conjunto de guidelines de interface: anatomia de tabelas e títulos, cores de sistema separadas das cores de gráfico, status de filtro e de atualização, estado vazio, padronização de filtros. A regra de bolso que ficou: se é difícil explicar a um colega, é difícil de consumir sozinho."
+        },
+        {
+          "title": "Um design system para dashboards",
+          "text": "A primeira das treze ideias, e a base das outras. Padronizar antes de otimizar."
+        }
+      ],
+      "figure": "Mockup recriado do padrão \"do resumo ao detalhe\": grandes números, gráficos e tabela empilhados numa tela só.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "Um roadmap de três a cinco anos, e uma fase dois",
+      "paragraphs": [
+        "As treze ideias e as guidelines entraram no roadmap de três a cinco anos que o projeto entregou ao cliente, junto com as oportunidades da frente de service design. Na fase seguinte, algumas delas foram implementadas e testadas: busca com autocomplete e perguntas-chave sugeridas, perfis configuráveis, onboarding com dicas na interface, nova navegação e correções técnicas.",
+        "Segundo o retorno do cliente, a busca foi amplamente elogiada, os perfis bem recebidos e o onboarding reduziu o tempo de aprendizado. Não tenho os números de adoção da fase dois; conto o que foi reportado."
+      ],
+      "showFacts": true,
+      "figure": "As 13 ideias em cinco categorias, cada uma com valor para o usuário, valor para o negócio e esforço.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste projeto",
+      "paragraphs": [
+        "A pergunta que o cliente faz raramente é a pergunta que a pesquisa responde. \"Como melhorar a UX dos dashboards\" virou \"por que as pessoas desistem de usar dados\", e essa mudança valeu mais que qualquer tela.",
+        "Fluxograma é ferramenta de argumento. Marcar o pain point no passo exato em que ele acontece tirou a conversa do campo da opinião e a levou para o do reparo.",
+        "E trabalhar em inglês com um cliente global, pela primeira vez, me ensinou a escrever recomendações que se sustentam sozinhas, sem eu na sala para explicar."
+      ]
+    }
+  ],
+  "next": "shotlist"
+}

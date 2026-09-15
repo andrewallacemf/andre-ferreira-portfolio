@@ -1,0 +1,103 @@
+{
+  "slug": "clickmax-offer-inheritance",
+  "kicker": "Case",
+  "lede": "O pedido chegou como \"vamos ter que duplicar o produto\". A leitura do código mostrou três mecanismos incompatíveis fazendo quase a mesma coisa. A resposta foi uma regra de herança de quatro linhas, sem cópia e sem migrar um dado sequer.",
+  "hero": {
+    "figure": "A regra do resolver em uma linha: entregáveis da oferta = (conjunto do produto menos os excluídos) mais os próprios da oferta. Ao lado, os três estados de um item: herdado, removido, próprio.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Um produto, muitas ofertas",
+      "paragraphs": [
+        "No Clickmax, quem vende cria um produto e depois cria ofertas dele: preços, condições e combinações diferentes para públicos diferentes. Um produto pode ter várias ofertas ativas ao mesmo tempo, e o que o comprador recebe, os entregáveis, é definido no produto.",
+        "Em 2026 veio um pedido de negócio legítimo: uma oferta precisava entregar algo diferente do produto. Mais um item aqui, um item a menos ali. Na leitura inicial, isso exigiria duplicar o produto inteiro para cada variação."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Duplicar resolve hoje e cobra amanhã",
+      "paragraphs": [
+        "Duplicar o produto criaria cópias que divergem com o tempo, dobraria o trabalho de manutenção de quem vende e tornaria impossível saber, meses depois, por que duas cópias do mesmo produto entregavam coisas diferentes.",
+        "Antes de desenhar qualquer coisa, li o código com apoio de IA. Encontrei três mecanismos incompatíveis de configuração compartilhada convivendo no sistema, e um único caso de herança de verdade. Encontrei também um efeito colateral: um cupom criado para \"todas as ofertas\" não alcançava as ofertas criadas depois dele. O problema era mais estrutural do que o pedido sugeria."
+      ],
+      "figure": "Os três mecanismos existentes lado a lado, em leitura abstrata, e o único caso em que a herança acontecia de verdade.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Do brief ao pacote de handoff",
+      "paragraphs": [
+        "Conduzi o ciclo completo de shaping do projeto, do brief ao pacote entregue à engenharia: análise do código, modelo de dados, definição da regra, especificação de API, protótipo executável e plano de trabalho. A engenharia participou nas revisões e ficou com uma decisão técnica em aberto, deixada explicitamente para o desenvolvedor com direito de veto.",
+        "É o case em que eu falo mais com o backend do que com a tela. Havia pouca interface nova; havia muita regra."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Ler, modelar, provar, empacotar",
+      "steps": [
+        { "title": "Ler o código antes de opinar", "text": "Toda afirmação sobre como o sistema funcionava foi verificada na fonte, com IA ajudando a percorrer o repositório. Daí saíram os três mecanismos, o caso único de herança e o bug do cupom." },
+        { "title": "Uma regra, não um snapshot", "text": "Em vez de copiar os entregáveis para a oferta no momento da criação, a oferta passa a derivar a lista em tempo de leitura: o que o produto tem, menos o que a oferta exclui, mais o que a oferta adiciona. Se o produto muda, a oferta acompanha." },
+        { "title": "Três estados e sete guard-rails", "text": "Cada item de uma oferta está em um de três estados, com rótulo explícito na interface: herdado, removido ou próprio. Sete regras de proteção definem o que acontece nos casos-limite, como excluir um item que o produto depois remove." },
+        { "title": "Modelo de dados e API", "text": "Uma tabela nova de exclusões, justificada campo a campo, e a especificação de três endpoints novos e cinco alterados. Zero migração de dados: tudo o que existia continua válido." },
+        { "title": "Protótipo executável", "text": "Um protótipo HTML autocontido, com quatro telas e um interruptor entre o comportamento de hoje e o proposto, rodando a mesma regra que o backend precisaria implementar, em quatro linhas. Quem clicava no protótipo via a derivação acontecer." },
+        { "title": "Pacote", "text": "Trinta tarefas reorganizadas em 18 issues e quatro milestones, com o vocabulário da interface fechado (Conceder e Remover) e a decisão técnica em aberto registrada como tal." }
+      ],
+      "figure": "As quatro telas do protótipo executável, com o interruptor \"hoje / proposto\" no topo.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Quatro escolhas de sistema",
+      "decisions": [
+        {
+          "title": "Herança em vez de cópia",
+          "text": "A oferta não guarda uma lista; guarda diferenças. Isso elimina a divergência silenciosa entre cópias e mantém uma única fonte de verdade, o produto."
+        },
+        {
+          "title": "Derivar na leitura, não na criação",
+          "text": "Ligação tardia: a lista de entregáveis é calculada quando alguém pergunta por ela. Mudanças no produto se propagam sozinhas, e nada precisa ser migrado."
+        },
+        {
+          "title": "Estado explícito, sempre visível",
+          "text": "Herdado, removido e próprio aparecem com rótulo na interface. Quem vende entende por que um item está ali, e o suporte consegue explicar sem abrir o banco."
+        },
+        {
+          "title": "Um protótipo que roda a regra",
+          "text": "Protótipo estático mostra telas; protótipo executável prova a lógica. Escrever o resolver no protótipo tirou ambiguidade da spec e encurtou a conversa com a engenharia."
+        }
+      ],
+      "figure": "Modelo de dados antes e depois: a tabela de exclusões nova e as relações produto → oferta → entregáveis.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "Handoff aceito, dezoito issues",
+      "paragraphs": [
+        "O pacote foi entregue e aceito pela engenharia, com 18 issues em quatro milestones prontas para o kickoff. Não há métricas de uso porque, no momento em que escrevo, a implementação ainda não foi ao ar; este é um case de design de sistema, e o que ele mostra é o raciocínio, o modelo e a spec.",
+        "O efeito colateral do cupom, encontrado na leitura do código, entrou no pacote como correção."
+      ],
+      "showFacts": true,
+      "figure": "Plano de trabalho: 18 issues distribuídas nos quatro milestones.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste trabalho",
+      "paragraphs": [
+        "Design de produto às vezes é design de regra. A melhor interface deste projeto foi uma fórmula de uma linha que a engenharia e o suporte conseguem repetir de cabeça.",
+        "Ler o código, com a IA como intermediária, mudou a qualidade da conversa. Cheguei à mesa com o que existia, não com o que eu supunha que existia.",
+        "E deixar uma decisão técnica explicitamente em aberto, com quem pode vetar, é mais respeitoso e mais rápido do que fingir que o design resolve tudo."
+      ]
+    }
+  ],
+  "next": "clickmax-monetization-foundation"
+}

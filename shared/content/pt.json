@@ -17,7 +17,8 @@
     "langSwitch": "EN",
     "langSwitchTitle": "Read in English",
     "skip": "Ir para o conteúdo",
-    "menu": "Menu"
+    "menu": "Menu",
+    "method": "Como trabalho"
   },
   "hero": {
     "name": "André Ferreira",
@@ -389,5 +390,128 @@
     "view": "Ver",
     "copy": "Copiar",
     "open": "Abrir"
+  },
+  "casePage": {
+    "back": "Todos os trabalhos",
+    "next": "Próximo case",
+    "image": "Imagem a entrar",
+    "facts": "Em números",
+    "contents": "Nesta página",
+    "role": "Papel",
+    "scope": "Escopo",
+    "client": "Cliente",
+    "year": "Ano"
+  },
+  "method": {
+    "slug": "como-trabalho",
+    "navLabel": "Como trabalho",
+    "title": "Como trabalho",
+    "lede": "Não escrevo código. Desenho produto e trabalho com IA para levar o desenho até o código, o mais perto possível de onde ele vai viver. Esta página explica o método por trás dos cases.",
+    "sections": [
+      {
+        "id": "regra",
+        "label": "Ponto de partida",
+        "title": "Arquitetos, não pedreiros",
+        "paragraphs": [
+          "Cada frente de trabalho passa por um ciclo curto de shaping: um brief que define o problema e o apetite, um frame que fecha a solução em traços largos e um pacote que a engenharia consegue construir sem me perguntar o que eu quis dizer. A regra do time é que a gente projeta a casa inteira antes de assentar o primeiro tijolo, e só assenta tijolo depois de todo mundo ter visto a planta.",
+          "O que muda com a IA é a velocidade com que a planta vira algo que dá para andar dentro."
+        ]
+      },
+      {
+        "id": "fonte",
+        "label": "Regra um",
+        "title": "Toda afirmação sobre código é lida na fonte",
+        "paragraphs": [
+          "Antes de propor, leio o repositório com apoio de um assistente de código: o que existe, como funciona, o que já foi tentado. Não confio em resumo de reunião para saber como o sistema se comporta. Foi assim que encontrei três mecanismos incompatíveis onde o pedido via um só, e nenhuma permissão por plano onde todo mundo supunha que havia.",
+          "Isso muda a conversa com a engenharia: chego com o que existe, não com o que imagino que existe."
+        ]
+      },
+      {
+        "id": "prototipo",
+        "label": "Regra dois",
+        "title": "Nada vai para pacote sem protótipo completo",
+        "paragraphs": [
+          "O portão de saída do shaping é um protótipo HTML autocontido: um arquivo só, que abre em qualquer navegador, com todas as telas e estados da frente. Quando a lógica importa, o protótipo roda a lógica, como o resolver de herança que a engenharia depois implementou em quatro linhas.",
+          "O protótipo é escrito com IA a partir do desenho e das regras. Eu decido o que ele faz; a IA escreve como."
+        ],
+        "evidence": [
+          [
+            "34",
+            "telas em 7 protótipos de uma frente"
+          ],
+          [
+            "94",
+            "estados cobertos nesses protótipos"
+          ],
+          [
+            "4",
+            "linhas para provar uma regra de negócio"
+          ]
+        ]
+      },
+      {
+        "id": "figma",
+        "label": "Regra três",
+        "title": "Coisas grandes nascem no Figma, coisas pequenas nascem no código",
+        "paragraphs": [
+          "O design system é construído no Figma com a IA operando o arquivo por MCP: as variáveis nascem do arquivo de tokens, o modo escuro é gerado por automação, os componentes são portados de baixo para cima. Um seletor de cor que levou uma hora e meia em código saiu em segundos no Figma; um ajuste de token que abriria dezenas de componentes é uma linha no arquivo.",
+          "Saber onde cada decisão custa menos é metade do trabalho."
+        ],
+        "evidence": [
+          [
+            "238",
+            "variáveis do Figma geradas de um arquivo"
+          ],
+          [
+            "58",
+            "valores de modo escuro gerados, nenhum faltando"
+          ],
+          [
+            "1",
+            "fonte de verdade para Figma, código e IA"
+          ]
+        ]
+      },
+      {
+        "id": "codigo",
+        "label": "Regra quatro",
+        "title": "O desenho vai até o código do produto",
+        "paragraphs": [
+          "Quando a frente está fechada, uso IA para levar o protótipo até o repositório do produto, em alterações de código em rascunho que os desenvolvedores assumem, revisam e concluem. O processo foi definido junto com a engenharia: protótipo-conceito, alterações em fases, revisão de design no fim.",
+          "Eu não abro um editor de código para escrever. Abro para ler, comparar e aprovar. O crédito pelo código que vai ao ar é do time de engenharia; o meu é pelo desenho chegar lá inteiro."
+        ]
+      },
+      {
+        "id": "contexto",
+        "label": "Regra cinco",
+        "title": "Toda decisão fica registrada",
+        "paragraphs": [
+          "Mantenho um sistema de notas em que cada frente tem contexto, decisões, restrições e pendências, e cada case deste portfólio nasceu dele. A IA lê esse contexto antes de qualquer tarefa; eu releio antes de qualquer reunião. É o que permite que um pacote de 30 tarefas vire 18 issues coerentes e não uma pilha de pedidos soltos."
+        ],
+        "evidence": [
+          [
+            "30",
+            "tarefas viraram"
+          ],
+          [
+            "18",
+            "issues em 4 milestones"
+          ],
+          [
+            "0",
+            "migração de dados exigida"
+          ]
+        ]
+      },
+      {
+        "id": "limites",
+        "label": "O que a IA não faz",
+        "title": "Decidir, ouvir e ir a campo",
+        "paragraphs": [
+          "A IA não decide o que o produto deve fazer, não conversa com o cliente, não entrevista paciente em hospital e não percebe a fila que se forma ao lado de um totem. Tudo isso continua sendo o trabalho, e é a parte que eu mais gosto.",
+          "O que ela faz é encurtar a distância entre a decisão e a prova. Este site é um exemplo: foi desenhado por mim e construído em trabalho conjunto com IA, e o código está público no repositório."
+        ]
+      }
+    ]
   }
 }

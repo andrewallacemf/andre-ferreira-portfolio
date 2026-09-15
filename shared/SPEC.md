@@ -47,3 +47,11 @@ Each prototype ships a `README.md` (stack, how to run, what is implemented, know
 - **No status labels** (Shipped / In production / …) anywhere: André does not want delivery state shown. `cases.statusLabels` stays in the JSON but nothing renders it.
 - **Tags on /work cards**: each case has `tags` (2–4 short labels of the kinds of work involved, e.g. Research, Design system, Usability testing) rendered as small outlined chips under Client/Role.
 - **Cursor**: the 12px dot is white with `mix-blend-mode: difference` (visible on any ground); the hot 64px state does **not** invert: it is a near-opaque (90%) bubble in the theme cursor color with `backdrop-filter: blur(6px)`, so the label reads over text. On sections marked `data-ground="inverse"` (Contact) the bubble colors flip (`.is-inverse`). Native cursor hidden globally with `cursor: none !important` while the custom cursor is active.
+
+## Case pages (phase 4, from 2026-09-15)
+
+`/work/<slug>/` and `/pt/work/<slug>/`, generated only for cases with a body file in `shared/content/cases/`. Structure: header (back link, year, client, title from `cases.items`, `lede`, role/scope, tags) → hero figure → sections (each: numbered label, title, paragraphs, optional bullets / numbered steps / decision cards / facts grid / figure) → next case card → back link → footer. Normal flowing document; sticky section index at ≥1024px. Figures are placeholders (dotted panel + caption describing the image) until real assets exist. Language switch and `hreflang` keep the slug. Cards on `/work` and the home CTA link to the page when it exists, otherwise to the card anchor.
+
+## "How I work" page (phase 4, 2026-09-15)
+
+`/how-i-work/` and `/pt/como-trabalho/` (localized slugs, `Page = 'method'`), linked from the header nav (`nav.method`). Content in `method` of the shared JSON: title, lede and sections (label, title, paragraphs, optional `evidence` facts). Same reading layout as a case page (sticky index at ≥1024px), ends with a link to /work and the footer. Language rule applies with full force: André does not write code; AI carries the design into code; no single AI vendor named.

@@ -1,0 +1,103 @@
+{
+  "slug": "clickmax-offer-inheritance",
+  "kicker": "Case",
+  "lede": "The request arrived as \"we will have to duplicate the product\". Reading the code showed three incompatible mechanisms doing almost the same thing. The answer was a four-line inheritance rule, with no copies and not a single record migrated.",
+  "hero": {
+    "figure": "The resolver rule in one line: the offer's deliverables = (the product's set minus the excluded) plus the offer's own. Beside it, the three states of an item: inherited, removed, own.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "One product, many offers",
+      "paragraphs": [
+        "In Clickmax, sellers create a product and then create offers for it: different prices, terms and bundles for different audiences. A product can have several offers active at once, and what the buyer receives, the deliverables, is defined on the product.",
+        "In 2026 a legitimate business request came in: one offer needed to deliver something different from the product. One extra item here, one item fewer there. On first reading, that would mean duplicating the whole product for every variation."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "Duplicating solves today and charges tomorrow",
+      "paragraphs": [
+        "Duplicating the product would create copies that drift over time, double the maintenance work for sellers, and make it impossible to know, months later, why two copies of the same product delivered different things.",
+        "Before designing anything, I read the code with AI assistance. I found three incompatible mechanisms for shared configuration living side by side in the system, and a single case of real inheritance. I also found a side effect: a coupon created for \"all offers\" did not reach offers created after it. The problem was more structural than the request suggested."
+      ],
+      "figure": "The three existing mechanisms side by side, in abstract form, and the single case where inheritance actually happened.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "From brief to handoff package",
+      "paragraphs": [
+        "I ran the project's full shaping cycle, from brief to the package handed to engineering: code analysis, data model, rule definition, API specification, executable prototype and work plan. Engineering took part in the reviews and kept one open technical decision, explicitly left to the developer with the right of veto.",
+        "It is the case where I talk more to the backend than to the screen. There was little new interface; there were many rules."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "Read, model, prove, package",
+      "steps": [
+        { "title": "Read the code before having an opinion", "text": "Every claim about how the system worked was checked at the source, with AI helping to walk the repository. Out of that came the three mechanisms, the single inheritance case and the coupon bug." },
+        { "title": "A rule, not a snapshot", "text": "Instead of copying the deliverables into the offer at creation time, the offer derives the list at read time: what the product has, minus what the offer excludes, plus what the offer adds. If the product changes, the offer follows." },
+        { "title": "Three states and seven guard-rails", "text": "Every item in an offer is in one of three states, with an explicit label in the interface: inherited, removed or own. Seven protection rules define what happens at the edges, such as excluding an item the product later removes." },
+        { "title": "Data model and API", "text": "One new exclusions table, justified field by field, and the specification of three new endpoints and five changed ones. Zero data migration: everything that existed stays valid." },
+        { "title": "Executable prototype", "text": "A self-contained HTML prototype with four screens and a switch between today's behavior and the proposed one, running the same rule the backend would need to implement, in four lines. Whoever clicked through the prototype watched the derivation happen." },
+        { "title": "Package", "text": "Thirty tasks reorganized into 18 issues and four milestones, with the interface vocabulary settled (Grant and Remove) and the open technical decision recorded as such." }
+      ],
+      "figure": "The four screens of the executable prototype, with the \"today / proposed\" switch at the top.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "Four systems choices",
+      "decisions": [
+        {
+          "title": "Inheritance instead of copies",
+          "text": "The offer does not store a list; it stores differences. That removes silent drift between copies and keeps a single source of truth, the product."
+        },
+        {
+          "title": "Derive at read time, not at creation",
+          "text": "Late binding: the list of deliverables is computed when someone asks for it. Changes to the product propagate on their own, and nothing needs to be migrated."
+        },
+        {
+          "title": "Explicit state, always visible",
+          "text": "Inherited, removed and own show up with a label in the interface. Sellers understand why an item is there, and support can explain it without opening the database."
+        },
+        {
+          "title": "A prototype that runs the rule",
+          "text": "A static prototype shows screens; an executable prototype proves the logic. Writing the resolver into the prototype took ambiguity out of the spec and shortened the conversation with engineering."
+        }
+      ],
+      "figure": "Data model before and after: the new exclusions table and the product → offer → deliverables relationships.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "Handoff accepted, eighteen issues",
+      "paragraphs": [
+        "The package was delivered and accepted by engineering, with 18 issues in four milestones ready for kickoff. There are no usage metrics because, as I write this, the implementation has not shipped yet; this is a systems design case, and what it shows is the reasoning, the model and the spec.",
+        "The coupon side effect, found while reading the code, went into the package as a fix."
+      ],
+      "showFacts": true,
+      "figure": "Work plan: 18 issues spread across the four milestones.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this work",
+      "paragraphs": [
+        "Product design is sometimes rule design. The best interface in this project was a one-line formula that engineering and support can repeat from memory.",
+        "Reading the code, with AI as the intermediary, changed the quality of the conversation. I came to the table with what existed, not with what I assumed existed.",
+        "And leaving a technical decision explicitly open, with the person who can veto it, is more respectful and faster than pretending design solves everything."
+      ]
+    }
+  ],
+  "next": "clickmax-monetization-foundation"
+}

@@ -1,0 +1,105 @@
+{
+  "slug": "coca-cola-analytics",
+  "kicker": "Case",
+  "lede": "The client asked how to grow adoption of marketing's data platform by 30%. Research answered that a dashboard that takes 30 seconds to load does not have an interface problem. It has a service problem.",
+  "hero": {
+    "figure": "From pain points to ideas: 8 problem clusters on the left, 13 ideas on the right, connected by the \"how might we\" questions that bridged them.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "A global data platform people avoided",
+      "paragraphs": [
+        "The marketing analytics team at The Coca-Cola Company runs an internal platform that concentrates the dashboards used by marketing and commercial teams in operating units around the world. The client's vision was to move from siloed, descriptive, specialist-dependent analytics to self-service, actionable analytics, with a concrete goal: 30% more adoption of its data products.",
+        "In 2023, through the consultancy where I was UX Manager, we were hired for four months of work. It was the company's first UX project run entirely in English, with a client and users spread across several countries."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "\"I give up\"",
+      "paragraphs": [
+        "Users described the platform as overwhelming, slow, unintuitive and lacking the flexibility or granularity they needed. Many attempts to use data ended in \"I give up\" and a workaround: ask someone else to do it, use last year's data, or decide without data.",
+        "The client's team believed that improving the dashboards' interface would be enough to reach the 30%. That was the hypothesis the research had to test."
+      ],
+      "figure": "The eight problem clusters found: navigation, design, acronyms, accuracy, loading time, missing data and two more, with the number of pain points in each.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Lead of the platform workstream",
+      "paragraphs": [
+        "The project ran with two parallel workstreams. One in service design, looking at the analytics service experience as a whole: interviews, personas, journeys, opportunities and roadmap. The other in UX, looking at the platform itself. I led the UX workstream, with two designers, and gave occasional support to the service design one.",
+        "Everything in the platform analysis came out of my hands: heuristic analysis, test protocol, flowcharts, interface recommendations and guidelines, screen proposals. The user tests, in English, were hosted by the service design lead, with me taking the notes. The two designers handled the operational side of the analyses and helped weigh the recommendations."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "From first impression to roadmap",
+      "paragraphs": [
+        "While the service design workstream interviewed 36 people across nine operating units and built six personas and five journeys, the UX workstream opened up the platform."
+      ],
+      "steps": [
+        { "title": "Heuristic analysis", "text": "A first structured read of the platform against Nielsen's heuristics, to know where to look before listening to users." },
+        { "title": "Usability tests", "text": "Eleven sessions with the company's users, in English, on four prioritized dashboards, with protocol, success criteria and a report." },
+        { "title": "Flowcharts", "text": "Twenty-two flowcharts mapping the flow of each dashboard and marking exactly where each pain point happened. A problem located in a flow is a problem that can be fixed." },
+        { "title": "Co-creation", "text": "An internal session to turn pain points into ideas, guided by questions such as \"how might we keep people from guessing what the acronyms mean?\" and \"how might we make dashboards load better?\"." },
+        { "title": "Thirteen ideas", "text": "In five categories (frameworks and taxonomy, technology, process, people, interface), each with user value, business value and estimated effort." }
+      ],
+      "figure": "One of the 22 flowcharts, in abstract form: a dashboard's flow with the pain points marked on the steps where they happened.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "The reframing and three answers",
+      "decisions": [
+        {
+          "title": "It was not a UI problem",
+          "text": "The central conclusion of the work: dashboards that took over 30 seconds to load, unexplained acronyms and missing data cannot be fixed with a layer of interface. The solution required changing the platform, the way of working and user support. The thirteen ideas were organized to say that clearly."
+        },
+        {
+          "title": "From summary to granularity",
+          "text": "A three-level hierarchy on the same screen: big numbers at the top, charts in the middle, a table at the bottom. The executive stops at the first level; the analyst goes down to the third. One dashboard, two audiences."
+        },
+        {
+          "title": "A template with guidelines",
+          "text": "Instead of redesigning dashboard by dashboard, a template with ready-made elements and a set of interface guidelines: anatomy of tables and titles, system colors kept apart from chart colors, filter and refresh status, empty state, standardized filters. The rule of thumb that stuck: if it is hard to explain to a colleague, it is hard to consume alone."
+        },
+        {
+          "title": "A design system for dashboards",
+          "text": "The first of the thirteen ideas, and the base for the others. Standardize before optimizing."
+        }
+      ],
+      "figure": "Recreated mockup of the \"summary to granularity\" pattern: big numbers, charts and table stacked on a single screen.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "A three-to-five-year roadmap, and a phase two",
+      "paragraphs": [
+        "The thirteen ideas and the guidelines went into the three-to-five-year roadmap the project delivered to the client, together with the opportunities from the service design workstream. In the following phase, some of them were implemented and tested: search with autocomplete and suggested key questions, configurable profiles, onboarding with in-interface tips, new navigation and technical fixes.",
+        "According to the client's feedback, the search was widely praised, the profiles well received, and the onboarding reduced learning time. I do not have the adoption numbers from phase two; I tell what was reported."
+      ],
+      "showFacts": true,
+      "figure": "The 13 ideas in five categories, each with user value, business value and effort.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this project",
+      "paragraphs": [
+        "The question the client asks is rarely the question the research answers. \"How do we improve the dashboards' UX\" became \"why do people give up on using data\", and that shift was worth more than any screen.",
+        "A flowchart is a tool for argument. Marking the pain point on the exact step where it happens moved the conversation from opinion to repair.",
+        "And working in English with a global client, for the first time, taught me to write recommendations that stand on their own, without me in the room to explain them."
+      ]
+    }
+  ],
+  "next": "shotlist"
+}

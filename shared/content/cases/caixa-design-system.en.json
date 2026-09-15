@@ -1,0 +1,110 @@
+{
+  "slug": "caixa-design-system",
+  "kicker": "Case",
+  "lede": "I started out trying to change the color of a button in an internal system at Caixa. I ended up designing the first design system of Brazil's largest social bank, and the governance structure that keeps it alive today.",
+  "hero": {
+    "figure": "Diagram of the design system architecture: brand and principles, StyleGuide, design and development practices, pattern libraries in Figma and code.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "One bank, dozens of systems, no shared language",
+      "paragraphs": [
+        "Caixa is Brazil's largest social bank. Whatever gets designed there reaches millions of people, runs through dozens of systems and through teams spread across the whole country. In 2019 I was working, as an outside consultant, on improvements to the internal system for real-estate financing requests.",
+        "The itch that started everything was small. Any change to a screen, even the color of a button, required developers to open the whole screen to find out which technology and which pattern were in there. There was no shared language between design and code. Every screen was its own case."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "What was expensive",
+      "paragraphs": [
+        "Once I started pulling the thread, the problem stopped being a screen and became the organization."
+      ],
+      "bullets": [
+        "Minimal changes were slow and costly: every screen had to be explored and taken apart before anyone could touch it. Simple adjustments took weeks; features took months.",
+        "Screens of the same system looked like they came from different systems. Around five style guides were in use at the same time, with diverging visuals and behavior.",
+        "The cost landed on internal users: people had to be trained to know that the date picker on screen A worked one way and the one on screen B another. A mistake that belonged to the interface could make someone lose all their work.",
+        "Designers and developers had no way to talk about reuse. Every designer created something new; the front end lived on quick fixes; managers did not know where UX began or what the handoff looked like.",
+        "The most expensive case: entire systems, already designed and developed, were blocked before going to production because they did not look like Caixa."
+      ],
+      "figure": "Collage of the parallel style guides in use, or of the diverging date pickers across screens of the same system.",
+      "aspect": "3 / 2"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Identify, prove, sell and lead",
+      "paragraphs": [
+        "I was the one who identified the problem, built the proof of concept, took the proposal to the executive board and led the design team. I also designed the governance structure that would let the design system survive a corporate, bureaucratic environment.",
+        "The core team had four in-house Caixa designers and me, the only contractor in the group. On the code side, the process was driven by a partner developer with whom I had already built the proof of concept; the two of us were the builders and leads of the process. Adoption was handled by a network of ambassadors per business area, designers and developers from the teams themselves."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "From a hidden prototype to the official portfolio",
+      "paragraphs": [
+        "The step the articles published at the time leave out is the first one: before asking for permission, the partner developer and I used the rebuild of the Minha Casa, Minha Vida housing system to apply a design system proof of concept. It worked well enough to convince the Housing directorate, which helped take the proposal to the other directorates. The problem was everywhere, and the solution became global."
+      ],
+      "steps": [
+        { "title": "Research to prove the pain", "text": "A quantitative survey across Caixa's internal communities throughout Brazil, plus in-person observation of designers and developers. The need turned out to be real and urgent, with data behind it." },
+        { "title": "Benchmark", "text": "Dozens of design systems analyzed. The references that stayed: the Brazilian Federal Government Design System (the public-sector standard), Duet and Royal Canin (documentation efficiency) and Fluent UI (multi-platform)." },
+        { "title": "Organizational alignment", "text": "A presentation to managers showing the impact on the workflow of every area. The design system entered the bank's official project portfolio." },
+        { "title": "Inventory and audit", "text": "Dozens of screens collected. The same component showed up with multiple variations of size, shadow, spacing and code structure." },
+        { "title": "Architecture", "text": "Four layers: brand visual guide and principles, StyleGuide, design and development practices, pattern libraries in design and in code." },
+        { "title": "Foundations", "text": "Seven design principles (create focus, content first, unify, modular and scalable, simple not simplistic, predictable and clear, flexible), eight strategic guidelines, three for usability and four for scalable design." },
+        { "title": "Libraries", "text": "A pattern library in Figma for fast prototyping, and a framework plus templates in code, with reusable components, states and validations." },
+        { "title": "Distribution and governance", "text": "A portal restricted to employees and contractors, preparatory courses and the federated model with ambassadors. After the Angular web, the expansion to Android." }
+      ],
+      "figure": "Survey map by region, benchmark matrix and component audit side by side.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "Three choices that made the difference",
+      "decisions": [
+        {
+          "title": "Federated governance, with ambassadors per area",
+          "text": "A central team would never keep up with a bank running dozens of systems. Each area of Caixa got people responsible for maintaining the design system, helping adoption and implementing it on their own turf. That structure, not the visuals, is what survived the following years."
+        },
+        {
+          "title": "Design and code shipped together, from one source",
+          "text": "The Figma library and the code framework were born from the same StyleGuide and shipped in the same release. Without that, the design system would have been one more pretty style guide nobody could implement."
+        },
+        {
+          "title": "Layered architecture, from brand to component",
+          "text": "Separating brand and principles, StyleGuide, practices and libraries made it clear where each decision lived. A component could change without touching a principle; a principle could be debated without opening the code."
+        }
+      ],
+      "figure": "Diagram of the federated model: design system core, ambassadors per area, product teams.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "The same screen, a third of the time",
+      "paragraphs": [
+        "At launch, developers implemented the same screen two ways: by hand and with the design system. With the design system, they spent a third of the time. The screens built with it came out consistent with each other; the ones built by hand all came out different.",
+        "The design system was adopted across the whole Housing area, by Cards, by Checking Accounts and by every one of the bank's apps. It became the starting point for the design-at-scale initiatives that followed at Caixa."
+      ],
+      "showFacts": true,
+      "figure": "Side-by-side comparison: the screen built by hand and the screen built with the design system, or a simple 3:1 chart.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "legacy",
+      "label": "Legacy",
+      "title": "What stayed, and what I learned",
+      "paragraphs": [
+        "I was invited to lead design at a consultancy when the design system was about to launch, and I left before the launch event I had organized myself. That is why the metrics in this case come from the launch experiment and not from adoption measured over the years. I would rather tell it this way than invent a number.",
+        "The design system evolved after I left, with the visuals updated to current standards. The foundations and the organizational and process structure I put in place are still the ones used to maintain it. Caixa's new app, built as a super app, uses the principles we built there.",
+        "What I took with me: a design system is first an agreement between people, then a library. When an organization unites around a common purpose, even the worst scenario becomes ground for a big change."
+      ]
+    }
+  ],
+  "next": "clickmax-design-system"
+}

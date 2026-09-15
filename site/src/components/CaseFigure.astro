@@ -1,0 +1,35 @@
+---
+/* Image slot of a case page. Until the real asset exists it renders a dotted
+   placeholder panel with the caption describing what goes there, so the page
+   layout and rhythm are final before any image is produced. */
+interface Props { caption: string; aspect?: string; label: string }
+const { caption, aspect = '16 / 9', label } = Astro.props;
+---
+
+<figure class="figure">
+  <div class="figure__panel dotted-panel" style={`aspect-ratio: ${aspect}`} role="img" aria-label={`${label}: ${caption}`}>
+    <span class="label figure__tag">{label}</span>
+  </div>
+  <figcaption class="figure__caption muted">{caption}</figcaption>
+</figure>
+
+<style>
+  .figure { margin: 0; display: grid; gap: var(--space-3); }
+  .figure__panel {
+    position: relative;
+    width: 100%;
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .figure__tag {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: 0.3em 0.7em;
+    border: var(--hairline) solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--bg);
+  }
+  .figure__caption { font-size: var(--text-sm); max-width: var(--measure); }
+</style>

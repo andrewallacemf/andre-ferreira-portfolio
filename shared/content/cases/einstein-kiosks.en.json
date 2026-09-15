@@ -1,0 +1,113 @@
+{
+  "slug": "einstein-kiosks",
+  "kicker": "Case",
+  "lede": "The kiosks worked. 87% of patients rated the service well. And still, someone had to stand next to every one of them. Seven weeks of field research, across six units, to explain why.",
+  "hero": {
+    "figure": "The research in big numbers: 7 weeks, 6 units, 5 flows, 178 patient interviews, 84 shadowing sessions, 94 usability tests, 24 insights, 489 heuristic findings.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "A self-service pioneer that did not know where it stalled",
+      "paragraphs": [
+        "Hospital Israelita Albert Einstein is a reference in healthcare and a pioneer of hospital self-service in Brazil. The program had started years earlier with a clear idea: take the paperwork away from the front desk and give the attendant back the time to look the patient in the eye. The check-in kiosks were part of that, and they worked.",
+        "What was missing was knowing why different patient profiles got stuck at different points, and what to do about it. In November 2021, through the consultancy where I led design, the hospital asked us to map pains and opportunities along the kiosk journey, taking the concierge and the physical environment into account as well."
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "A satisfaction score that hid the problem",
+      "paragraphs": [
+        "Technically functional kiosks that did not fully deliver what was expected of them: uneven adoption across profiles, dependence on the concierge, and friction at specific steps such as scanning a document, finding the doctor and updating personal data.",
+        "On top of it all, a measurement trap. 87% of patients rated the service positively even after running into problems, because they compared the kiosk with the front-desk queue, not with good self-service. Without field research, the hospital would have read satisfaction as the absence of problems."
+      ],
+      "figure": "A patient's line in the concierge queue: \"Is your system down?\", next to the second kiosk, free.",
+      "aspect": "3 / 2"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Hands-on lead",
+      "paragraphs": [
+        "I was the Lead UX Designer of a team of four. I managed the team and the field logistics, structured the supporting research documentation and the material on which all the analysis was organized, and took part in every activity: interviews, shadowing, usability tests, analysis and the final presentation to the client.",
+        "The scope was fixed, with a beginning, a middle and an end: diagnosis and recommendations, with no implementation phase."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "Seven weeks, six units, four profiles",
+      "steps": [
+        { "title": "Preliminary immersion", "text": "Eighteen stakeholder interviews, from IT to unit supervisors and concierges, plus hours of internal immersion. Out of it came the program's history, its premises (adapt the attendants' role, do not eliminate the front desk) and the hospital's vision for the future." },
+        { "title": "Research profiles", "text": "Four profiles defined with the client: executive, family with children, elderly, and young with high tech affinity, each split between people who already used the kiosk and first-timers." },
+        { "title": "In-depth fieldwork", "text": "In each of the six units, the same sequence: observation without interference, mystery shopping with the team itself going through the flow, shadowing and usability tests with patients, and an interview at the end of the experience." },
+        { "title": "Volume", "text": "178 patient interviews, 84 shadowing sessions and 94 usability tests, covering five flows: specialist appointments, primary care, vaccination, rehabilitation and COVID testing." },
+        { "title": "Analysis and synthesis", "text": "Logging, clustering by unit and pattern mapping, with findings reported to the client every week. One of them, in the address registration, was fixed while fieldwork was still running. In the end, 24 behavioral insights." },
+        { "title": "Benchmark", "text": "Four competitors compared on check-in types, services covered, number of steps, time, pre-registration, repeated processes and human intervention. And the hospital's own units compared with each other." },
+        { "title": "Heuristic analysis", "text": "Every screen evaluated against Nielsen's heuristics, with severity grades. 489 findings, concentrated in consistency and standards, flexibility and efficiency, visibility of system status, and recognition rather than recall." },
+        { "title": "Deliverables", "text": "Insight report by profile, benchmark analysis, heuristic analysis of the interface, final report and executive presentation." }
+      ],
+      "figure": "Grid of the four profiles with the volume of interviews, shadowing sessions and tests for each.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "findings",
+      "label": "Findings",
+      "title": "What the field showed",
+      "decisions": [
+        {
+          "title": "The relativity effect",
+          "text": "People rated the kiosk against the traditional front desk. That is how 87% approved of a service in which nearly everyone had stalled at some point."
+        },
+        {
+          "title": "My fault",
+          "text": "When something went wrong, the patient took the blame. \"The hardest part was the document, but that was my problem\" was a common line in front of a failure that belonged to the interface."
+        },
+        {
+          "title": "The concierge effect",
+          "text": "A concierge standing next to one kiosk created a queue at that kiosk, even with the other one free, and the queue made people assume the system was down."
+        },
+        {
+          "title": "Scanning the document",
+          "text": "The highest-friction step for every profile, without exception. Finding the doctor was the step with the most errors."
+        },
+        {
+          "title": "Elderly patients open to learning",
+          "text": "When properly instructed, older patients wanted to use the kiosk on their own. The problem was not resistance; it was the lack of instruction in the right place."
+        },
+        {
+          "title": "Families repeating everything",
+          "text": "Parents registered each family member from scratch. \"Why isn't there a button to reuse the registration?\" summed up the finding."
+        }
+      ],
+      "figure": "Check-in journey map with the friction points by profile.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "The number that made the problem non-negotiable",
+      "paragraphs": [
+        "Kiosk check-in took on average 14.4 steps and 5 minutes 42 seconds, ranging from 10 steps at the best unit to 19 steps and over 14 minutes at the worst. At competitors, between 6 and 9 steps, and between 1:20 and 2:40. A simple benchmark that took the discussion out of the realm of opinion.",
+        "The work ended with the delivery of the diagnosis and the recommendations. Some time later, the client came back to tell us that every fix and improvement we had pointed out had been implemented, and that they were pleased with the result. I have no metrics from that phase, because it was not part of the scope; I tell what I know."
+      ],
+      "showFacts": true,
+      "figure": "Steps × time comparison: the hospital's kiosk against the four competitors.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this project",
+      "paragraphs": [
+        "Stated satisfaction is not evidence of the absence of problems. When people's reference is the worst case, anything looks good; only watching real use shows where the friction is.",
+        "A service is interface plus environment plus people. The concierge, the kiosk's position and the queue made as much difference as any screen. Analyzing the interface alone would have produced a list of tweaks and missed the herd effect.",
+        "And weekly reporting beats a perfect final report: one fix shipped before the research was over."
+      ]
+    }
+  ],
+  "next": "coca-cola-analytics"
+}

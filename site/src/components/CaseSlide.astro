@@ -1,13 +1,13 @@
 ---
 import type { CaseItem, Content, Lang } from '../lib/content';
-import { uiLabels } from '../lib/content';
+import { hasCasePage, uiLabels } from '../lib/content';
 import { caseHref } from '../lib/paths';
 import CornerMarks from './CornerMarks.astro';
 
 interface Props { item: CaseItem; t: Content; lang: Lang; index: number }
 const { item, t, lang, index } = Astro.props;
 const ui = uiLabels(t, lang);
-const href = caseHref(lang, item.slug);
+const href = caseHref(lang, item.slug, hasCasePage(lang, item.slug));
 const titleId = `case-${item.slug}-title`;
 ---
 

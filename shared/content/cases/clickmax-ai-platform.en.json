@@ -1,0 +1,105 @@
+{
+  "slug": "clickmax-ai-platform",
+  "kicker": "Case",
+  "lede": "When the product's AI answers with interface, someone has to decide what it may say, what it may render and how an outside agent gets into the platform. This case is about designing those rules.",
+  "hero": {
+    "figure": "The three entry points of the AI-operated platform (the in-product assistant, external agents via MCP, insights) and the contract layer that governs what each may render.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "label": "Context",
+      "title": "A product the AI operates from the inside",
+      "paragraphs": [
+        "Clickmax has an embedded AI assistant that does more than answer questions: it performs actions on the platform and returns interface, such as cards, lists and forms, inside the chat. Underneath, about 250 tools in 34 modules, three entry points (the in-product assistant, external agents connected through MCP, and an insights layer) and four security levels per tool.",
+        "As the product's Design Lead, I inherited a question most design systems do not answer yet: if the AI renders interface and writes text for the user, who designs that?"
+      ]
+    },
+    {
+      "id": "problem",
+      "label": "Problem",
+      "title": "Without a contract, the AI drifts",
+      "bullets": [
+        "The widgets the assistant rendered in the chat were controlled by two parallel lists, with no single registry. When the lists diverged, the result was a bug nobody had written.",
+        "Copy that design had prepared for hard cases, such as the assistant being unable to do something or an empty database, existed in Figma but never reached what the AI actually said.",
+        "The response policy and the assistant's real behavior did not always match: the document said one thing, practice showed another.",
+        "The documentation for connecting an external agent sat outside the product's navigation and was out of date."
+      ],
+      "figure": "Inventory of the 88 component tags emitted by the platform, grouped into the 4 families, highlighting the only family the AI actually emitted.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "role",
+      "label": "My role",
+      "title": "Governing the generative interface",
+      "paragraphs": [
+        "I defined the scope of the contract between humans and AI, wrote the widget manifest, led the assistant's response guidelines project and designed the wizard that connects external agents to the platform, as well as the assistant panel components in the design system.",
+        "Engineering implemented the contract and the wizard; the product team took part in the per-domain guidelines. It was work on the border between design, content and architecture, and my share was to decide and to document."
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "title": "From inventory to onboarding",
+      "steps": [
+        { "title": "Scope of the contract", "text": "The first decision: the contract covers every generative surface, not only the chat. Wherever the AI renders, the contract applies." },
+        { "title": "Inventory", "text": "The 88 component tags the platform emitted were grouped into 4 families. The finding: only one family was actually emitted by the AI. The problem was smaller and more concentrated than it looked." },
+        { "title": "Widget manifest", "text": "A single, two-layer registry of the 14 widgets the assistant may render, each consuming the design system's tokens. On the human side, the same component lexicon; on the AI side, a closed list." },
+        { "title": "Response guidelines", "text": "A project with a cross-cutting base and one chapter per product domain. The canonical shape of an answer: note, data, card, call to action. Cases covered: inability, error, partial data, empty base and language for non-technical people." },
+        { "title": "Panel components", "text": "In the design system: the assistant button with four states, the glass panel, the prompt field, the suggestion chips and the session list." },
+        { "title": "Connection wizard", "text": "Four steps to connect an external agent to the platform through MCP, inside the product's navigation, with the documentation where the person needs it. In production." }
+      ],
+      "figure": "The two-layer widget manifest: product components at the bottom, the assistant's 14 widgets on top, all pointing to the same tokens.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisions",
+      "label": "Design decisions",
+      "title": "Four rules for an AI that draws",
+      "decisions": [
+        {
+          "title": "A closed list, led by design",
+          "text": "The AI renders what is in the manifest and nothing beyond it. New widgets enter through the design system, with states and tokens, before they enter the prompt. The model's creativity stays in the content, not in the interface."
+        },
+        {
+          "title": "Note, data, card, action",
+          "text": "Every answer follows the same order: a short note on what was understood, the data itself, a card when there is something to show, and a call to action. Whoever reads one answer learns to read them all."
+        },
+        {
+          "title": "Disable, do not hide",
+          "text": "When the user lacks permission for an action, it appears disabled, with the reason. Hiding it would make the AI look incapable; showing it without permission would make the product look unsafe."
+        },
+        {
+          "title": "Write for non-technical people",
+          "text": "The platform serves people who sell online, not developers. The guidelines ban system jargon from answers and define how to explain an error or an empty base in business language."
+        }
+      ],
+      "figure": "The four steps of the external agent connection wizard, with fictional data.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "title": "What is in production and what is underway",
+      "paragraphs": [
+        "The connection wizard is in production and the widget manifest now defines what the assistant may render. The assistant panel components are in the design system. The response guidelines are underway, domain by domain, together with the product team.",
+        "This is ongoing work in a live product. The numbers below are counts of what exists, not impact metrics."
+      ],
+      "showFacts": true,
+      "figure": "The assistant panel with the design system components: four-state button, glass panel, prompt, suggestion chips and sessions.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "learnings",
+      "label": "Learnings",
+      "title": "What I took from this work",
+      "paragraphs": [
+        "Design for AI is, to a large extent, the design of rules. What the AI may render, in what order it answers, how it talks about an error: none of that is a screen, and all of it is design.",
+        "Inventory before opinion. The 88 tags looked like a huge problem; counting showed that only one family mattered. That finding saved months.",
+        "And documentation has to live where the person is. The wizard did more for MCP adoption than any help page."
+      ]
+    }
+  ],
+  "next": "clickmax-offer-inheritance"
+}

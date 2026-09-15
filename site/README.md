@@ -42,6 +42,10 @@ src/styles/global.css     layout system: header height, slides, snap, corner mar
 src/layouts/BaseLayout.astro  <head> (fonts, hreflang, theme-before-paint script), skip link, canvas, header, cursor
 src/views/Home.astro      composes the 7 home slides for a given lang
 src/views/Work.astro      /work page
+src/views/MethodPage.astro  /how-i-work/ and /pt/como-trabalho/ (method page; data: `method` in shared JSON)
+src/views/CasePage.astro  /work/<slug>/ long-form case page (data: shared/content/cases/<slug>.<lang>.json)
+src/components/CaseFigure.astro  image slot with dotted placeholder + caption until the asset exists
+src/pages/work/[slug].astro, src/pages/pt/work/[slug].astro  one static page per case body file
 src/pages/{index,work}.astro, src/pages/pt/{index,work}.astro   3-line wrappers: <Home lang="pt" />
 src/components/           Header, ThemeToggle, Hero, CaseSlide, Principles, About, Contact, Footer,
                           WorkGrid, DotGrid, Cursor, CornerMarks

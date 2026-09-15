@@ -4,12 +4,13 @@ import { otherLang, uiLabels } from '../lib/content';
 import { pageHref, type Page } from '../lib/paths';
 import ThemeToggle from './ThemeToggle.astro';
 
-interface Props { lang: Lang; page: Page; t: Content }
-const { lang, page, t } = Astro.props;
+interface Props { lang: Lang; page: Page; t: Content; slug?: string }
+const { lang, page, t, slug } = Astro.props;
 const other = otherLang(lang);
 const ui = uiLabels(t, lang);
 const links = [
-  { label: t.nav.work, href: pageHref(lang, 'work') },
+  { label: t.nav.work, href: pageHref(lang, 'work'), current: page === 'work' || page === 'case' },
+  { label: t.nav.method, href: pageHref(lang, 'method'), current: page === 'method' },
   { label: t.nav.about, href: pageHref(lang, 'home', '#about') },
   { label: t.nav.contact, href: pageHref(lang, 'home', '#contact') },
 ];
@@ -21,13 +22,13 @@ const links = [
   <nav class="header__nav" id="site-nav">
     <ul>
       {links.map((l) => (
-        <li><a href={l.href} aria-current={page === 'work' && l.label === t.nav.work ? 'page' : undefined}>{l.label}</a></li>
+        <li><a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a></li>
       ))}
     </ul>
   </nav>
 
   <div class="header__tools">
-    <a class="header__lang" href={pageHref(other, page)} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} title={t.nav.langSwitchTitle}>
+    <a class="header__lang" href={pageHref(other, page, '', slug)} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} title={t.nav.langSwitchTitle}>
       {t.nav.langSwitch}
     </a>
     <ThemeToggle t={t} />

@@ -1,0 +1,105 @@
+{
+  "slug": "clickmax-ai-platform",
+  "kicker": "Case",
+  "lede": "Quando a IA do produto responde com interface, alguém precisa decidir o que ela pode dizer, o que pode renderizar e como um agente de fora entra na plataforma. Este case é sobre desenhar essas regras.",
+  "hero": {
+    "figure": "As três portas de entrada da plataforma operada por IA (assistente no produto, agentes externos via MCP, insights) e a camada de contrato que governa o que cada uma pode renderizar.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Um produto que a IA opera de dentro",
+      "paragraphs": [
+        "O Clickmax tem um assistente de IA embarcado que faz mais que responder perguntas: ele executa ações na plataforma e devolve interface, como cards, listas e formulários, dentro do chat. Por baixo, cerca de 250 ferramentas em 34 módulos, três portas de entrada (o assistente no produto, agentes externos conectados por MCP e uma camada de insights) e quatro níveis de segurança por ferramenta.",
+        "Como Design Lead do produto, herdei uma pergunta que a maioria dos design systems ainda não responde: se a IA renderiza interface e escreve texto para o usuário, quem desenha isso?"
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Sem contrato, a IA desvia",
+      "bullets": [
+        "Os widgets que o assistente renderizava no chat eram controlados por duas listas paralelas, sem um registro único. Quando as listas divergiam, o resultado era um bug que ninguém tinha escrito.",
+        "Textos que o design tinha previsto para casos difíceis, como o assistente não conseguir fazer algo ou uma base de dados vazia, existiam no Figma mas não chegavam ao que a IA de fato dizia.",
+        "A política de resposta e o comportamento real do assistente nem sempre coincidiam: o documento dizia uma coisa, a prática mostrava outra.",
+        "A documentação para conectar um agente externo estava fora da navegação do produto e desatualizada."
+      ],
+      "figure": "Inventário das 88 tags de componentes emitidas pela plataforma, agrupadas nas 4 famílias, com destaque para a única família que a IA de fato emitia.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Governar a interface gerativa",
+      "paragraphs": [
+        "Defini o escopo do contrato entre humanos e IA, escrevi o manifesto de widgets, liderei o projeto de diretrizes de resposta do assistente e desenhei o wizard que conecta agentes externos à plataforma, além dos componentes do painel do assistente no design system.",
+        "A engenharia implementou o contrato e o wizard; o time de produto participou das diretrizes por domínio. Foi um trabalho de fronteira entre design, conteúdo e arquitetura, e a parte que me coube foi a de decidir e documentar."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Do inventário ao onboarding",
+      "steps": [
+        { "title": "Escopo do contrato", "text": "A primeira decisão: o contrato cobre todas as superfícies gerativas, e não só o chat. Onde a IA renderiza, o contrato vale." },
+        { "title": "Inventário", "text": "As 88 tags de componentes que a plataforma emitia foram agrupadas em 4 famílias. O achado: só uma família era emitida de verdade pela IA. O problema era menor e mais concentrado do que parecia." },
+        { "title": "Manifesto de widgets", "text": "Um registro único, em duas camadas, dos 14 widgets que o assistente pode renderizar, cada um consumindo os tokens do design system. Do lado humano, o mesmo léxico de componentes; do lado da IA, uma lista fechada." },
+        { "title": "Diretrizes de resposta", "text": "Um projeto com uma base transversal e um capítulo por domínio do produto. A forma canônica de uma resposta: nota, dado, card, chamada para ação. Casos cobertos: incapacidade, erro, dado parcial, base vazia e linguagem para quem não é técnico." },
+        { "title": "Componentes do painel", "text": "No design system: o botão do assistente com quatro estados, o painel em vidro, o campo de prompt, os chips de sugestão e a lista de sessões." },
+        { "title": "Wizard de conexão", "text": "Quatro passos para conectar um agente externo à plataforma via MCP, dentro da navegação do produto, com a documentação no lugar em que a pessoa precisa dela. Em produção." }
+      ],
+      "figure": "O manifesto de widgets em duas camadas: componentes do produto embaixo, os 14 widgets do assistente em cima, todos apontando para os mesmos tokens.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Quatro regras para uma IA que desenha",
+      "decisions": [
+        {
+          "title": "Lista fechada, liderada pelo design",
+          "text": "A IA renderiza o que está no manifesto e nada além dele. Novos widgets entram pelo design system, com estados e tokens, antes de entrarem no prompt. A criatividade do modelo fica no conteúdo, não na interface."
+        },
+        {
+          "title": "Nota, dado, card, ação",
+          "text": "Toda resposta segue a mesma ordem: uma nota curta do que foi entendido, o dado em si, um card quando houver algo a mostrar, e uma chamada para ação. Quem lê uma resposta aprende a ler todas."
+        },
+        {
+          "title": "Desabilitar, não esconder",
+          "text": "Quando o usuário não tem permissão para uma ação, ela aparece desabilitada, com o motivo. Esconder faria a IA parecer incapaz; mostrar sem permissão faria o produto parecer inseguro."
+        },
+        {
+          "title": "Escrever para quem não é técnico",
+          "text": "A plataforma atende quem vende online, não desenvolvedores. As diretrizes proíbem jargão de sistema nas respostas e definem como explicar um erro ou uma base vazia em linguagem de negócio."
+        }
+      ],
+      "figure": "Os quatro passos do wizard de conexão de um agente externo, com dados fictícios.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "O que está em produção e o que está em andamento",
+      "paragraphs": [
+        "O wizard de conexão está em produção e o manifesto de widgets define hoje o que o assistente pode renderizar. Os componentes do painel do assistente estão no design system. As diretrizes de resposta estão em andamento, domínio por domínio, junto com o time de produto.",
+        "É um trabalho em curso num produto vivo. Os números abaixo são contagens do que existe, não métricas de impacto."
+      ],
+      "showFacts": true,
+      "figure": "O painel do assistente com os componentes do design system: botão com quatro estados, painel em vidro, prompt, chips de sugestão e sessões.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste trabalho",
+      "paragraphs": [
+        "Design para IA é, em grande parte, design de regras. O que a IA pode renderizar, em que ordem responde, como fala de um erro: nada disso é tela, e tudo isso é design.",
+        "Inventariar antes de opinar. As 88 tags pareciam um problema enorme; a contagem mostrou que só uma família importava. O achado economizou meses.",
+        "E a documentação precisa morar onde a pessoa está. O wizard fez mais pela adoção do MCP do que qualquer página de ajuda."
+      ]
+    }
+  ],
+  "next": "clickmax-offer-inheritance"
+}

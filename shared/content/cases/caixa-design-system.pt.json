@@ -1,0 +1,110 @@
+{
+  "slug": "caixa-design-system",
+  "kicker": "Case",
+  "lede": "Comecei tentando mudar a cor de um botão num sistema interno da Caixa. Terminei desenhando o primeiro design system do maior banco social do Brasil, e a estrutura de governança que o mantém vivo até hoje.",
+  "hero": {
+    "figure": "Diagrama da arquitetura do design system: marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em Figma e código.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Um banco, dezenas de sistemas, nenhuma linguagem comum",
+      "paragraphs": [
+        "A Caixa é o maior banco social do Brasil. O que se desenha lá chega a milhões de pessoas, passa por dezenas de sistemas e por times distribuídos pelo país inteiro. Em 2019 eu trabalhava, como consultor terceirizado, nas melhorias do sistema interno de solicitação de financiamento imobiliário.",
+        "O incômodo que deu origem a tudo foi pequeno. Qualquer alteração numa tela, até a cor de um botão, exigia que os desenvolvedores abrissem a tela inteira para descobrir que tecnologia e que padrão estavam ali. Não existia uma linguagem compartilhada entre design e código. Cada tela era um caso."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "O que custava caro",
+      "paragraphs": [
+        "Quando comecei a puxar o fio, o problema deixou de ser uma tela e passou a ser a organização."
+      ],
+      "bullets": [
+        "Mudanças mínimas eram lentas e caras: cada tela precisava ser explorada e decupada antes de ser tocada. Ajustes simples levavam semanas; features, meses.",
+        "Telas do mesmo sistema pareciam de sistemas diferentes. Havia cerca de cinco style guides em uso ao mesmo tempo, com visual e comportamento divergentes.",
+        "O custo caía no usuário interno: era preciso treinar as pessoas para saber que o seletor de data da tela A funcionava de um jeito e o da tela B, de outro. Um erro que era da interface podia fazer alguém perder todo o trabalho.",
+        "Designers e desenvolvedores não tinham como conversar sobre reaproveitamento. Cada designer criava algo novo; o front-end vivia de correções rápidas; os gestores não sabiam onde começava UX e como era o handoff.",
+        "O caso mais caro: sistemas inteiros, já desenhados e desenvolvidos, eram barrados antes de ir para produção porque não pareciam Caixa."
+      ],
+      "figure": "Colagem dos style guides paralelos em uso, ou dos seletores de data divergentes entre telas do mesmo sistema.",
+      "aspect": "3 / 2"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Identificar, provar, vender e liderar",
+      "paragraphs": [
+        "Fui quem identificou o problema, construiu a prova de conceito, levou a proposta à diretoria e liderou o time de concepção. Desenhei também a estrutura de governança que permitiria ao design system sobreviver a um ambiente corporativo e burocrático.",
+        "O time de concepção tinha quatro designers internos da Caixa e eu, o único terceirizado do grupo. Do lado do código, o processo foi capitaneado por um desenvolvedor parceiro, com quem eu já tinha construído a prova de conceito; fomos os dois construtores e lideranças do processo. A adoção ficou a cargo de uma rede de embaixadores por área, designers e desenvolvedores das próprias equipes."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Do protótipo escondido ao portfólio oficial",
+      "paragraphs": [
+        "O passo que os artigos publicados na época não contam é o primeiro: antes de pedir permissão, eu e o desenvolvedor parceiro aproveitamos a reconstrução do sistema do Minha Casa, Minha Vida para aplicar uma prova de conceito de design system. Funcionou o bastante para convencer a diretoria da Habitação, que ajudou a levar a proposta às demais diretorias. O problema era generalizado, e a solução virou global."
+      ],
+      "steps": [
+        { "title": "Pesquisa para provar a dor", "text": "Survey quantitativo nas comunidades internas da Caixa pelo Brasil e observação presencial de designers e desenvolvedores. A necessidade se mostrou real e urgente, com dados." },
+        { "title": "Benchmark", "text": "Dezenas de design systems analisados. As referências que ficaram: o Design System do Governo Federal (padrão para o setor público), Duet e Royal Canin (eficiência de documentação) e Fluent UI (multiplataforma)." },
+        { "title": "Alinhamento organizacional", "text": "Apresentação aos gestores mostrando o impacto no fluxo de todas as áreas. O design system entrou no portfólio oficial de projetos do banco." },
+        { "title": "Inventário e auditoria", "text": "Dezenas de telas coletadas. O mesmo componente aparecia com múltiplas variações de tamanho, sombra, espaçamento e estrutura de código." },
+        { "title": "Arquitetura", "text": "Quatro camadas: guia visual da marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em design e em código." },
+        { "title": "Fundamentos", "text": "Sete princípios de design (crie foco, conteúdo primeiro, unifique, modular e escalável, simples e não simplista, previsível e claro, flexível), oito diretrizes estratégicas, três de usabilidade e quatro de design escalável." },
+        { "title": "Bibliotecas", "text": "Uma biblioteca de padrões no Figma para prototipação rápida, e um framework mais templates em código, com componentes reutilizáveis, estados e validações." },
+        { "title": "Distribuição e governança", "text": "Portal restrito a funcionários e terceiros, cursos preparatórios e o modelo federado com embaixadores. Depois da web em Angular, a expansão para Android." }
+      ],
+      "figure": "Mapa do survey por região, matriz do benchmark e auditoria de componentes lado a lado.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Três escolhas que fizeram diferença",
+      "decisions": [
+        {
+          "title": "Governança federada, com embaixadores por área",
+          "text": "Um time central nunca daria conta de um banco com dezenas de sistemas. Cada área da Caixa passou a ter responsáveis por manter o design system, ajudar na adoção e implementá-lo no próprio território. Foi essa estrutura, e não o visual, que sobreviveu aos anos seguintes."
+        },
+        {
+          "title": "Design e código lançados juntos, da mesma fonte",
+          "text": "A biblioteca do Figma e o framework em código nasceram do mesmo StyleGuide e saíram no mesmo lançamento. Sem isso, o design system seria mais um style guide bonito que ninguém conseguiria implementar."
+        },
+        {
+          "title": "Arquitetura em camadas, da marca ao componente",
+          "text": "Separar marca e princípios, StyleGuide, boas práticas e bibliotecas deixou claro onde cada decisão morava. Um componente podia mudar sem mexer no princípio; um princípio podia ser discutido sem abrir o código."
+        }
+      ],
+      "figure": "Diagrama do modelo federado: núcleo do design system, embaixadores por área, times de produto.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "A mesma tela, um terço do tempo",
+      "paragraphs": [
+        "No lançamento, desenvolvedores implementaram a mesma tela de dois jeitos: à mão e com o design system. Com o design system, gastaram um terço do tempo. As telas feitas com ele saíram consistentes entre si; as feitas à mão saíram todas diferentes.",
+        "O design system foi adotado por toda a área de Habitação, por Cartões, por Conta Corrente e por todos os aplicativos do banco. Foi o ponto de partida para as iniciativas seguintes de design em escala na Caixa."
+      ],
+      "showFacts": true,
+      "figure": "Comparação lado a lado: a tela construída à mão e a tela construída com o design system, ou um gráfico simples da proporção 3:1.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "legado",
+      "label": "Legado",
+      "title": "O que ficou, e o que eu aprendi",
+      "paragraphs": [
+        "Recebi um convite para liderar design numa consultoria quando o design system estava prestes a ser lançado, e saí antes do evento de lançamento que eu mesmo tinha organizado. Por isso as métricas deste case são as do experimento de lançamento, e não de uma adoção medida ao longo dos anos. Prefiro contar assim a inventar um número.",
+        "O design system evoluiu depois da minha saída, com o visual atualizado para os padrões atuais. As bases e a estrutura organizacional e de processo que implementei seguem sendo as usadas na manutenção. O novo aplicativo da Caixa, em formato super app, usa os princípios construídos ali.",
+        "O que levei comigo: um design system é primeiro um acordo entre pessoas, depois uma biblioteca. Quando a organização se une em torno de um propósito comum, até o pior cenário vira chão para uma mudança grande."
+      ]
+    }
+  ],
+  "next": "clickmax-design-system"
+}

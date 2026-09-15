@@ -1,0 +1,113 @@
+{
+  "slug": "einstein-kiosks",
+  "kicker": "Case",
+  "lede": "Os totens funcionavam. 87% dos pacientes avaliavam o serviço bem. E mesmo assim precisava haver alguém de pé ao lado de cada um deles. Sete semanas de pesquisa em campo, em seis unidades, para explicar por quê.",
+  "hero": {
+    "figure": "Os grandes números da pesquisa: 7 semanas, 6 unidades, 5 fluxos, 178 pacientes entrevistados, 84 sombras, 94 testes de usabilidade, 24 insights, 489 achados heurísticos.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Pioneiro no autoatendimento, sem saber onde ele travava",
+      "paragraphs": [
+        "O Hospital Israelita Albert Einstein é referência em saúde e foi pioneiro no autoatendimento hospitalar no Brasil. O programa tinha começado anos antes com uma ideia clara: tirar da recepção o trabalho burocrático e devolver ao atendente o tempo de olhar nos olhos do paciente. Os totens de check-in faziam parte disso e funcionavam.",
+        "O que faltava era saber por que perfis diferentes de pacientes travavam em pontos diferentes, e o que fazer a respeito. Em novembro de 2021, pela consultoria em que eu liderava design, o hospital nos pediu um mapeamento de dores e oportunidades na jornada dos totens, considerando também o concierge e o ambiente físico ao redor."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Uma satisfação que escondia o problema",
+      "paragraphs": [
+        "Totens tecnicamente funcionais que não atendiam plenamente o que se esperava deles: adoção desigual entre perfis, dependência do concierge e fricções em etapas específicas, como digitalizar o documento, encontrar o médico e atualizar o cadastro.",
+        "Por cima de tudo, uma armadilha de medição. 87% dos pacientes avaliavam o serviço positivamente mesmo tendo tido problemas, porque comparavam o totem com a fila da recepção, e não com um bom autoatendimento. Sem pesquisa em campo, o hospital teria lido a satisfação como ausência de problema."
+      ],
+      "figure": "A frase de um paciente na fila do concierge: \"Vocês não estão com erro no sistema?\", ao lado do segundo totem, livre.",
+      "aspect": "3 / 2"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Lead com a mão na massa",
+      "paragraphs": [
+        "Fui o Lead UX Designer de um time de quatro pessoas. Cuidei da gestão do time e da logística de campo, estruturei a documentação de apoio da pesquisa e o material sobre o qual toda a análise foi organizada, e participei de todas as atividades: entrevistas, sombras, testes de usabilidade, análise e apresentação final ao cliente.",
+        "O escopo era fechado, com começo, meio e fim: diagnóstico e recomendações, sem fase de implementação."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Sete semanas, seis unidades, quatro perfis",
+      "steps": [
+        { "title": "Imersão preliminar", "text": "Dezoito entrevistas com stakeholders, de TI a supervisores de unidade e concierges, e horas de imersão interna. Daí saíram a história do programa, as premissas (adaptar a função dos atendentes, não eliminar a recepção) e a visão de futuro do hospital." },
+        { "title": "Perfis de pesquisa", "text": "Quatro perfis definidos com o cliente: executivo, família com crianças, idoso e jovem com alta afinidade tecnológica, cada um dividido entre quem já usava o totem e quem usava pela primeira vez." },
+        { "title": "Campo em profundidade", "text": "Em cada uma das seis unidades, a mesma sequência: observação sem interferência, cliente oculto com o próprio time passando pelo fluxo, sombra e teste de usabilidade com pacientes, entrevista ao fim da experiência." },
+        { "title": "Volume", "text": "178 entrevistas com pacientes, 84 sombras e 94 testes de usabilidade, cobrindo cinco fluxos: consulta com especialistas, atenção primária, vacina, reabilitação e testes de COVID." },
+        { "title": "Análise e síntese", "text": "Registro, clusterização por unidade e mapeamento de padrões, com achados reportados ao cliente toda semana. Um deles, no cadastro de endereço, foi corrigido ainda durante o campo. No fim, 24 insights comportamentais." },
+        { "title": "Benchmark", "text": "Quatro concorrentes comparados em tipos de check-in, serviços cobertos, número de passos, tempo, antecipação, repetição de processos e intervenção humana. E as unidades do próprio hospital comparadas entre si." },
+        { "title": "Análise heurística", "text": "Todas as telas avaliadas pelas heurísticas de Nielsen, com grau de severidade. 489 achados, concentrados em consistência e padrões, flexibilidade e eficiência, visibilidade do status do sistema e reconhecimento em vez de memória." },
+        { "title": "Entregas", "text": "Relatório de insights por perfil, análise de benchmark, análise heurística da interface, relatório final e apresentação executiva." }
+      ],
+      "figure": "Grade dos quatro perfis com o volume de entrevistas, sombras e testes de cada um.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "achados",
+      "label": "Achados",
+      "title": "O que o campo mostrou",
+      "decisions": [
+        {
+          "title": "O efeito da relatividade",
+          "text": "As pessoas avaliavam o totem em comparação com a recepção tradicional. Por isso 87% aprovavam um serviço em que quase todos tinham travado em algum ponto."
+        },
+        {
+          "title": "A culpa é minha",
+          "text": "Quando algo dava errado, o paciente assumia o erro para si. \"A maior dificuldade foi com o documento, mas isso foi problema meu\" era uma frase comum diante de uma falha que era da interface."
+        },
+        {
+          "title": "O efeito concierge",
+          "text": "O concierge posicionado ao lado de um totem criava fila naquele totem, mesmo com o outro livre, e a fila fazia as pessoas suporem que o sistema estava com erro."
+        },
+        {
+          "title": "A digitalização do documento",
+          "text": "A etapa de maior fricção para todos os perfis, sem exceção. A busca do médico era a etapa com mais erros."
+        },
+        {
+          "title": "Idosos abertos a aprender",
+          "text": "Quando bem instruídos, os pacientes mais velhos queriam usar o totem sozinhos. O problema não era resistência; era a falta de instrução no lugar certo."
+        },
+        {
+          "title": "Famílias repetindo tudo",
+          "text": "Responsáveis cadastravam cada membro da família do zero. \"Por que não tem um botão para aproveitar o cadastro?\" resumiu o achado."
+        }
+      ],
+      "figure": "Mapa da jornada do check-in com os pontos de fricção por perfil.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "O número que tornou o problema inegociável",
+      "paragraphs": [
+        "O check-in no totem levava em média 14,4 passos e 5 minutos e 42 segundos, indo de 10 passos na melhor unidade a 19 passos e mais de 14 minutos na pior. Nos concorrentes, entre 6 e 9 passos, e entre 1 minuto e 20 e 2 minutos e 40. Um benchmark simples que tirou a discussão do campo da opinião.",
+        "O trabalho terminou com a entrega do diagnóstico e das recomendações. Algum tempo depois, o cliente voltou para informar que todas as correções e melhorias apontadas haviam sido implementadas, e que estava satisfeito com o resultado. Não tenho métricas dessa fase, porque ela não fez parte do escopo; conto o que sei."
+      ],
+      "showFacts": true,
+      "figure": "Comparação passos × tempo: o totem do hospital contra os quatro concorrentes.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste projeto",
+      "paragraphs": [
+        "Satisfação declarada não é evidência de ausência de problema. Quando a referência das pessoas é o pior cenário, qualquer coisa parece boa; só observar o uso mostra onde está o atrito.",
+        "Serviço é interface mais ambiente mais gente. O concierge, a posição do totem e a fila faziam tanta diferença quanto qualquer tela. Analisar só a interface teria produzido uma lista de ajustes e perdido o efeito manada.",
+        "E reportar toda semana vale mais que um relatório final perfeito: uma correção saiu antes de a pesquisa acabar."
+      ]
+    }
+  ],
+  "next": "coca-cola-analytics"
+}

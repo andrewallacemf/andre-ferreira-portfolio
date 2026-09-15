@@ -1,6 +1,7 @@
 ---
 import type { Content, Lang } from '../lib/content';
-import { uiLabels } from '../lib/content';
+import { hasCasePage, uiLabels } from '../lib/content';
+import { caseHref } from '../lib/paths';
 interface Props { t: Content; lang: Lang }
 const { t, lang } = Astro.props;
 const ui = uiLabels(t, lang);
@@ -9,8 +10,8 @@ const ui = uiLabels(t, lang);
 <ul class="work-grid">
   {t.cases.items.map((item) => (
     <li>
-      <!-- Prototype: the card links to itself (#slug); :target lifts the 4-line clamp, so a tap/click shows the full text. -->
-      <a class="card" id={item.slug} href={`#${item.slug}`} data-cursor={t.cursor.view}>
+      <!-- With a case page the card links to it; without one it links to itself (#slug) and :target lifts the 4-line clamp. -->
+      <a class="card" id={item.slug} href={caseHref(lang, item.slug, hasCasePage(lang, item.slug))} data-cursor={t.cursor.view}>
         <span class="eyebrow">
           <span class="label num">{item.year}</span>
           <span class="card__arrow touch-only" aria-hidden="true">↗</span>

@@ -1,0 +1,101 @@
+---
+/* "How I work" page: /how-i-work/ and /pt/como-trabalho/.
+   The method behind the cases: shaping, reading the source, prototype as a
+   gate, Figma via MCP, design carried into the product's code, recorded
+   decisions, and what AI does not do. Same reading layout as a case page. */
+import type { Lang } from '../lib/content';
+import { getContent } from '../lib/content';
+import { pageHref } from '../lib/paths';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CornerMarks from '../components/CornerMarks.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getContent(lang);
+const m = t.method;
+---
+
+<BaseLayout lang={lang} page="method" t={t} title={m.title} description={m.lede}>
+  <article class="method">
+    <header class="slide method-head">
+      <div class="slide__box slide__box--single method-head__box">
+        <CornerMarks />
+        <p class="label reveal">{m.navLabel}</p>
+        <h1 class="display reveal">{m.title}</h1>
+        <p class="method-head__lede reveal">{m.lede}</p>
+      </div>
+    </header>
+
+    <div class="method-body">
+      <nav class="method-index wide-only" aria-label={t.casePage.contents}>
+        <p class="label">{t.casePage.contents}</p>
+        <ol>
+          {m.sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
+        </ol>
+      </nav>
+
+      <div class="method-sections">
+        {m.sections.map((s, i) => (
+          <section class="method-section slide" id={s.id} aria-labelledby={`${s.id}-title`}>
+            <p class="label num reveal">{String(i + 1).padStart(2, '0')} · {s.label}</p>
+            <h2 id={`${s.id}-title`} class="title-xl reveal">{s.title}</h2>
+            {s.paragraphs.map((p) => <p class="method-p reveal">{p}</p>)}
+            {s.evidence && (
+              <dl class="method-facts reveal">
+                {s.evidence.map(([n, l]) => (
+                  <div class="fact"><dt class="fact__n">{n}</dt><dd class="label">{l}</dd></div>
+                ))}
+              </dl>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+
+    <footer class="slide method-foot">
+      <div class="slide__box slide__box--single method-foot__box">
+        <CornerMarks />
+        <a class="link" href={pageHref(lang, 'work')}>{t.cases.ctaAll} →</a>
+        <Footer t={t} />
+      </div>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .method { display: grid; gap: var(--space-8); }
+  .method-head { padding-bottom: 0; }
+  .method-head__box { gap: var(--space-6); }
+  .method-head__lede { font-size: var(--text-lg); line-height: var(--leading-snug); max-width: var(--measure); color: var(--fg-muted); }
+
+  .method-body {
+    padding-inline: var(--gutter);
+    max-width: var(--slide-max);
+    width: 100%;
+    margin-inline: auto;
+    display: grid;
+    gap: var(--space-8);
+  }
+  .method-index { display: none; }
+  .method-sections { display: grid; gap: var(--space-4); max-width: var(--measure); }
+  .method-section { padding: var(--space-8) 0; display: grid; gap: var(--space-4); border-top: var(--hairline) solid var(--line); }
+  .method-section:first-child { border-top: 0; }
+  .method-p { font-size: var(--text-md); line-height: 1.6; }
+
+  .method-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-3); margin: var(--space-2) 0 0; }
+  .fact { padding: var(--space-4); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); display: grid; gap: var(--space-2); }
+  .fact__n { font-size: var(--text-xl); line-height: 1; font-weight: 500; letter-spacing: -0.02em; }
+  .fact dd { margin: 0; }
+
+  .method-foot__box { gap: var(--space-8); }
+
+  @media (min-width: 1024px) {
+    .method-head__box { padding-top: var(--space-12); }
+    .method-body { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
+    .method-index { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--header-h) + var(--space-8)); }
+    .method-index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+    .method-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); }
+    .method-index a:hover { color: var(--fg); }
+  }
+</style>

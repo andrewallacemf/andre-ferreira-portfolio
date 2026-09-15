@@ -1,0 +1,108 @@
+{
+  "slug": "shotlist",
+  "kicker": "Case",
+  "lede": "Herdamos uma plataforma de planejamento de filmagens com 34 bugs abertos, features pela metade e um módulo de projetos que era um bloco só. Primeiro, diagnóstico e estabilização. Depois, uma reconstrução em três camadas, do shotlist rápido ao workspace de agência.",
+  "hero": {
+    "figure": "As três camadas da nova arquitetura: Quick Shotlist (shotlist + moodboard, compartilhável), Projeto simples e Workflows e Workspaces para times e agências.",
+    "aspect": "16 / 9"
+  },
+  "sections": [
+    {
+      "id": "contexto",
+      "label": "Contexto",
+      "title": "Uma ferramenta feita por quem sentia a falta dela",
+      "paragraphs": [
+        "A Shotlist nasceu do incômodo de um fotógrafo e filmmaker que atende clientes comerciais e de entretenimento nos Estados Unidos, principalmente em Hollywood. Gestores de projeto genéricos exigiam muita configuração e curva de aprendizado para servir aos processos de fotografia e filmagem. Ele construiu uma plataforma própria, que une shotlist e moodboard num só espaço colaborativo.",
+        "Depois de dois anos de desenvolvimento com uma empresa anterior, ele contratou o nosso time, no final de 2024, para resolver problemas de usabilidade e experiência. A comunicação com ele era em inglês, por mensagens e videochamadas constantes; a do time, em português."
+      ]
+    },
+    {
+      "id": "problema",
+      "label": "Problema",
+      "title": "Um produto pela metade",
+      "paragraphs": [
+        "A plataforma chegou às nossas mãos cheia de lacunas, problemas de usabilidade, bugs e features não finalizadas. Nas palavras do próprio cliente, no início de 2025, ela não estava pronta para gerar receita nem para crescer."
+      ],
+      "bullets": [
+        "34 bugs mapeados, 11 deles críticos: o botão de adicionar um shot falhava com frequência, metade da interface sumia no modo responsivo, o upload de imagens era instável, a performance era ruim.",
+        "Sem processamento de pagamento: não havia como cobrar por uma assinatura.",
+        "Um problema estrutural por baixo de tudo: o módulo de projetos era um bloco monolítico. Qualquer coisa nova precisava ser esculpida dentro dele."
+      ],
+      "figure": "Tabela resumida da auditoria: os 34 bugs por severidade e urgência, com os 11 críticos destacados.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "papel",
+      "label": "Meu papel",
+      "title": "Design Lead, do diagnóstico ao requisito",
+      "paragraphs": [
+        "Fui o Design Lead do projeto: diagnóstico de UX, estratégia e mão na massa, liderando dois designers. Fui também o autor dos documentos de escopo e requisitos que serviam de base para a aprovação do cliente e para a implementação do time de engenharia, que refez front, back, mobile e infraestrutura.",
+        "O trabalho era acompanhado por relatórios semanais e de sprint, e cada funcionalidade só entrava em desenvolvimento depois de um documento de análise de requisitos e de um protótipo aprovados."
+      ]
+    },
+    {
+      "id": "processo",
+      "label": "Processo",
+      "title": "Duas fases, dois contratos",
+      "paragraphs": [
+        "A primeira fase, de janeiro a maio de 2025, foi um projeto de quatro meses para diagnosticar, estabilizar e preparar a plataforma para ser lançada. O resultado dela gerou a recontratação para a segunda fase, de junho a dezembro, com um roadmap de seis meses para reconstruir a plataforma."
+      ],
+      "steps": [
+        { "title": "Auditoria", "text": "Auditoria completa da interface, análise dos feedbacks de usuários, análise heurística com mapeamento dos fluxos problemáticos, inventário de componentes e documentação das inconsistências visuais. Saiu daí a tabela de recomendações por severidade e urgência. Em paralelo, a engenharia auditou código e infraestrutura." },
+        { "title": "Estabilização", "text": "Redesign dos componentes críticos, guias visuais para estados de erro, navegação mobile, componentes responsivos padronizados, estados de carregamento e microfeedbacks, e testes de usabilidade das correções." },
+        { "title": "Monetização", "text": "Sistema de pagamento e assinatura com permissões por plano: checkout, onboarding de assinante, estados de feedback de transação, gestão de permissões e compartilhamento." },
+        { "title": "Refinamento e preparação de lançamento", "text": "Otimização do par shotlist + moodboard, a funcionalidade número um para o público-alvo, suporte dentro do produto, testes finais e documentação." },
+        { "title": "Workshops no Brasil", "text": "Para a segunda fase, o cliente veio ao Brasil, e definimos objetivos e escopo em workshops presenciais." },
+        { "title": "Nova arquitetura", "text": "Três camadas alinhadas com a visão dele: Quick Shotlist, Projeto simples e Workflows e Workspaces para times e agências. Hierarquia Workspace → Workflow → Projeto." },
+        { "title": "Design system e telas", "text": "Design system redesenhado (botões, inputs, ícones, seletores, menu, header, avatar, seleção, stepper, código de verificação), refatoração da estrutura básica, login e cadastro, Shotlist e Quick Shotlist para web e mobile, conceito de Workspaces." },
+        { "title": "Requisitos e revisões", "text": "Documentos de escopo e requisitos por funcionalidade, com regras de negócio, estados, permissões, wizard de criação e casos-limite, mais revisões de design registradas a cada pacote do roadmap." }
+      ],
+      "figure": "Linha do tempo das duas fases: as quatro etapas de 2025 na primeira, os pacotes mensais do roadmap na segunda.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "decisoes",
+      "label": "Decisões de design",
+      "title": "Três decisões que desmontaram o monolito",
+      "decisions": [
+        {
+          "title": "Três camadas de uso",
+          "text": "Quem só precisa de um shotlist com moodboard não deveria criar um projeto. Quem faz um projeto não deveria montar um workspace. Cada camada entra sozinha e cresce para a seguinte quando o trabalho pede. Foi a resposta ao gestor de projetos genérico que exige tudo no primeiro dia."
+        },
+        {
+          "title": "Projeto modular por widgets",
+          "text": "A página de projeto deixou de ser um bloco e virou uma composição de 13 widgets (detalhes, descrição, entregáveis, notas, estágio, progresso, shotlists, moodboard, logística, assets, time, agenda), escolhidos na criação do projeto. Uma nova funcionalidade vira um widget novo, e não uma escultura no monolito."
+        },
+        {
+          "title": "Permissões por ação e estágios padronizados",
+          "text": "Permissões nomeadas pelo que a pessoa pode fazer (ver, editar, moderar) em vez de substantivos de papel; estágios de projeto padronizados de Pendente a Concluído; distinção visual entre convidados com e sem conta; arquivamento. Regras que cabem num documento e que o time implementa sem interpretar."
+        }
+      ],
+      "figure": "A página de projeto modular, com os 13 widgets disponíveis e uma composição de exemplo.",
+      "aspect": "16 / 9"
+    },
+    {
+      "id": "resultado",
+      "label": "Resultado",
+      "title": "Uma plataforma inteira, pronta para relançar",
+      "paragraphs": [
+        "Ao fim das duas fases, a plataforma estava diagnosticada, estabilizada e reconstruída: design system novo, arquitetura em três camadas, projeto modular, workspaces e workflows para times, app nativo com o Quick Shotlist, autenticação e notificações, e um novo site institucional.",
+        "A primeira fase gerou a recontratação para a segunda, e ao final o cliente se preparava para o relançamento. Não há métricas de uso neste case, porque a entrega aconteceu antes do relançamento; prefiro dizer isso a inventar um número."
+      ],
+      "showFacts": true,
+      "figure": "Quick Shotlist no celular: shotlist, moodboard e descrição, compartilhável sem projeto.",
+      "aspect": "3 / 4"
+    },
+    {
+      "id": "aprendizados",
+      "label": "Aprendizados",
+      "title": "O que levei deste projeto",
+      "paragraphs": [
+        "Estabilizar antes de reconstruir. A tentação de recomeçar do zero era grande; entregar uma plataforma que funcionava foi o que comprou a confiança para a reconstrução.",
+        "Documento de requisitos é ferramenta de design. Escrever regras, estados e casos-limite antes do Figma evitou meses de idas e vindas com um cliente em outro fuso horário e outro idioma.",
+        "E o monolito quase nunca é do código. Era do modelo mental de projeto. Quebrar o modelo em camadas e widgets foi o que permitiu à engenharia quebrar o código."
+      ]
+    }
+  ],
+  "next": "clickmax-ai-platform"
+}
