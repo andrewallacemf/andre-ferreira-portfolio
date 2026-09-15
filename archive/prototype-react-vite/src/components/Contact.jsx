@@ -4,7 +4,6 @@ import Corners from './Corners.jsx';
 import Footer from './Footer.jsx';
 
 const LINKEDIN = 'https://linkedin.com/in/andrewallacemf';
-const MEDIUM = 'https://andrewallacemf.medium.com';
 
 function mailto(email, subject) {
   return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
@@ -97,12 +96,6 @@ export default function Contact() {
               <span className="label">{contact.resumeLabel}</span>
               <a href="#" data-cursor={cursor.open}>
                 {contact.resumeLabel} <span aria-hidden="true">↓</span>
-              </a>
-            </li>
-            <li className="contact__row">
-              <span className="label">{contact.mediumLabel}</span>
-              <a href={MEDIUM} target="_blank" rel="noopener" data-cursor={cursor.open}>
-                {contact.medium} <span aria-hidden="true">↗</span>
               </a>
             </li>
           </ul>
