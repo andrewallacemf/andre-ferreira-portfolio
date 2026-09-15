@@ -50,6 +50,8 @@
 
     /* Static grid is drawn once into an offscreen canvas and blitted per frame. */
     const drawBase = () => {
+      /* A hidden or collapsed viewport gives a 0×0 canvas; drawImage throws on it. */
+      if (canvas.width === 0 || canvas.height === 0) { base = null; return; }
       base = document.createElement('canvas');
       base.width = canvas.width; base.height = canvas.height;
       const b = base.getContext('2d')!;
@@ -60,13 +62,18 @@
           b.beginPath(); b.arc(x, y, BASE_R, 0, Math.PI * 2); b.fill();
         }
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(base, 0, 0);
     };
 
+    /* Every frame starts from a cleared canvas: the base layer is translucent,
+       so blitting it over the previous frame would stack alpha and leave the
+       pointer's trail of hot dots behind (seen on desktop on 2026-09-15). */
     const drawHot = () => {
       raf = 0;
       if (!base) return;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(base, 0, 0);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const x0 = Math.max(GAP / 2, Math.floor((px - RADIUS) / GAP) * GAP + GAP / 2);
