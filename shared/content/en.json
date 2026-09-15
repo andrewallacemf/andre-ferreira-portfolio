@@ -1,0 +1,347 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "André Ferreira",
+    "description": "Senior Product Designer. Design systems and B2B products in domains where mistakes are expensive.",
+    "location": "Brasília",
+    "year": "2026"
+  },
+  "nav": {
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "allWork": "All work",
+    "theme": "Theme",
+    "themeDark": "Dark",
+    "themeLight": "Light",
+    "langSwitch": "PT",
+    "langSwitchTitle": "Ler em português",
+    "skip": "Skip to content",
+    "menu": "Menu"
+  },
+  "hero": {
+    "name": "André Ferreira",
+    "line1": "End-to-end product designer.",
+    "line2": "Design systems and B2B products",
+    "line3": "in domains where mistakes are expensive.",
+    "sub": "Today I design a B2B platform's AI assistant and a design system that Figma, code and AI consume from one source.",
+    "now": "Now: Senior Product Designer & Design Lead at Clickmax · Brasília, remote",
+    "status": "Open to remote roles, Brazil and abroad",
+    "scroll": "Scroll"
+  },
+  "cases": {
+    "sectionLabel": "Selected work",
+    "cta": "View case",
+    "ctaAll": "See all work",
+    "featured": [
+      "caixa-design-system",
+      "clickmax-design-system",
+      "einstein-kiosks"
+    ],
+    "items": [
+      {
+        "slug": "caixa-design-system",
+        "title": "CAIXA Design System",
+        "result": "The first design system of Brazil's largest social bank: the same screen, built with it, took a third of the time and came out identical in every developer's hands.",
+        "year": "2019–2021",
+        "role": "Design system lead",
+        "scope": "Research, proof of concept, architecture, federated governance, Figma and code libraries",
+        "status": "shipped",
+        "client": "Caixa Econômica Federal",
+        "facts": [
+          [
+            "1/3",
+            "of the time to build the same screen"
+          ],
+          [
+            "4",
+            "business areas adopted it"
+          ],
+          [
+            "1st",
+            "design system at the bank"
+          ]
+        ]
+      },
+      {
+        "slug": "clickmax-design-system",
+        "title": "One token source for Figma, code and AI",
+        "result": "Rebuilt a B2B platform's design system on DTCG tokens that generate Figma variables, Tailwind CSS and the widgets the product's AI renders: one source, three consumers.",
+        "year": "2025–now",
+        "role": "Senior Product Designer & Design Lead",
+        "scope": "Token architecture, human + AI contract, component library, navigation shell",
+        "status": "in-production",
+        "client": "Clickmax",
+        "facts": [
+          [
+            "238",
+            "variables generated from one file"
+          ],
+          [
+            "140",
+            "Button variants from 7"
+          ],
+          [
+            "2",
+            "modes, light and dark, automated"
+          ]
+        ]
+      },
+      {
+        "slug": "einstein-kiosks",
+        "title": "Self-service kiosks at a leading hospital",
+        "result": "178 patient interviews, 94 usability tests and 489 heuristic findings in seven weeks: why kiosks rated positively by 87% of patients still needed a concierge standing next to them.",
+        "year": "2021",
+        "role": "Lead UX Designer, team of 4",
+        "scope": "Field research in 6 units, benchmark, heuristic analysis",
+        "status": "research",
+        "client": "Hospital Israelita Albert Einstein",
+        "facts": [
+          [
+            "178",
+            "patient interviews"
+          ],
+          [
+            "489",
+            "heuristic findings"
+          ],
+          [
+            "87%",
+            "rated the kiosk positively anyway"
+          ]
+        ]
+      },
+      {
+        "slug": "coca-cola-analytics",
+        "title": "Marketing analytics platform",
+        "result": "The client asked how to grow adoption of the marketing data platform by 30%. Research showed the problem wasn't only the dashboards: a heuristic review, 11 usability tests and 22 flowcharts became 13 ideas and a 3-to-5-year roadmap.",
+        "year": "2023",
+        "role": "UX Manager, UX workstream lead",
+        "scope": "Heuristic analysis, usability testing, flowcharts, UI guidelines",
+        "status": "shipped",
+        "client": "The Coca-Cola Company",
+        "facts": [
+          [
+            "11",
+            "usability tests"
+          ],
+          [
+            "22",
+            "flowcharts"
+          ],
+          [
+            "13",
+            "ideas on the roadmap"
+          ]
+        ]
+      },
+      {
+        "slug": "shotlist",
+        "title": "Shotlist",
+        "result": "An inherited production-planning platform with 34 open bugs and half-built features: first we diagnosed and stabilized it, then redesigned it in three layers, from the quick shotlist to the agency workspace.",
+        "year": "2024–2025",
+        "role": "Design Lead",
+        "scope": "UX diagnosis, design system, information architecture, native app",
+        "status": "shipped",
+        "client": "Shotlist",
+        "facts": [
+          [
+            "34",
+            "bugs mapped, 11 critical"
+          ],
+          [
+            "3",
+            "layers of use"
+          ],
+          [
+            "13",
+            "widgets in the modular project page"
+          ]
+        ]
+      },
+      {
+        "slug": "clickmax-ai-platform",
+        "title": "Designing for an AI-operated platform",
+        "result": "How a designer governs what the product's AI may say and render: a two-layer widget contract, response guidelines and the wizard that connects external agents to the platform.",
+        "year": "2025–now",
+        "role": "Senior Product Designer & Design Lead",
+        "scope": "Generative UI contract, response guidelines, MCP onboarding",
+        "status": "in-production",
+        "client": "Clickmax",
+        "facts": [
+          [
+            "14",
+            "widgets in the contract"
+          ],
+          [
+            "4",
+            "safety levels per tool"
+          ],
+          [
+            "4",
+            "steps to connect an agent"
+          ]
+        ]
+      },
+      {
+        "slug": "clickmax-offer-inheritance",
+        "title": "Inheritance instead of copies",
+        "result": "Letting an offer diverge from its product without duplicating the product or migrating data: three incompatible mechanisms found in the code became one resolver, three states and seven guard-rails, handed off as 18 issues.",
+        "year": "2026",
+        "role": "Senior Product Designer & Design Lead",
+        "scope": "Systems design, data model, API spec, executable prototype",
+        "status": "handed-off",
+        "client": "Clickmax",
+        "facts": [
+          [
+            "3",
+            "mechanisms replaced by one rule"
+          ],
+          [
+            "0",
+            "data migration"
+          ],
+          [
+            "18",
+            "issues in the handoff"
+          ]
+        ]
+      },
+      {
+        "slug": "clickmax-monetization-foundation",
+        "title": "Monetization foundation",
+        "result": "Where plan, credit and wallet live in a multi-workspace platform, and how a free tier that blocked creation became \"create freely, gating happens at publish\".",
+        "year": "2025–now",
+        "role": "Senior Product Designer & Design Lead",
+        "scope": "Account architecture, entitlements, packaging principles",
+        "status": "in-progress",
+        "client": "Clickmax",
+        "facts": [
+          [
+            "173",
+            "billing issues mapped"
+          ],
+          [
+            "5",
+            "parts under one rule"
+          ],
+          [
+            "4",
+            "self-serve plans, principles only"
+          ]
+        ]
+      }
+    ],
+    "statusLabels": {
+      "shipped": "Shipped",
+      "in-production": "In production",
+      "handed-off": "Handed off",
+      "in-progress": "In progress",
+      "research": "Research",
+      "concept": "Concept",
+      "nda": "NDA"
+    },
+    "roleLabel": "Role",
+    "scopeLabel": "Scope"
+  },
+  "principles": {
+    "sectionLabel": "How I design",
+    "items": [
+      "One source of truth, many consumers.",
+      "Pretty that solves nothing is decoration.",
+      "I write the acceptance criteria before I open Figma.",
+      "Simple, not simplistic.",
+      "Research exists to kill the wrong feature before it's built.",
+      "AI is a user of the design system too.",
+      "I stay through release."
+    ]
+  },
+  "about": {
+    "sectionLabel": "About",
+    "p1": "I've been a product designer for over ten years, mostly in B2B and in domains where mistakes are expensive: banking, insurance, SaaS billing. I started in graphic design as a teenager, went through nearly 4,000 hours of technical training for WorldSkills, and came back as an instructor before moving into digital product.",
+    "p2": "Today I own product design for a B2B all-in-one platform: I design its embedded AI assistant, rebuilt the design system on a single token source that feeds Figma, code and what the AI renders, and use AI to carry prototypes into the product's codebase, where developers take over.",
+    "p3": "I led teams for over four years. I like managing. I'd rather build."
+  },
+  "timeline": {
+    "sectionLabel": "Path",
+    "eras": [
+      {
+        "name": "Craft",
+        "years": "2013–2018",
+        "text": "Graphic design, WorldSkills and the classroom: I learned to make, then to teach making."
+      },
+      {
+        "name": "Systems",
+        "years": "2018–2021",
+        "text": "Caixa: a design system for Brazil's largest social bank and high-volume regulated products."
+      },
+      {
+        "name": "Scale and leadership",
+        "years": "2021–2024",
+        "text": "MJV: from lead to UX Manager, 50+ people, 13 clients, insurance, banks and consumer goods."
+      },
+      {
+        "name": "Product + AI",
+        "years": "2024–now",
+        "text": "Procore, Shotlist and Clickmax: back to hands-on work, with AI carrying design into code."
+      }
+    ],
+    "clientsLabel": "Worked with",
+    "clients": [
+      "Caixa",
+      "SulAmérica",
+      "Bradesco",
+      "Santander",
+      "Bayer",
+      "Coca-Cola",
+      "Hospital Albert Einstein",
+      "Procore",
+      "Shotlist",
+      "Clickmax",
+      "UX Unicórnio"
+    ]
+  },
+  "contact": {
+    "sectionLabel": "Contact",
+    "title": "Let's build something worth building?",
+    "bubble1": "Hi, I'm André.",
+    "bubble2": "Want to talk about a role, a project, or just say hi?",
+    "chips": [
+      {
+        "label": "A role",
+        "subject": "A role"
+      },
+      {
+        "label": "A project",
+        "subject": "A project"
+      },
+      {
+        "label": "Just hi",
+        "subject": "Hi André"
+      }
+    ],
+    "email": "andrewallacemf@gmail.com",
+    "emailLabel": "Email",
+    "linkedin": "linkedin.com/in/andrewallacemf",
+    "linkedinLabel": "LinkedIn",
+    "resumeLabel": "Résumé (PDF)",
+    "mediumLabel": "Long-form cases on Medium",
+    "medium": "andrewallacemf.medium.com",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "footer": {
+    "line": "Designed and built by me, as a human + AI collaboration.",
+    "source": "Source on GitHub"
+  },
+  "work": {
+    "title": "Work",
+    "intro": "Eight cases across banking, health, consumer goods, creative tools and B2B SaaS. More to come.",
+    "filterAll": "All"
+  },
+  "cursor": {
+    "view": "View",
+    "copy": "Copy",
+    "open": "Open"
+  }
+}

@@ -1,0 +1,23 @@
+---
+import type { Content } from '../lib/content';
+interface Props { t: Content }
+const { t } = Astro.props;
+---
+
+<footer class="footer">
+  <p class="label">{t.footer.line}</p>
+  <a class="label footer__source" href="https://github.com/" rel="noopener" data-cursor={t.cursor.open}>{t.footer.source} <span aria-hidden="true">↗</span></a>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+    padding-top: var(--space-6);
+    border-top: var(--hairline) solid var(--line);
+  }
+  .footer__source { text-decoration: none; }
+  .footer__source:hover { color: var(--fg); }
+</style>

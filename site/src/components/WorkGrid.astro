@@ -1,0 +1,71 @@
+---
+import type { Content, Lang } from '../lib/content';
+import { statusLabel, uiLabels } from '../lib/content';
+interface Props { t: Content; lang: Lang }
+const { t, lang } = Astro.props;
+const ui = uiLabels(t, lang);
+---
+
+<ul class="work-grid">
+  {t.cases.items.map((item) => (
+    <li>
+      <!-- Prototype: the card links to itself (#slug); :target lifts the 4-line clamp, so a tap/click shows the full text. -->
+      <a class="card" id={item.slug} href={`#${item.slug}`} data-cursor={t.cursor.view}>
+        <span class="eyebrow">
+          <span class="pill">{statusLabel(t, item.status)}</span>
+          <span class="label num">{item.year}</span>
+          <span class="card__arrow touch-only" aria-hidden="true">↗</span>
+        </span>
+        <h2 class="card__title">{item.title}</h2>
+        <p class="card__result">{item.result}</p>
+        <span class="card__foot">
+          <span class="label">{item.client}</span>
+          <span class="card__role"><span class="label">{ui.role}</span> {item.role}</span>
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .work-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  @media (min-width: 640px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .card {
+    display: grid;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-6);
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--bg-elev);
+    text-decoration: none;
+    color: inherit;
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+    transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+  .card__arrow { margin-left: auto; font-size: var(--text-md); line-height: 1; }
+  .card__title { font-size: var(--text-lg); line-height: var(--leading-tight); }
+  .card__result {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+  .card:target .card__result { -webkit-line-clamp: unset; display: block; }
+  .card:target { border-color: var(--line-strong); }
+  .card__foot { display: grid; gap: var(--space-2); margin-top: auto; font-size: var(--text-sm); }
+  .card__role .label { margin-right: var(--space-1); }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+  }
+</style>

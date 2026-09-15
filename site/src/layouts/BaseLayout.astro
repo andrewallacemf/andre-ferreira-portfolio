@@ -1,0 +1,82 @@
+---
+import '../../../shared/tokens.css';
+import '../styles/global.css';
+import type { Content, Lang } from '../lib/content';
+import { pageHref, type Page } from '../lib/paths';
+import Header from '../components/Header.astro';
+import DotGrid from '../components/DotGrid.astro';
+import Cursor from '../components/Cursor.astro';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  t: Content;
+  title?: string;
+}
+const { lang, page, t, title } = Astro.props;
+const pageTitle = title ? `${title} · ${t.meta.title}` : t.meta.title;
+
+// hreflang alternates: absolute when SITE_URL is configured, relative otherwise.
+const alt = (l: Lang) => {
+  const p = pageHref(l, page);
+  return Astro.site ? new URL(p, Astro.site).href : p;
+};
+---
+
+<!doctype html>
+<html lang={lang === 'pt' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="alternate" hreflang="en" href={alt('en')} />
+    <link rel="alternate" hreflang="pt-BR" href={alt('pt')} />
+    <link rel="alternate" hreflang="x-default" href={alt('en')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" />
+    <script is:inline>
+      /* Theme before first paint: stored choice wins, otherwise dark. */
+      (function () {
+        var theme = 'dark';
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') theme = stored;
+        } catch (e) {}
+        var root = document.documentElement;
+        root.setAttribute('data-theme', theme);
+        /* Enable enter animations only with JS and without reduced motion. */
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) root.setAttribute('data-motion', '');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.nav.skip}</a>
+    <DotGrid />
+    <Header lang={lang} page={page} t={t} />
+    <main id="main" tabindex="-1" class:list={{ 'main--snap': page === 'home' }}>
+      <slot />
+    </main>
+    <Cursor />
+  </body>
+</html>
+
+<script>
+  /* Slide enter animation: toggles .is-in on each .slide as it intersects. */
+  const root = document.documentElement;
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.slide'));
+  const showAll = () => slides.forEach((s) => s.classList.add('is-in'));
+
+  if (!('IntersectionObserver' in window) || !root.hasAttribute('data-motion')) {
+    showAll();
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.target.classList.toggle('is-in', e.isIntersecting)),
+      { threshold: 0.15 },
+    );
+    slides.forEach((s) => io.observe(s));
+    /* Safety net: never leave content hidden if the observer never fires. */
+    setTimeout(() => slides.forEach((s) => { if (!s.classList.contains('is-in')) s.classList.add('is-in'); }), 2000);
+  }
+</script>

@@ -1,0 +1,118 @@
+---
+import type { Content, Lang } from '../lib/content';
+import { otherLang, uiLabels } from '../lib/content';
+import { pageHref, type Page } from '../lib/paths';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props { lang: Lang; page: Page; t: Content }
+const { lang, page, t } = Astro.props;
+const other = otherLang(lang);
+const ui = uiLabels(t, lang);
+const links = [
+  { label: t.nav.work, href: pageHref(lang, 'work') },
+  { label: t.nav.about, href: pageHref(lang, 'home', '#about') },
+  { label: t.nav.contact, href: pageHref(lang, 'home', '#contact') },
+];
+---
+
+<header class="header">
+  <a class="header__name" href={pageHref(lang, 'home')}>{t.hero.name}</a>
+
+  <nav class="header__nav" id="site-nav">
+    <ul>
+      {links.map((l) => (
+        <li><a href={l.href} aria-current={page === 'work' && l.label === t.nav.work ? 'page' : undefined}>{l.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="header__tools">
+    <a class="header__lang" href={pageHref(other, page)} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} title={t.nav.langSwitchTitle}>
+      {t.nav.langSwitch}
+    </a>
+    <ThemeToggle t={t} />
+    <button class="header__menu" type="button" aria-expanded="false" aria-controls="site-nav">{ui.menu}</button>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 10;
+    height: var(--header-h);
+    padding-inline: var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-4);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: var(--hairline) solid var(--line);
+    font-size: var(--text-sm);
+  }
+  .header__name { font-weight: 500; text-decoration: none; white-space: nowrap; }
+  .header__nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-6); }
+  .header__nav a { text-decoration: none; color: var(--fg-muted); transition: color var(--dur-fast) var(--ease-out); }
+  .header__nav a:hover, .header__nav a[aria-current] { color: var(--fg); }
+  .header__tools { display: flex; align-items: center; gap: var(--space-3); }
+  .header__lang {
+    text-decoration: none;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--fg-muted);
+    padding: var(--space-1) var(--space-2);
+  }
+  .header__lang:hover { color: var(--fg); }
+  .header__menu {
+    font: inherit;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--fg);
+    background: none;
+    border: var(--hairline) solid var(--line-strong);
+    border-radius: 999px;
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+  }
+
+  /* Mobile: name + compact tools row; nav is a panel revealed by the Menu button. */
+  @media (max-width: 1023.98px) {
+    .header__nav {
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      padding: var(--space-4) var(--gutter) var(--space-6);
+      background: var(--bg);
+      border-bottom: var(--hairline) solid var(--line);
+      display: none;
+    }
+    .header__nav.is-open { display: block; }
+    .header__nav ul { flex-direction: column; gap: var(--space-4); font-size: var(--text-lg); }
+  }
+  @media (min-width: 1024px) {
+    .header { grid-template-columns: 1fr auto 1fr; }
+    .header__tools { justify-content: end; }
+    .header__menu { display: none; }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.header__menu');
+  const nav = document.getElementById('site-nav');
+  if (btn && nav) {
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) {
+        nav.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+</script>

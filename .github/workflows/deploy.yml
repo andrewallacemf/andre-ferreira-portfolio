@@ -1,0 +1,50 @@
+# Deploys the site to GitHub Pages on every push to main.
+# SITE_DIR is the folder with the Astro site (stack chosen on 2026-09-15).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  SITE_DIR: site
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ${{ env.SITE_DIR }}/package-lock.json
+      - run: npm ci
+        working-directory: ${{ env.SITE_DIR }}
+      - run: npm run build
+        working-directory: ${{ env.SITE_DIR }}
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.SITE_DIR }}/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

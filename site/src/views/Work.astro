@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../lib/content';
+import { getContent } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import CornerMarks from '../components/CornerMarks.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+
+<BaseLayout lang={lang} page="work" t={t} title={t.work.title}>
+  <!-- The /work page is a normal flowing document (no snap): one "slide" wrapper keeps the same box + corner marks. -->
+  <section class="slide work" aria-labelledby="work-title">
+    <div class="slide__box slide__box--single work__box">
+      <CornerMarks />
+      <header class="work__head reveal">
+        <h1 id="work-title" class="display">{t.work.title}</h1>
+        <p class="muted measure">{t.work.intro}</p>
+      </header>
+      <div class="reveal"><WorkGrid t={t} lang={lang} /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .work__head { display: grid; gap: var(--space-4); }
+  @media (min-width: 1024px) {
+    .work { padding-top: var(--space-12); }
+    .work__box { align-items: start; }
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import type { Content } from '../lib/content';
+import CornerMarks from './CornerMarks.astro';
+interface Props { t: Content }
+const { t } = Astro.props;
+---
+
+<section class="slide hero" aria-labelledby="hero-title">
+  <div class="slide__box slide__box--single hero__box">
+    <CornerMarks />
+    <div class="hero__text">
+      <h1 id="hero-title" class="display reveal">
+        <span>{t.hero.line1}</span>
+        <span>{t.hero.line2}</span>
+        <span>{t.hero.line3}</span>
+      </h1>
+      <p class="hero__sub muted reveal">{t.hero.sub}</p>
+      <div class="hero__meta reveal">
+        <p class="hero__now"><span class="hero__live" aria-hidden="true"></span>{t.hero.now}</p>
+        <p><span class="pill">{t.hero.status}</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="hero__foot">
+    <span class="label">{t.meta.location}</span>
+    <span class="label hero__scroll wide-only" aria-hidden="true">{t.hero.scroll}</span>
+    <span class="label num">©{t.meta.year}</span>
+  </div>
+</section>
+
+<style>
+  .hero__text { display: grid; gap: var(--space-6); }
+  .display span { display: block; }
+  .hero__sub { max-width: 52ch; font-size: var(--text-lg); line-height: var(--leading-snug); }
+  .hero__meta { display: grid; gap: var(--space-4); justify-items: start; }
+  .hero__now { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); }
+  .hero__live {
+    width: 6px; height: 6px; flex: none;
+    border-radius: 50%;
+    background: var(--fg);
+    animation: pulse 2.4s var(--ease-out) infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .hero__foot {
+    width: 100%;
+    max-width: var(--slide-max);
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-6) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .hero__scroll { position: relative; padding-bottom: var(--space-6); }
+  .hero__scroll::after {
+    content: '';
+    position: absolute;
+    left: 50%; bottom: 0;
+    width: var(--hairline); height: var(--space-4);
+    background: var(--fg-muted);
+    animation: drift 1.8s var(--ease-out) infinite;
+  }
+  @keyframes drift { 0% { transform: translateY(-4px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(4px); opacity: 0; } }
+
+  @media (min-width: 1024px) {
+    /* .slide is a flex column on desktop: auto margins center the box, the foot stays at the bottom. */
+    .hero__foot { padding-inline: var(--space-8); }
+  }
+</style>

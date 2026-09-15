@@ -1,0 +1,35 @@
+---
+import type { Content } from '../lib/content';
+import CornerMarks from './CornerMarks.astro';
+interface Props { t: Content }
+const { t } = Astro.props;
+---
+
+<section class="slide principles" aria-labelledby="principles-title">
+  <div class="slide__box slide__box--single">
+    <CornerMarks />
+    <h2 id="principles-title" class="label reveal">{t.principles.sectionLabel}</h2>
+    <ul class="principles__list reveal">
+      {t.principles.items.map((q) => <li><blockquote>{q}</blockquote></li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .principles__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); }
+  .principles__list blockquote {
+    margin: 0;
+    padding-left: var(--space-4);
+    border-left: var(--hairline) solid var(--line-strong);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    line-height: var(--leading-snug);
+    max-width: var(--measure);
+    text-wrap: balance;
+  }
+  @media (min-width: 1024px) {
+    .principles__list { gap: var(--space-4); }
+    .principles__list li:nth-child(even) { margin-left: clamp(var(--space-12), 18vw, 20rem); }
+    .principles__list li:nth-child(3n) { margin-left: clamp(var(--space-8), 9vw, 10rem); }
+  }
+</style>

@@ -1,0 +1,160 @@
+/* ==========================================================================
+   André Ferreira · Portfolio — Design tokens (single source for both stacks)
+   Dark is the default theme. Light is opt-in (toggle) or via prefers-color-scheme
+   when the visitor never chose. Every component reads these tokens only.
+   ========================================================================== */
+
+:root {
+  /* --- Type ------------------------------------------------------------ */
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --text-xs: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
+  --text-sm: clamp(0.84rem, 0.8rem + 0.2vw, 0.94rem);
+  --text-md: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --text-lg: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --text-xl: clamp(1.8rem, 1.4rem + 1.8vw, 2.9rem);
+  --text-2xl: clamp(2.4rem, 1.6rem + 3.4vw, 4.4rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-body: 1.55;
+  --tracking-label: 0.08em;
+
+  /* --- Space (4px base) ----------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --measure: 62ch;
+
+  /* --- Shape ----------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --hairline: 1px;
+
+  /* --- Motion ---------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+
+  /* --- Color · DARK (default) ---------------------------------------- */
+  --bg: #0e0f12;
+  --bg-elev: #15171c;
+  --bg-inverse: #f4f4f1;
+  --fg: #e9eaee;
+  --fg-muted: #8d919b;
+  --fg-faint: #5a5e68;
+  --fg-inverse: #14161a;
+  --line: #262931;
+  --line-strong: #3a3e48;
+  --grid-dot: rgba(233, 234, 238, 0.10);
+  --grid-dot-hot: rgba(79, 125, 255, 0.55);
+  --accent: #4f7dff;
+  --accent-fg: #0b1230;
+  --accent-soft: rgba(79, 125, 255, 0.14);
+  --cursor: #f4f4f1;
+  --cursor-fg: #0e0f12;
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+/* Light when the visitor never chose and the OS prefers light */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f5f5f2;
+    --bg-elev: #ffffff;
+    --bg-inverse: #14161a;
+    --fg: #14161a;
+    --fg-muted: #5f636c;
+    --fg-faint: #9a9ea7;
+    --fg-inverse: #f4f4f1;
+    --line: #dedfda;
+    --line-strong: #c3c5c0;
+    --grid-dot: rgba(20, 22, 26, 0.12);
+    --grid-dot-hot: rgba(47, 91, 224, 0.6);
+    --accent: #2f5be0;
+    --accent-fg: #ffffff;
+    --accent-soft: rgba(47, 91, 224, 0.12);
+    --cursor: #14161a;
+    --cursor-fg: #f5f5f2;
+    --shadow-float: 0 12px 40px rgba(20, 22, 26, 0.14);
+    color-scheme: light;
+  }
+}
+
+/* Explicit choice always wins */
+:root[data-theme="light"] {
+  --bg: #f5f5f2;
+  --bg-elev: #ffffff;
+  --bg-inverse: #14161a;
+  --fg: #14161a;
+  --fg-muted: #5f636c;
+  --fg-faint: #9a9ea7;
+  --fg-inverse: #f4f4f1;
+  --line: #dedfda;
+  --line-strong: #c3c5c0;
+  --grid-dot: rgba(20, 22, 26, 0.12);
+  --grid-dot-hot: rgba(47, 91, 224, 0.6);
+  --accent: #2f5be0;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(47, 91, 224, 0.12);
+  --cursor: #14161a;
+  --cursor-fg: #f5f5f2;
+  --shadow-float: 0 12px 40px rgba(20, 22, 26, 0.14);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e0f12;
+  --bg-elev: #15171c;
+  --bg-inverse: #f4f4f1;
+  --fg: #e9eaee;
+  --fg-muted: #8d919b;
+  --fg-faint: #5a5e68;
+  --fg-inverse: #14161a;
+  --line: #262931;
+  --line-strong: #3a3e48;
+  --grid-dot: rgba(233, 234, 238, 0.10);
+  --grid-dot-hot: rgba(79, 125, 255, 0.55);
+  --accent: #4f7dff;
+  --accent-fg: #0b1230;
+  --accent-soft: rgba(79, 125, 255, 0.14);
+  --cursor: #f4f4f1;
+  --cursor-fg: #0e0f12;
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+/* --- Base ------------------------------------------------------------- */
+html { height: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 500; letter-spacing: -0.015em; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-sm); }
+.label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--fg-muted); }
+.num { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,131 @@
+---
+import type { Content } from '../lib/content';
+import { mailto } from '../lib/paths';
+import CornerMarks from './CornerMarks.astro';
+import Footer from './Footer.astro';
+interface Props { t: Content }
+const { t } = Astro.props;
+const c = t.contact;
+---
+
+<section class="slide contact" id="contact" aria-labelledby="contact-title">
+  <div class="slide__box contact__box">
+    <CornerMarks />
+    <div class="contact__text">
+      <p class="label reveal">{c.sectionLabel}</p>
+      <h2 id="contact-title" class="title-xl reveal">{c.title}</h2>
+
+      <div class="convo reveal" data-convo>
+        <p class="convo__bubble">{c.bubble1}</p>
+        <p class="convo__bubble">{c.bubble2}</p>
+        <ul class="convo__chips">
+          {c.chips.map((chip) => (
+            <li><a class="convo__chip" href={mailto(c.email, chip.subject)} data-cursor={t.cursor.open}>{chip.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="contact__links">
+      <ul class="contact__list">
+        <li>
+          <span class="label">{c.emailLabel}</span>
+          <span class="contact__row">
+            <a class="link" href={`mailto:${c.email}`}>{c.email}</a>
+            <button class="contact__copy" type="button" data-copy={c.email} data-copied-label={c.copied} data-cursor={t.cursor.copy}>{c.copy}</button>
+          </span>
+        </li>
+        <li><span class="label">{c.linkedinLabel}</span><a class="link" href={`https://${c.linkedin}`} rel="noopener" data-cursor={t.cursor.open}>{c.linkedin}</a></li>
+        <li><span class="label">{c.resumeLabel}</span><a class="link" href="#" data-cursor={t.cursor.open}>{c.resumeLabel}</a></li>
+        <li><span class="label">{c.mediumLabel}</span><a class="link" href={`https://${c.medium}`} rel="noopener" data-cursor={t.cursor.open}>{c.medium}</a></li>
+      </ul>
+      <Footer t={t} />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Inverse ground for both themes: swap fg/bg and derive lines from the inverse fg. */
+  .contact {
+    --fg: var(--fg-inverse);
+    --fg-muted: color-mix(in srgb, var(--fg-inverse) 62%, transparent);
+    --line: color-mix(in srgb, var(--fg-inverse) 16%, transparent);
+    --line-strong: color-mix(in srgb, var(--fg-inverse) 34%, transparent);
+    background: var(--bg-inverse);
+    color: var(--fg);
+  }
+  .contact__text { display: grid; gap: var(--space-6); align-content: start; }
+  .contact__links { display: grid; gap: var(--space-8); align-content: end; }
+  .contact__list { list-style: none; margin: 0; padding: 0; display: grid; }
+  .contact__list li {
+    display: grid; gap: var(--space-1);
+    padding-block: var(--space-3);
+    border-top: var(--hairline) solid var(--line);
+    font-size: var(--text-sm);
+  }
+  .contact__list li:last-child { border-bottom: var(--hairline) solid var(--line); }
+  .contact__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .contact__copy {
+    font: inherit; font-size: var(--text-xs);
+    text-transform: uppercase; letter-spacing: var(--tracking-label);
+    color: var(--fg); background: none;
+    border: var(--hairline) solid var(--line-strong);
+    border-radius: 999px; padding: 0.2em 0.7em; cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .contact__copy:hover, .contact__copy.is-copied { border-color: var(--fg); }
+
+  /* Conversation: two bubbles then chips; staggered when JS + motion allow. */
+  .convo { display: grid; gap: var(--space-3); justify-items: start; max-width: 40ch; }
+  .convo__bubble {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--fg-inverse) 8%, transparent);
+    font-size: var(--text-md);
+  }
+  .convo__chips { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .convo__chip {
+    display: inline-block;
+    padding: 0.4em 0.9em;
+    border: var(--hairline) solid var(--line-strong);
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+  .convo__chip:hover { border-color: var(--fg); }
+  .convo__bubble, .convo__chips { transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+  html[data-motion] .convo:not(.is-talking) > * { opacity: 0.001; transform: translateY(8px); }
+  .convo__bubble:nth-child(2) { transition-delay: 400ms; }
+  .convo__chips { transition-delay: 800ms; }
+
+  @media (min-width: 1024px) {
+    .contact__box { align-items: stretch; }
+  }
+</style>
+
+<script>
+  const convo = document.querySelector<HTMLElement>('[data-convo]');
+  if (convo) {
+    if ('IntersectionObserver' in window && document.documentElement.hasAttribute('data-motion')) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { convo.classList.add('is-talking'); io.disconnect(); }
+      }, { threshold: 0.5 });
+      io.observe(convo.closest('.slide') ?? convo);
+      setTimeout(() => convo.classList.add('is-talking'), 6000);
+    } else {
+      convo.classList.add('is-talking');
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.contact__copy').forEach((btn) => {
+    const idle = btn.textContent;
+    btn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(btn.dataset.copy ?? ''); } catch { return; }
+      btn.textContent = btn.dataset.copiedLabel ?? idle;
+      btn.classList.add('is-copied');
+      setTimeout(() => { btn.textContent = idle; btn.classList.remove('is-copied'); }, 1500);
+    });
+  });
+</script>

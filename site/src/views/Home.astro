@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../lib/content';
+import { featuredCases, getContent } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CaseSlide from '../components/CaseSlide.astro';
+import Principles from '../components/Principles.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+
+<BaseLayout lang={lang} page="home" t={t}>
+  <Hero t={t} />
+  {featuredCases(t).map((item, i) => <CaseSlide item={item} t={t} lang={lang} index={i} />)}
+  <Principles t={t} />
+  <About t={t} />
+  <Contact t={t} />
+</BaseLayout>

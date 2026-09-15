@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-prototype-astro",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Prototype A: André Ferreira portfolio home + /work in Astro (zero UI framework).",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/postbuild.mjs && node scripts/preview.mjs",
+    "check": "node scripts/check-relocatable.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "5.18.2"
+  }
+}

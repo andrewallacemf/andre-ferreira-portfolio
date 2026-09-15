@@ -1,0 +1,110 @@
+<canvas class="dotgrid" aria-hidden="true"></canvas>
+
+<style>
+  .dotgrid {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    pointer-events: none;
+    display: block;
+  }
+</style>
+
+<script>
+  /* Fixed dotted grid behind the page. Colors come from tokens (--grid-dot /
+     --grid-dot-hot) read at runtime, so it follows the theme. On desktop
+     pointers, dots within RADIUS px of the pointer scale up and blend toward
+     the hot color; static on touch or reduced motion. */
+  const GAP = 28, RADIUS = 140, BASE_R = 1, HOT_SCALE = 2.2;
+  const canvas = document.querySelector<HTMLCanvasElement>('.dotgrid');
+  const ctx = canvas?.getContext('2d');
+
+  if (canvas && ctx) {
+    type RGBA = [number, number, number, number];
+    let dot: RGBA = [255, 255, 255, 0.1], hot: RGBA = [80, 125, 255, 0.5];
+    let w = 0, h = 0, dpr = 1;
+    let base: HTMLCanvasElement | null = null;
+    let px = -1e4, py = -1e4, raf = 0;
+
+    const parse = (s: string): RGBA | null => {
+      s = s.trim();
+      const m = s.match(/rgba?\(([^)]+)\)/);
+      if (m) {
+        const p = m[1].split(/[\s,/]+/).filter(Boolean).map(Number);
+        return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
+      }
+      const hx = s.match(/^#([0-9a-f]{6})$/i);
+      if (hx) { const n = parseInt(hx[1], 16); return [n >> 16, (n >> 8) & 255, n & 255, 1]; }
+      return null;
+    };
+    const rgba = (c: RGBA) => `rgba(${c[0]},${c[1]},${c[2]},${c[3]})`;
+    const mix = (a: RGBA, b: RGBA, t: number): RGBA =>
+      [0, 1, 2, 3].map((i) => a[i] + (b[i] - a[i]) * t) as RGBA;
+
+    const readTokens = () => {
+      const cs = getComputedStyle(document.documentElement);
+      dot = parse(cs.getPropertyValue('--grid-dot')) ?? dot;
+      hot = parse(cs.getPropertyValue('--grid-dot-hot')) ?? hot;
+    };
+
+    /* Static grid is drawn once into an offscreen canvas and blitted per frame. */
+    const drawBase = () => {
+      base = document.createElement('canvas');
+      base.width = canvas.width; base.height = canvas.height;
+      const b = base.getContext('2d')!;
+      b.scale(dpr, dpr);
+      b.fillStyle = rgba(dot);
+      for (let y = GAP / 2; y < h; y += GAP)
+        for (let x = GAP / 2; x < w; x += GAP) {
+          b.beginPath(); b.arc(x, y, BASE_R, 0, Math.PI * 2); b.fill();
+        }
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.drawImage(base, 0, 0);
+    };
+
+    const drawHot = () => {
+      raf = 0;
+      if (!base) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.drawImage(base, 0, 0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const x0 = Math.max(GAP / 2, Math.floor((px - RADIUS) / GAP) * GAP + GAP / 2);
+      const y0 = Math.max(GAP / 2, Math.floor((py - RADIUS) / GAP) * GAP + GAP / 2);
+      for (let y = y0; y <= py + RADIUS && y < h; y += GAP)
+        for (let x = x0; x <= px + RADIUS && x < w; x += GAP) {
+          const d = Math.hypot(x - px, y - py);
+          if (d >= RADIUS) continue;
+          const t = 1 - d / RADIUS;
+          const e = t * t * (3 - 2 * t); // smoothstep
+          ctx.fillStyle = rgba(mix(dot, hot, e));
+          ctx.beginPath(); ctx.arc(x, y, BASE_R * (1 + (HOT_SCALE - 1) * e), 0, Math.PI * 2); ctx.fill();
+        }
+    };
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      drawBase();
+    };
+
+    const interactive =
+      matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    readTokens();
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('themechange', () => { readTokens(); drawBase(); });
+
+    if (interactive) {
+      window.addEventListener('pointermove', (e) => {
+        px = e.clientX; py = e.clientY;
+        if (!raf) raf = requestAnimationFrame(drawHot);
+      }, { passive: true });
+      window.addEventListener('pointerleave', () => { px = py = -1e4; if (!raf) raf = requestAnimationFrame(drawHot); });
+      document.addEventListener('mouseleave', () => { px = py = -1e4; if (!raf) raf = requestAnimationFrame(drawHot); });
+    }
+  }
+</script>

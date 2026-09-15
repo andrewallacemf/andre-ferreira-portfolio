@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-prototype-react-vite",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Prototype B: André Ferreira portfolio home + /work in React 19 + Vite (4 static HTML entries, pre-rendered, hydrated).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .vite/ssr && node scripts/prerender.mjs && node scripts/preview.mjs && node scripts/verify.mjs",
+    "verify": "node scripts/verify.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.3.0"
+  }
+}

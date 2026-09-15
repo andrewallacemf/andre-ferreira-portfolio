@@ -1,0 +1,70 @@
+---
+import type { Content } from '../lib/content';
+interface Props { t: Content }
+const { t } = Astro.props;
+---
+
+<!-- aria-pressed="true" means the light theme is on (dark is the default/off state). -->
+<button
+  class="theme-toggle"
+  type="button"
+  aria-pressed="false"
+  data-label-dark={t.nav.themeDark}
+  data-label-light={t.nav.themeLight}
+  title={t.nav.theme}
+>
+  <span class="theme-toggle__dot" aria-hidden="true"></span>
+  <span class="theme-toggle__text">{t.nav.themeDark}</span>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font: inherit;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--fg-muted);
+    background: none;
+    border: 0;
+    padding: var(--space-1) var(--space-2);
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .theme-toggle:hover { color: var(--fg); }
+  .theme-toggle__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: var(--hairline) solid currentColor;
+    background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  }
+  .theme-toggle[aria-pressed="true"] .theme-toggle__dot { background: currentColor; }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.theme-toggle');
+
+  const render = () => {
+    const light = root.getAttribute('data-theme') === 'light';
+    buttons.forEach((b) => {
+      b.setAttribute('aria-pressed', String(light));
+      const text = b.querySelector('.theme-toggle__text');
+      if (text) text.textContent = light ? b.dataset.labelLight ?? '' : b.dataset.labelDark ?? '';
+    });
+  };
+
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch {}
+      render();
+      window.dispatchEvent(new CustomEvent('themechange', { detail: next }));
+    }),
+  );
+  render();
+</script>

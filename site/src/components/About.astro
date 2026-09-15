@@ -1,0 +1,66 @@
+---
+import type { Content } from '../lib/content';
+import CornerMarks from './CornerMarks.astro';
+interface Props { t: Content }
+const { t } = Astro.props;
+---
+
+<section class="slide about" id="about" aria-labelledby="about-title">
+  <div class="slide__box about__box">
+    <CornerMarks />
+    <div class="about__text">
+      <h2 id="about-title" class="label reveal">{t.about.sectionLabel}</h2>
+      <p class="reveal">{t.about.p1}</p>
+      <p class="reveal">{t.about.p2}</p>
+      <p class="about__p3 reveal">{t.about.p3}</p>
+    </div>
+
+    <div class="about__path">
+      <h3 class="label reveal">{t.timeline.sectionLabel}</h3>
+      <ol class="about__eras reveal">
+        {t.timeline.eras.map((era) => (
+          <li>
+            <div class="about__era-head">
+              <span class="about__era-name">{era.name}</span>
+              <span class="label num">{era.years}</span>
+            </div>
+            <p class="muted">{era.text}</p>
+          </li>
+        ))}
+      </ol>
+      <h3 class="label reveal">{t.timeline.clientsLabel}</h3>
+      <ul class="about__clients reveal">
+        {t.timeline.clients.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__text { display: grid; gap: var(--space-4); max-width: var(--measure); align-content: start; }
+  .about__text .label { margin-bottom: var(--space-2); }
+  .about__p3 { font-weight: 500; }
+  .about__path { display: grid; gap: var(--space-4); align-content: start; }
+  .about__eras { list-style: none; margin: 0; padding: 0; display: grid; }
+  .about__eras li {
+    display: grid; gap: var(--space-1);
+    padding-block: var(--space-4);
+    border-top: var(--hairline) solid var(--line);
+    font-size: var(--text-sm);
+  }
+  .about__eras li:last-child { border-bottom: var(--hairline) solid var(--line); }
+  .about__era-head { display: flex; justify-content: space-between; gap: var(--space-4); align-items: baseline; }
+  .about__era-name { font-weight: 500; font-size: var(--text-md); }
+  .about__clients { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .about__clients li {
+    padding: 0.3em 0.75em;
+    border: var(--hairline) solid var(--line);
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+  @media (min-width: 1024px) {
+    .about__box { align-items: start; }
+    .about__path { margin-top: var(--space-2); }
+  }
+</style>

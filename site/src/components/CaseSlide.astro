@@ -1,0 +1,117 @@
+---
+import type { CaseItem, Content, Lang } from '../lib/content';
+import { statusLabel, uiLabels } from '../lib/content';
+import { caseHref } from '../lib/paths';
+import CornerMarks from './CornerMarks.astro';
+
+interface Props { item: CaseItem; t: Content; lang: Lang; index: number }
+const { item, t, lang, index } = Astro.props;
+const ui = uiLabels(t, lang);
+const href = caseHref(lang, item.slug);
+const titleId = `case-${item.slug}-title`;
+---
+
+<section class="slide case" aria-labelledby={titleId}>
+  <article class="slide__box case__box">
+    <CornerMarks />
+    <!-- Touch: the whole card is the link, marked by the arrow top-right (garri pattern). -->
+    <a class="case__cover touch-only" href={href} aria-labelledby={titleId}><span class="case__arrow" aria-hidden="true">↗</span></a>
+
+    <div class="case__text">
+      <div class="eyebrow reveal">
+        <span class="pill">{statusLabel(t, item.status)}</span>
+        <span class="label num">{item.year}</span>
+        <span class="label num case__index">{String(index + 1).padStart(2, '0')}</span>
+      </div>
+      <h2 id={titleId} class="title-xl reveal">{item.title}</h2>
+      <p class="case__result measure reveal">{item.result}</p>
+      <dl class="case__meta reveal">
+        <div><dt class="label">{ui.role}</dt><dd>{item.role}</dd></div>
+        <div><dt class="label">{ui.scope}</dt><dd>{item.scope}</dd></div>
+      </dl>
+      <ul class="case__facts reveal">
+        {item.facts.map(([n, caption]) => (
+          <li><span class="case__num num">{n}</span><span class="case__cap muted">{caption}</span></li>
+        ))}
+      </ul>
+      <p class="reveal"><a class="case__cta desktop-only" href={href} data-cursor={t.cursor.view}>{t.cases.cta} <span aria-hidden="true">→</span></a></p>
+    </div>
+
+    <!-- Placeholder visual standing in for the case screenshot. -->
+    <div class="case__visual dotted-panel reveal" aria-hidden="true">
+      <CornerMarks />
+      <ul class="case__big">
+        {item.facts.map(([n, caption]) => (
+          <li><span class="num">{n}</span><span class="label">{caption}</span></li>
+        ))}
+      </ul>
+    </div>
+  </article>
+</section>
+
+<style>
+  .case__box { position: relative; }
+  .case__cover { position: absolute; inset: 0; z-index: 2; border-radius: var(--radius-md); }
+  .case__arrow {
+    position: absolute; top: var(--space-4); right: var(--space-4);
+    font-size: var(--text-lg); line-height: 1; color: var(--fg);
+  }
+  .case__text { display: grid; gap: var(--space-6); }
+  .case__index { margin-left: auto; }
+  .case__result { font-style: italic; font-size: var(--text-md); }
+  .case__meta {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) var(--space-8);
+    font-size: var(--text-sm);
+  }
+  .case__meta div { display: grid; gap: var(--space-1); align-content: start; }
+  .case__meta dd { margin: 0; }
+  .case__facts {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .case__facts li {
+    display: grid; gap: var(--space-1);
+    padding: var(--space-3);
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-sm);
+    min-width: 0;
+  }
+  .case__num { font-size: var(--text-lg); font-weight: 500; line-height: var(--leading-tight); }
+  .case__cap { font-size: var(--text-sm); line-height: var(--leading-snug); overflow-wrap: anywhere; }
+  .case__cta {
+    display: inline-flex; gap: var(--space-2); align-items: center;
+    color: var(--accent);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .case__cta:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+  .case__visual {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: var(--hairline) solid var(--line);
+    border-radius: var(--radius-md);
+    display: grid;
+    align-content: center;
+    padding: var(--space-8);
+    overflow: hidden;
+  }
+  .case__big { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+  .case__big li { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+  .case__big li span:first-child { font-size: var(--text-2xl); font-weight: 500; line-height: 1; letter-spacing: -0.03em; }
+  .case__big li:nth-child(2) { justify-self: end; text-align: right; }
+  .case__big li:nth-child(3) { justify-self: center; text-align: center; }
+
+  @media (hover: none) {
+    .case__index { margin-right: var(--space-8); }
+  }
+  @media (max-width: 1023.98px) {
+    .case__visual { aspect-ratio: auto; padding: var(--space-6); }
+    .case__facts li { padding: var(--space-2); }
+  }
+</style>

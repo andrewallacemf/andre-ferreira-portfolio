@@ -1,0 +1,8 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "strictNullChecks": true
+  },
+  "include": ["src/**/*", "../shared/content/*.json"]
+}

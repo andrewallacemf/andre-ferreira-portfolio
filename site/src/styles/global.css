@@ -1,0 +1,160 @@
+/* Layout system shared by every page. Colors/type/space come from tokens only. */
+
+:root {
+  --header-h: 3.5rem;
+  --slide-max: 80rem;
+  --corner: 14px;
+}
+@media (min-width: 1024px) {
+  :root { --header-h: 4rem; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* Layers: canvas (0) < content (1) < header (10) < cursor (100) */
+.dotgrid { z-index: 0; }
+main { position: relative; z-index: 1; }
+
+/* --- Accessibility helpers ------------------------------------------- */
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 200;
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus-visible { transform: none; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Main: normal flow on mobile, snap container on desktop --------- */
+main { padding-top: var(--header-h); }
+main:focus { outline: none; }
+
+.slide {
+  position: relative;
+  padding-block: var(--space-16);
+  padding-inline: var(--gutter);
+}
+.slide__box {
+  position: relative;
+  width: 100%;
+  max-width: var(--slide-max);
+  margin-inline: auto;
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-8);
+}
+/* Grid children must be allowed to shrink below their min-content width. */
+.slide__box > * { min-width: 0; }
+
+@media (min-width: 1024px) {
+  /* Home only: <main> is the snap scroll container; each .slide is one snap stop.
+     Slides taller than the viewport (About) scroll internally instead of clipping. */
+  .main--snap {
+    padding-top: 0;
+    height: 100dvh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+  }
+  .main--snap .slide {
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding-top: var(--header-h);
+    padding-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+  }
+  /* Auto margins center the box and collapse to 0 when it overflows, so the
+     top of a tall slide (About on a short screen) stays reachable. */
+  .main--snap .slide__box { margin-block: auto; }
+  .slide__box {
+    padding: var(--space-8);
+    grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-16);
+  }
+  .slide__box--single { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* --- Blueprint corner marks ------------------------------------------ */
+.corners { position: absolute; inset: 0; pointer-events: none; }
+.corners i {
+  position: absolute;
+  width: var(--corner);
+  height: var(--corner);
+  border: 0 solid var(--line-strong);
+}
+.corners i:nth-child(1) { top: 0; left: 0; border-top-width: var(--hairline); border-left-width: var(--hairline); }
+.corners i:nth-child(2) { top: 0; right: 0; border-top-width: var(--hairline); border-right-width: var(--hairline); }
+.corners i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: var(--hairline); border-left-width: var(--hairline); }
+.corners i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: var(--hairline); border-right-width: var(--hairline); }
+
+/* --- Primitives -------------------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.3em 0.75em;
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--fg);
+  text-align: center;
+  line-height: var(--leading-snug);
+}
+.eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.display {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.title-xl { font-size: var(--text-xl); line-height: var(--leading-tight); }
+.muted { color: var(--fg-muted); }
+.measure { max-width: var(--measure); }
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+.link:hover { text-decoration-color: currentColor; }
+.dotted-panel {
+  background-color: var(--bg-elev);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+}
+
+/* --- Reveal: visible at rest; only hidden when JS + motion are on --- */
+.reveal {
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+html[data-motion] .slide:not(.is-in) .reveal {
+  opacity: 0.001;
+  transform: translateY(12px);
+}
+.reveal:nth-child(2) { transition-delay: 60ms; }
+.reveal:nth-child(3) { transition-delay: 120ms; }
+
+/* --- Touch vs desktop affordances ------------------------------------ */
+@media (hover: hover) and (pointer: fine) { .touch-only { display: none !important; } }
+@media (hover: none) { .desktop-only { display: none !important; } }
+@media (max-width: 1023.98px) { .wide-only { display: none !important; } }

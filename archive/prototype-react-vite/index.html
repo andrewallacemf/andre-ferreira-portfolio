@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>%TITLE%</title>
+    <meta name="description" content="%DESCRIPTION%" />
+    <link vite-ignore rel="alternate" hreflang="en" href="./" />
+    <link vite-ignore rel="alternate" hreflang="pt" href="./pt/" />
+    <link vite-ignore rel="alternate" hreflang="x-default" href="./" />
+    <script>
+      /* Theme before first paint: stored choice wins, otherwise dark (client asked dark by default). */
+      (function () {
+        var t = 'dark';
+        try { if (localStorage.getItem('theme') === 'light') t = 'light'; } catch (e) {}
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" />
+  </head>
+  <body>
+    <div id="root" data-lang="en" data-page="home"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

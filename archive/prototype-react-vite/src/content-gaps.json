@@ -1,0 +1,5 @@
+{
+  "_comment": "Strings the SPEC requires but shared/content/*.json does not yet provide. Move them into shared/content/{en,pt}.json (nav.menu, cases.roleLabel, cases.scopeLabel) and delete this file.",
+  "en": { "menu": "Menu", "role": "Role", "scope": "Scope" },
+  "pt": { "menu": "Menu", "role": "Papel", "scope": "Escopo" }
+}
