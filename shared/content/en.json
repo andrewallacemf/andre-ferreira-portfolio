@@ -61,6 +61,12 @@
             "1st",
             "design system at the bank"
           ]
+        ],
+        "tags": [
+          "Design system",
+          "Research",
+          "Governance",
+          "Figma + code libraries"
         ]
       },
       {
@@ -85,6 +91,12 @@
             "2",
             "modes, light and dark, automated"
           ]
+        ],
+        "tags": [
+          "Design tokens",
+          "Design system",
+          "Component library",
+          "Generative UI"
         ]
       },
       {
@@ -109,6 +121,12 @@
             "87%",
             "rated the kiosk positively anyway"
           ]
+        ],
+        "tags": [
+          "Field research",
+          "Usability testing",
+          "Heuristic analysis",
+          "Benchmark"
         ]
       },
       {
@@ -133,6 +151,12 @@
             "13",
             "ideas on the roadmap"
           ]
+        ],
+        "tags": [
+          "Heuristic analysis",
+          "Usability testing",
+          "Flowcharts",
+          "UI guidelines"
         ]
       },
       {
@@ -157,6 +181,12 @@
             "13",
             "widgets in the modular project page"
           ]
+        ],
+        "tags": [
+          "UX diagnosis",
+          "Design system",
+          "Information architecture",
+          "Native app"
         ]
       },
       {
@@ -181,6 +211,12 @@
             "4",
             "steps to connect an agent"
           ]
+        ],
+        "tags": [
+          "AI product design",
+          "Generative UI",
+          "Response guidelines",
+          "Onboarding"
         ]
       },
       {
@@ -205,6 +241,12 @@
             "18",
             "issues in the handoff"
           ]
+        ],
+        "tags": [
+          "Systems design",
+          "Data model",
+          "API spec",
+          "Executable prototype"
         ]
       },
       {
@@ -229,6 +271,12 @@
             "4",
             "self-serve plans, principles only"
           ]
+        ],
+        "tags": [
+          "Account architecture",
+          "Entitlements",
+          "Packaging principles",
+          "Systems design"
         ]
       }
     ],

@@ -1,6 +1,6 @@
 ---
 import type { CaseItem, Content, Lang } from '../lib/content';
-import { statusLabel, uiLabels } from '../lib/content';
+import { uiLabels } from '../lib/content';
 import { caseHref } from '../lib/paths';
 import CornerMarks from './CornerMarks.astro';
 
@@ -19,7 +19,6 @@ const titleId = `case-${item.slug}-title`;
 
     <div class="case__text">
       <div class="eyebrow reveal">
-        <span class="pill">{statusLabel(t, item.status)}</span>
         <span class="label num">{item.year}</span>
         <span class="label num case__index">{String(index + 1).padStart(2, '0')}</span>
       </div>

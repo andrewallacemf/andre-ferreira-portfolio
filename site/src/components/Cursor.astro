@@ -23,8 +23,8 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      /* White + difference blend = always the inverse of what is behind it, so the
-         dot stays visible on the inverse-ground Contact section in both themes. */
+      /* Dot: white + difference blend = always the inverse of what is behind it, so
+         it stays visible on the inverse-ground Contact section in both themes. */
       background: #fff;
       color: #000;
       mix-blend-mode: difference;
@@ -33,9 +33,21 @@
       transform: translate(-50%, -50%);
       transition: width var(--dur-fast) var(--ease-out), height var(--dur-fast) var(--ease-out), opacity var(--dur-fast);
     }
+    /* Hot (over a target): no inversion. A near-opaque, blurred bubble dims what is
+       under it so the label stays legible over text; colors flip on inverse ground
+       (data-ground="inverse" on the section, mirrored as .is-inverse by the script). */
     html[data-custom-cursor] .cursor.is-hot {
       width: 64px;
       height: 64px;
+      mix-blend-mode: normal;
+      background: color-mix(in srgb, var(--cursor) 90%, transparent);
+      color: var(--cursor-fg);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    html[data-custom-cursor] .cursor.is-hot.is-inverse {
+      background: color-mix(in srgb, var(--cursor-fg) 90%, transparent);
+      color: var(--cursor);
     }
     html[data-custom-cursor] .cursor.is-hidden { opacity: 0; }
     .cursor__label {
@@ -73,8 +85,10 @@
       tx = e.clientX; ty = e.clientY;
       el.classList.remove('is-hidden');
       if (!running) { running = true; requestAnimationFrame(frame); }
-      const target = (e.target as Element | null)?.closest<HTMLElement>('a, button, [data-cursor]');
+      const source = e.target as Element | null;
+      const target = source?.closest<HTMLElement>('a, button, [data-cursor]');
       el.classList.toggle('is-hot', Boolean(target));
+      el.classList.toggle('is-inverse', Boolean(source?.closest('[data-ground="inverse"]')));
       label.textContent = target?.dataset.cursor ?? '';
     };
     const hide = () => el.classList.add('is-hidden');

@@ -8,7 +8,7 @@ const { t } = Astro.props;
 const c = t.contact;
 ---
 
-<section class="slide contact" id="contact" aria-labelledby="contact-title">
+<section class="slide contact" id="contact" aria-labelledby="contact-title" data-ground="inverse">
   <div class="slide__box contact__box">
     <CornerMarks />
     <div class="contact__text">
@@ -31,7 +31,7 @@ const c = t.contact;
         <li>
           <span class="label">{c.emailLabel}</span>
           <span class="contact__row">
-            <a class="link" href={`mailto:${c.email}`}>{c.email}</a>
+            <a class="link" href={`mailto:${c.email}`} data-cursor={t.cursor.open}>{c.email}</a>
             <button class="contact__copy" type="button" data-copy={c.email} data-copied-label={c.copied} data-cursor={t.cursor.copy}>{c.copy}</button>
           </span>
         </li>
@@ -62,7 +62,6 @@ const c = t.contact;
     border-top: var(--hairline) solid var(--line);
     font-size: var(--text-sm);
   }
-  .contact__list li:last-child { border-bottom: var(--hairline) solid var(--line); }
   .contact__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
   .contact__copy {
     font: inherit; font-size: var(--text-xs);

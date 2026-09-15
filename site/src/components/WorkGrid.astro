@@ -1,6 +1,6 @@
 ---
 import type { Content, Lang } from '../lib/content';
-import { statusLabel, uiLabels } from '../lib/content';
+import { uiLabels } from '../lib/content';
 interface Props { t: Content; lang: Lang }
 const { t, lang } = Astro.props;
 const ui = uiLabels(t, lang);
@@ -12,7 +12,6 @@ const ui = uiLabels(t, lang);
       <!-- Prototype: the card links to itself (#slug); :target lifts the 4-line clamp, so a tap/click shows the full text. -->
       <a class="card" id={item.slug} href={`#${item.slug}`} data-cursor={t.cursor.view}>
         <span class="eyebrow">
-          <span class="pill">{statusLabel(t, item.status)}</span>
           <span class="label num">{item.year}</span>
           <span class="card__arrow touch-only" aria-hidden="true">↗</span>
         </span>
@@ -21,6 +20,9 @@ const ui = uiLabels(t, lang);
         <span class="card__foot">
           <span class="label">{item.client}</span>
           <span class="card__role"><span class="label">{ui.role}</span> {item.role}</span>
+          <span class="card__tags" aria-label={ui.scope}>
+            {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </span>
         </span>
       </a>
     </li>
@@ -64,6 +66,16 @@ const ui = uiLabels(t, lang);
   .card:target { border-color: var(--line-strong); }
   .card__foot { display: grid; gap: var(--space-2); margin-top: auto; font-size: var(--text-sm); }
   .card__role .label { margin-right: var(--space-1); }
+  .card__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
+  .tag {
+    font-size: var(--text-xs);
+    line-height: 1;
+    padding: 0.45em 0.7em;
+    border: var(--hairline) solid var(--line);
+    border-radius: 999px;
+    color: var(--fg-muted);
+    white-space: nowrap;
+  }
 
   @media (hover: hover) and (pointer: fine) {
     .card:hover { transform: translateY(-4px); border-color: var(--line-strong); }

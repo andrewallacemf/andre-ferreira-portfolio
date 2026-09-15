@@ -61,6 +61,12 @@
             "1º",
             "design system do banco"
           ]
+        ],
+        "tags": [
+          "Design system",
+          "Pesquisa",
+          "Governança",
+          "Bibliotecas Figma + código"
         ]
       },
       {
@@ -85,6 +91,12 @@
             "2",
             "modos, claro e escuro, automatizados"
           ]
+        ],
+        "tags": [
+          "Design tokens",
+          "Design system",
+          "Biblioteca de componentes",
+          "UI generativa"
         ]
       },
       {
@@ -109,6 +121,12 @@
             "87%",
             "aprovaram o totem mesmo assim"
           ]
+        ],
+        "tags": [
+          "Pesquisa em campo",
+          "Testes de usabilidade",
+          "Análise heurística",
+          "Benchmark"
         ]
       },
       {
@@ -133,6 +151,12 @@
             "13",
             "ideias no roadmap"
           ]
+        ],
+        "tags": [
+          "Análise heurística",
+          "Testes de usabilidade",
+          "Fluxogramas",
+          "Guidelines de UI"
         ]
       },
       {
@@ -157,6 +181,12 @@
             "13",
             "widgets na página de projeto modular"
           ]
+        ],
+        "tags": [
+          "Diagnóstico de UX",
+          "Design system",
+          "Arquitetura de informação",
+          "App nativo"
         ]
       },
       {
@@ -181,6 +211,12 @@
             "4",
             "passos para conectar um agente"
           ]
+        ],
+        "tags": [
+          "Design de produto com IA",
+          "UI generativa",
+          "Diretrizes de resposta",
+          "Onboarding"
         ]
       },
       {
@@ -205,6 +241,12 @@
             "18",
             "issues no handoff"
           ]
+        ],
+        "tags": [
+          "Design de sistemas",
+          "Modelo de dados",
+          "Spec de API",
+          "Protótipo executável"
         ]
       },
       {
@@ -229,6 +271,12 @@
             "4",
             "planos self-serve, só princípios"
           ]
+        ],
+        "tags": [
+          "Arquitetura de conta",
+          "Entitlements",
+          "Princípios de empacotamento",
+          "Design de sistemas"
         ]
       }
     ],
