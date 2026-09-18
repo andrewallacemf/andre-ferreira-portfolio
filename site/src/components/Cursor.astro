@@ -90,8 +90,11 @@
       el.classList.remove('is-hidden');
       if (!running) { running = true; requestAnimationFrame(frame); }
       const source = e.target as Element | null;
+      /* Small dense targets (the slide rail) opt out with data-cursor-quiet:
+         the bubble would cover what it points at. */
       const target = source?.closest<HTMLElement>('a, button, [data-cursor]');
-      el.classList.toggle('is-hot', Boolean(target));
+      const quiet = Boolean(source?.closest('[data-cursor-quiet]'));
+      el.classList.toggle('is-hot', Boolean(target) && !quiet);
       el.classList.toggle('is-inverse', Boolean(source?.closest('[data-ground="inverse"]')));
       label.textContent = target?.dataset.cursor ?? '';
     };

@@ -1,0 +1,114 @@
+---
+/* Home, desktop only: a thin rail on the right with one mark per slide.
+   The current mark is a short accent bar; hovering the rail reveals the names.
+   Wayfinding for the snap scroll, which otherwise gives no sense of position.
+   Mobile scrolls normally and has no rail (nothing here is exclusive to it). */
+interface Props { items: { id: string; label: string }[]; label: string }
+const { items, label } = Astro.props;
+---
+
+<nav class="rail wide-only" aria-label={label} data-rail data-cursor-quiet>
+  <ol>
+    {items.map((it) => (
+      <li>
+        <a href={`#${it.id}`} data-target={it.id}>
+          <span class="rail__label">{it.label}</span>
+          <span class="rail__mark" aria-hidden="true"></span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .rail {
+    position: fixed;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+  }
+  /* Over the inverse ground (Contact) the rail flips with it. */
+  .rail.is-inverse { --fg: var(--fg-inverse); --fg-muted: color-mix(in srgb, var(--fg-inverse) 55%, transparent); --line-strong: color-mix(in srgb, var(--fg-inverse) 34%, transparent); }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .rail a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding: 0 var(--space-2);
+    text-decoration: none;
+    color: var(--fg-muted);
+  }
+  /* A 22px bar clipped to a 6px dot at rest; the current one unclips. clip-path
+     animates without layout work. */
+  .rail__mark {
+    display: block;
+    width: 6px;
+    height: 22px;
+    background: var(--line-strong);
+    clip-path: inset(8px 0 8px 0 round 3px);
+    transition: clip-path var(--dur-base) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  .rail a[aria-current] .rail__mark { clip-path: inset(0 round 3px); background: var(--accent); }
+  .rail a[aria-current] { color: var(--fg); }
+  .rail__label {
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    white-space: nowrap;
+  }
+  .rail:hover .rail__label, .rail:focus-within .rail__label { opacity: 1; transform: none; }
+  .rail a:hover .rail__mark { background: var(--fg); }
+  .rail a:focus-visible { outline-offset: 0; }
+</style>
+
+<script>
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+  const main = document.querySelector<HTMLElement>('.main--snap');
+  if (rail && main) {
+    const links = Array.from(rail.querySelectorAll<HTMLAnchorElement>('a[data-target]'));
+    const byId = new Map(links.map((a) => [a.dataset.target!, a]));
+    const slides = links
+      .map((a) => document.getElementById(a.dataset.target!))
+      .filter((s): s is HTMLElement => Boolean(s));
+
+    const setCurrent = (id: string) => {
+      links.forEach((a) => {
+        if (a.dataset.target === id) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+      const el = byId.get(id);
+      rail.classList.toggle('is-inverse', Boolean(el && document.getElementById(id)?.matches('[data-ground="inverse"]')));
+    };
+
+    /* The slide covering the middle of the viewport is the current one; the
+       snap container only scrolls at ≥1024px, where the rail is visible. */
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const mid = window.innerHeight / 2;
+      for (const s of slides) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= mid && r.bottom > mid) { setCurrent(s.id); return; }
+      }
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    main.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    update();
+
+    links.forEach((a) =>
+      a.addEventListener('click', (e) => {
+        const target = document.getElementById(a.dataset.target!);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', `#${a.dataset.target}`);
+      }),
+    );
+  }
+</script>

@@ -70,3 +70,12 @@ Refinement pass with the Impeccable design skill and detector (impeccable.style)
 - **Browser surfaces:** `::selection`, caret and scrollbar themed from tokens; `.num` uses tabular numerals.
 - **Layout:** `overflow-x: clip` on `main` instead of `body`.
 - **Kept on purpose (brief wins):** dot-grid canvas and corner marks (blueprint world from the references), the header's blur (functional, content scrolls under it), the cursor bubble's blur (a specific effect), the typeface decision was left to André; on 2026-09-18 he chose Schibsted Grotesk with bold titles (see Type above).
+
+## Wide-screen and interaction pass (2026-09-18, after André's Chrome review at 2560×1305)
+
+- **Scale:** the root font-size grows at ≥1920px (112.5%) and ≥2400px (125%). Everything is in rem, so type, space, the 80rem box and the 62ch measure scale together; laptops and phones are unchanged.
+- **Header flips over inverse ground:** while a `[data-ground="inverse"]` section sits under the header's lower edge, the header takes `.is-inverse` (and `data-ground="inverse"` for the cursor) and swaps its tokens, instead of staying a band of the opposite tone.
+- **Slide rail (home, ≥1024px):** `SlideIndex` is a fixed rail on the right with one mark per slide (`#intro`, `#case-<slug>`, `#principles`, `#about`, `#contact`); the current mark is a short accent bar; hovering the rail reveals the names (`hero.name`, `cases.items[].short`, section labels, `nav.contact`; aria-label `nav.sections`). Click scrolls the snap container. Opts out of the cursor bubble with `data-cursor-quiet`. Mobile scrolls normally and has no rail.
+- **Scrollspy:** the sticky index on case and method pages marks the current section (`aria-current`, accent left bar on a hairline).
+- **/work rows:** the case's first fact (number + caption) is a third column at ≥1024px and a compact line below the text on narrower screens.
+- **Case hero placeholder:** capped at `min(56vh, 34rem)` until the real image exists.

@@ -16,7 +16,7 @@ const titleId = `case-${item.slug}-title`;
 const heroFigure = getCaseBody(lang, item.slug)?.hero?.figure ?? item.title;
 ---
 
-<section class="slide case" aria-labelledby={titleId}>
+<section class="slide case" id={`case-${item.slug}`} aria-labelledby={titleId}>
   <article class="slide__box case__box">
     <CornerMarks />
     <!-- Touch: the whole card is the link, marked by the arrow top-right (garri pattern). -->

@@ -5,7 +5,7 @@ interface Props { t: Content }
 const { t } = Astro.props;
 ---
 
-<section class="slide principles" aria-labelledby="principles-title">
+<section class="slide principles" id="principles" aria-labelledby="principles-title">
   <div class="slide__box slide__box--single">
     <CornerMarks />
     <h2 id="principles-title" class="principles__h">{t.principles.sectionLabel}</h2>

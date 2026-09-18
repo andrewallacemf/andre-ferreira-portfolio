@@ -52,6 +52,17 @@ const links = [
     -webkit-backdrop-filter: blur(10px);
     border-bottom: var(--hairline) solid var(--line);
     font-size: var(--text-sm);
+    transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+  }
+  /* Over an inverse-ground section (Contact) the header flips with it instead
+     of sitting as a band of the opposite tone across the top. */
+  .header.is-inverse {
+    --bg: var(--bg-inverse);
+    --fg: var(--fg-inverse);
+    --fg-muted: color-mix(in srgb, var(--fg-inverse) 62%, transparent);
+    --line: color-mix(in srgb, var(--fg-inverse) 16%, transparent);
+    --line-strong: color-mix(in srgb, var(--fg-inverse) 34%, transparent);
+    color: var(--fg);
   }
   .header__name { font-weight: 500; text-decoration: none; white-space: nowrap; }
   .header__nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-6); }
@@ -102,6 +113,26 @@ const links = [
 </style>
 
 <script>
+  /* Flip the header when an inverse-ground section reaches its lower edge. */
+  const header = document.querySelector<HTMLElement>('.header');
+  const grounds = Array.from(document.querySelectorAll<HTMLElement>('[data-ground="inverse"]'));
+  if (header && grounds.length) {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const h = header.offsetHeight;
+      const over = grounds.some((g) => { const r = g.getBoundingClientRect(); return r.top < h && r.bottom > h; });
+      header.classList.toggle('is-inverse', over);
+      /* The cursor reads data-ground to flip its bubble too. */
+      if (over) header.setAttribute('data-ground', 'inverse'); else header.removeAttribute('data-ground');
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    document.querySelector('.main--snap')?.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    update();
+  }
+
   const btn = document.querySelector<HTMLButtonElement>('.header__menu');
   const nav = document.getElementById('site-nav');
   if (btn && nav) {

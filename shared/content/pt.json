@@ -18,7 +18,8 @@
     "langSwitchTitle": "Read in English",
     "skip": "Ir para o conteúdo",
     "menu": "Menu",
-    "method": "Como trabalho"
+    "method": "Como trabalho",
+    "sections": "Seções"
   },
   "hero": {
     "name": "André Ferreira",
@@ -42,6 +43,7 @@
     "items": [
       {
         "slug": "caixa-design-system",
+        "short": "CAIXA",
         "title": "CAIXA Design System",
         "result": "O primeiro design system do maior banco social do Brasil: a mesma tela, construída com ele, levou um terço do tempo e saiu igual em todas as mãos.",
         "year": "2019–2021",
@@ -72,6 +74,7 @@
       },
       {
         "slug": "clickmax-design-system",
+        "short": "Clickmax",
         "title": "Uma fonte de tokens para Figma, código e IA",
         "result": "Reconstruí o design system de uma plataforma B2B sobre tokens DTCG que geram as variáveis do Figma, o Tailwind e os widgets que a IA do produto renderiza: uma fonte, três consumidores.",
         "year": "2025–hoje",
@@ -102,6 +105,7 @@
       },
       {
         "slug": "einstein-kiosks",
+        "short": "Einstein",
         "title": "Totens de autoatendimento num hospital de referência",
         "result": "178 pacientes entrevistados, 94 testes de usabilidade e 489 achados heurísticos em 7 semanas: por que totens aprovados por 87% das pessoas ainda precisavam de um concierge ao lado.",
         "year": "2021",
@@ -132,6 +136,7 @@
       },
       {
         "slug": "coca-cola-analytics",
+        "short": "Coca-Cola",
         "title": "Plataforma de marketing analytics",
         "result": "O cliente perguntou como aumentar em 30% a adoção da plataforma de dados do marketing. A pesquisa mostrou que o problema não estava só nos dashboards: análise heurística, 11 testes de usabilidade e 22 fluxogramas viraram 13 ideias e um roadmap de 3 a 5 anos.",
         "year": "2023",
@@ -162,6 +167,7 @@
       },
       {
         "slug": "shotlist",
+        "short": "Shotlist",
         "title": "Shotlist",
         "result": "Uma plataforma de planejamento de filmagens herdada com 34 bugs abertos e features pela metade: primeiro diagnosticamos e estabilizamos; depois a redesenhamos em três camadas, do shotlist rápido ao workspace de agência.",
         "year": "2024–2025",
@@ -192,6 +198,7 @@
       },
       {
         "slug": "clickmax-ai-platform",
+        "short": "Clickmax",
         "title": "Design para uma plataforma operada por IA",
         "result": "Como um designer governa o que a IA do produto pode dizer e renderizar: um contrato de widgets em duas camadas, diretrizes de resposta e o wizard que conecta agentes externos à plataforma.",
         "year": "2025–hoje",
@@ -222,6 +229,7 @@
       },
       {
         "slug": "clickmax-offer-inheritance",
+        "short": "Clickmax",
         "title": "Herança em vez de cópias",
         "result": "Deixar uma oferta divergir do produto sem duplicar o produto nem migrar dados: três mecanismos incompatíveis achados no código viraram um resolver, três estados e sete guard-rails, entregues em 18 issues.",
         "year": "2026",
@@ -252,6 +260,7 @@
       },
       {
         "slug": "clickmax-monetization-foundation",
+        "short": "Clickmax",
         "title": "Fundação de monetização",
         "result": "Onde plano, crédito e carteira vivem numa plataforma multi-workspace, e como um plano gratuito que travava a criação virou \"criar livre, a trava fica na publicação\".",
         "year": "2025–hoje",

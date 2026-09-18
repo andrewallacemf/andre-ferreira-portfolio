@@ -46,7 +46,7 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
     )}
 
     <div class="case-body">
-      <nav class="case-index wide-only" aria-label={ui.contents}>
+      <nav class="case-index wide-only" aria-label={ui.contents} data-spy>
         <p class="label">{ui.contents}</p>
         <ol>
           {body.sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
@@ -131,6 +131,9 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
   /* Hero figure spans the reading area */
   .case-hero { padding-inline: var(--gutter); }
   .case-hero > :global(.figure) { max-width: var(--slide-max); margin-inline: auto; }
+  /* Until the real image exists, the hero panel is capped so it never becomes a
+     screen-tall empty block on wide displays; the real image will set its own height. */
+  .case-hero :global(.figure__panel) { max-height: min(56vh, 34rem); }
 
   /* Body: index + sections */
   .case-body {
@@ -179,7 +182,36 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
     .case-body { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
     .case-index { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--header-h) + var(--space-8)); }
     .case-index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
-    .case-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); }
+    .case-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); display: block; padding-left: var(--space-3); border-left: 2px solid transparent; margin-left: -2px; transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
     .case-index a:hover { color: var(--fg); }
+    .case-index a[aria-current] { color: var(--fg); border-color: var(--accent); }
+    .case-index ol { border-left: var(--hairline) solid var(--line); }
   }
 </style>
+
+<script>
+  /* Section index follows the reading position: the section whose top has
+     passed the upper third of the viewport is the current one. */
+  const nav = document.querySelector<HTMLElement>('[data-spy]');
+  if (nav) {
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
+    const sections = links
+      .map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+      .filter((s): s is HTMLElement => Boolean(s));
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.34;
+      let current: HTMLElement | undefined;
+      for (const s of sections) { if (s.getBoundingClientRect().top <= line) current = s; }
+      links.forEach((a) => {
+        if (current && a.hash === `#${current.id}`) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    update();
+  }
+</script>

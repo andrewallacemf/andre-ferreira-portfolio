@@ -7,16 +7,27 @@ import CaseSlide from '../components/CaseSlide.astro';
 import Principles from '../components/Principles.astro';
 import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
+import SlideIndex from '../components/SlideIndex.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = getContent(lang);
+const featured = featuredCases(t);
+/* One mark per slide, named short: a case is named by its client. */
+const railItems = [
+  { id: 'intro', label: t.hero.name },
+  ...featured.map((c) => ({ id: `case-${c.slug}`, label: c.short })),
+  { id: 'principles', label: t.principles.sectionLabel },
+  { id: 'about', label: t.about.sectionLabel },
+  { id: 'contact', label: t.nav.contact },
+];
 ---
 
 <BaseLayout lang={lang} page="home" t={t}>
   <Hero t={t} />
-  {featuredCases(t).map((item, i) => <CaseSlide item={item} t={t} lang={lang} index={i} />)}
+  {featured.map((item, i) => <CaseSlide item={item} t={t} lang={lang} index={i} />)}
   <Principles t={t} />
   <About t={t} />
   <Contact t={t} />
+  <SlideIndex items={railItems} label={t.nav.sections} />
 </BaseLayout>

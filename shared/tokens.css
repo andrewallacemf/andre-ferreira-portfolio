@@ -141,6 +141,12 @@
 
 /* --- Base ------------------------------------------------------------- */
 html { height: 100%; }
+/* Wide screens: the type scale is clamped in rem, so on a 2560px viewport the
+   1280px content box and 16px base read small with empty margins on both sides.
+   The root grows from 100% at 1920px to 125% at 2560px (25% + 0.625vw), which
+   scales type, space, the box and the measure together; below 1920px nothing
+   changes, and the user's default font size is respected. */
+html { font-size: clamp(100%, 25% + 0.625vw, 125%); }
 body {
   margin: 0;
   min-height: 100%;

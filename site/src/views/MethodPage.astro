@@ -27,7 +27,7 @@ const m = t.method;
     </header>
 
     <div class="method-body">
-      <nav class="method-index wide-only" aria-label={t.casePage.contents}>
+      <nav class="method-index wide-only" aria-label={t.casePage.contents} data-spy>
         <p class="label">{t.casePage.contents}</p>
         <ol>
           {m.sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
@@ -93,7 +93,36 @@ const m = t.method;
     .method-body { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
     .method-index { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--header-h) + var(--space-8)); }
     .method-index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
-    .method-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); }
+    .method-index a { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); display: block; padding-left: var(--space-3); border-left: 2px solid transparent; margin-left: -2px; transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
     .method-index a:hover { color: var(--fg); }
+    .method-index a[aria-current] { color: var(--fg); border-color: var(--accent); }
+    .method-index ol { border-left: var(--hairline) solid var(--line); }
   }
 </style>
+
+<script>
+  /* Section index follows the reading position: the section whose top has
+     passed the upper third of the viewport is the current one. */
+  const nav = document.querySelector<HTMLElement>('[data-spy]');
+  if (nav) {
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
+    const sections = links
+      .map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+      .filter((s): s is HTMLElement => Boolean(s));
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.34;
+      let current: HTMLElement | undefined;
+      for (const s of sections) { if (s.getBoundingClientRect().top <= line) current = s; }
+      links.forEach((a) => {
+        if (current && a.hash === `#${current.id}`) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    update();
+  }
+</script>

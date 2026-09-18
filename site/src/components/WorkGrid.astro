@@ -8,7 +8,8 @@ const ui = uiLabels(t, lang);
 ---
 
 <!-- /work as an index: one hairline row per case, year and client on the left,
-     title, result and the kinds of work on the right. No cards. -->
+     title, result and the kinds of work in the middle, the case's lead number on
+     the right on wide screens (below the text on narrow ones). No cards. -->
 <ol class="work-list">
   {t.cases.items.map((item) => {
     const hasPage = hasCasePage(lang, item.slug);
@@ -26,6 +27,10 @@ const ui = uiLabels(t, lang);
               <span class="row__role"><span class="muted">{ui.role}:</span> {item.role}</span>
               <span class="row__tags">{item.tags.join(' · ')}</span>
             </p>
+          </div>
+          <div class="row__fact">
+            <span class="row__factn num">{item.facts[0][0]}</span>
+            <span class="row__factl muted">{item.facts[0][1]}</span>
           </div>
         </a>
       </li>
@@ -50,10 +55,17 @@ const ui = uiLabels(t, lang);
   .row__result { font-size: var(--text-md); color: var(--fg-muted); max-width: var(--measure); line-height: 1.5; }
   .row__foot { display: grid; gap: var(--space-1); font-size: var(--text-sm); }
   .row__tags { color: var(--fg-muted); }
+  .row__fact { display: flex; gap: var(--space-3); align-items: baseline; font-size: var(--text-sm); }
+  .row__factn { font-size: var(--text-lg); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
 
   @media (min-width: 768px) {
     .row__link { grid-template-columns: 11rem minmax(0, 1fr); }
     .row__meta { flex-direction: column; gap: var(--space-1); padding-top: 0.35em; }
+  }
+  @media (min-width: 1024px) {
+    .row__link { grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 18rem); }
+    .row__fact { display: grid; gap: var(--space-1); align-content: start; padding-top: 0.1em; }
+    .row__factn { font-size: var(--text-xl); line-height: 1.1; }
   }
   @media (hover: hover) and (pointer: fine) {
     .row__link:hover .row__title { color: var(--accent); }
