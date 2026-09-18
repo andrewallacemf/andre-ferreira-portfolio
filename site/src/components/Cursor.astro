@@ -24,7 +24,12 @@
       pointer-events: none;
       will-change: transform;
       transition: opacity var(--dur-fast);
+      /* The blend lives on the outer element, which sits in the root stacking
+         context and therefore blends with the page. On the inner ring it blended
+         only against this (transparent) box, so the dot stayed white in light mode. */
+      mix-blend-mode: difference;
     }
+    html[data-custom-cursor] .cursor.is-hot { mix-blend-mode: normal; }
     /* The ring carries color and size. It scales between dot (12px) and bubble
        (64px) with transform only, so no layout property is animated. */
     .cursor__ring {
@@ -34,7 +39,6 @@
       /* Dot: white + difference blend = always the inverse of what is behind it. */
       background: #fff;
       color: #000;
-      mix-blend-mode: difference;
       transform: scale(0.1875);
       transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast), color var(--dur-fast);
     }
@@ -43,7 +47,6 @@
        (data-ground="inverse" on the section, mirrored as .is-inverse by the script). */
     html[data-custom-cursor] .cursor.is-hot .cursor__ring {
       transform: scale(1);
-      mix-blend-mode: normal;
       background: color-mix(in srgb, var(--cursor) 90%, transparent);
       color: var(--cursor-fg);
       backdrop-filter: blur(6px);
@@ -96,8 +99,13 @@
       const quiet = Boolean(source?.closest('[data-cursor-quiet]'));
       el.classList.toggle('is-hot', Boolean(target) && !quiet);
       el.classList.toggle('is-inverse', Boolean(source?.closest('[data-ground="inverse"]')));
+      current = target ?? null;
       label.textContent = target?.dataset.cursor ?? '';
     };
+    /* A target can change its own label while hovered (Copy → Copied) and ask
+       the bubble to re-read it, since the pointer may not move. */
+    let current: HTMLElement | null = null;
+    document.addEventListener('cursorrefresh', () => { if (current) label.textContent = current.dataset.cursor ?? ''; });
     const hide = () => el.classList.add('is-hidden');
 
     const apply = () => {

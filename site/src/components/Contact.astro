@@ -1,6 +1,6 @@
 ---
 import type { Content } from '../lib/content';
-import { mailto } from '../lib/paths';
+import { href, mailto } from '../lib/paths';
 import CornerMarks from './CornerMarks.astro';
 import Footer from './Footer.astro';
 interface Props { t: Content }
@@ -34,8 +34,9 @@ const c = t.contact;
             <button class="contact__copy" type="button" data-copy={c.email} data-copied-label={c.copied} data-cursor={t.cursor.copy}>{c.copy}</button>
           </span>
         </li>
-        <li><span class="label">{c.linkedinLabel}</span><a class="link" href={`https://${c.linkedin}`} rel="noopener" data-cursor={t.cursor.open}>{c.linkedin}</a></li>
-        <li><span class="label">{c.resumeLabel}</span><a class="link" href="#" data-cursor={t.cursor.open}>{c.resumeLabel}</a></li>
+        <!-- External destinations open in a new tab so the portfolio stays where it was. -->
+        <li><span class="label">{c.linkedinLabel}</span><a class="link" href={`https://${c.linkedin}`} target="_blank" rel="noopener noreferrer" data-cursor={t.cursor.open}>{c.linkedin} <span aria-hidden="true">↗</span></a></li>
+        <li><span class="label">{c.resumeLabel}</span><a class="link" href={href('andre-ferreira-resume.pdf')} target="_blank" rel="noopener" type="application/pdf" data-cursor={t.cursor.open}>{c.resumeLabel} <span aria-hidden="true">↗</span></a></li>
       </ul>
       <Footer t={t} />
     </div>
@@ -70,7 +71,11 @@ const c = t.contact;
     border-radius: 999px; padding: 0.2em 0.7em; cursor: pointer;
     transition: border-color var(--dur-fast) var(--ease-out);
   }
-  .contact__copy:hover, .contact__copy.is-copied { border-color: var(--fg); }
+  .contact__copy:hover { border-color: var(--fg); }
+  /* Copied: filled in the accent for two seconds, so the change reads even
+     under the cursor bubble and on touch, where there is no bubble. */
+  .contact__copy.is-copied { border-color: var(--accent); background: var(--accent); color: var(--accent-fg); }
+  .contact__copy.is-failed { border-color: var(--accent); }
 
   /* Conversation: two bubbles then chips; staggered when JS + motion allow. */
   .convo { display: grid; gap: var(--space-3); justify-items: start; max-width: 40ch; }
@@ -116,13 +121,44 @@ const c = t.contact;
     }
   }
 
+  /* Copy the e-mail: clipboard API first, the old textarea + execCommand path as
+     fallback. Feedback goes to the button (label + accent fill) and to the cursor
+     bubble's label, which sits on top of the button on desktop. */
+  const copyText = async (text: string): Promise<boolean> => {
+    try { await navigator.clipboard.writeText(text); return true; } catch {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch { return false; }
+  };
   document.querySelectorAll<HTMLButtonElement>('.contact__copy').forEach((btn) => {
-    const idle = btn.textContent;
+    const idle = btn.textContent ?? '';
+    const idleCursor = btn.dataset.cursor ?? '';
+    let timer = 0;
     btn.addEventListener('click', async () => {
-      try { await navigator.clipboard.writeText(btn.dataset.copy ?? ''); } catch { return; }
-      btn.textContent = btn.dataset.copiedLabel ?? idle;
-      btn.classList.add('is-copied');
-      setTimeout(() => { btn.textContent = idle; btn.classList.remove('is-copied'); }, 1500);
+      const ok = await copyText(btn.dataset.copy ?? '');
+      const label = ok ? (btn.dataset.copiedLabel ?? idle) : idle;
+      btn.textContent = label;
+      btn.dataset.cursor = label;
+      btn.classList.toggle('is-copied', ok);
+      btn.classList.toggle('is-failed', !ok);
+      btn.setAttribute('aria-live', 'polite');
+      document.dispatchEvent(new CustomEvent('cursorrefresh'));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        btn.textContent = idle; btn.dataset.cursor = idleCursor;
+        btn.classList.remove('is-copied', 'is-failed');
+        document.dispatchEvent(new CustomEvent('cursorrefresh'));
+      }, 2000);
+      /* If copying is blocked, select the address so it can be copied by hand. */
+      if (!ok) {
+        const link = btn.parentElement?.querySelector('a');
+        if (link) { const r = document.createRange(); r.selectNodeContents(link); const sel = getSelection(); sel?.removeAllRanges(); sel?.addRange(r); }
+      }
     });
   });
 </script>
