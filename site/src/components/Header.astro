@@ -140,11 +140,13 @@ const links = [
       const open = nav.classList.toggle('is-open');
       btn.setAttribute('aria-expanded', String(open));
     });
-    nav.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('a')) {
-        nav.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
+    const close = () => { nav.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); };
+    nav.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) close(); });
+    /* The panel also closes on Escape, on a tap outside it, and once the page scrolls. */
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('is-open')) { close(); btn.focus(); } });
+    document.addEventListener('pointerdown', (e) => {
+      if (nav.classList.contains('is-open') && !(e.target as HTMLElement).closest('.header')) close();
     });
+    window.addEventListener('scroll', () => { if (nav.classList.contains('is-open')) close(); }, { passive: true });
   }
 </script>

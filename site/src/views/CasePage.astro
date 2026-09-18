@@ -145,8 +145,12 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
     gap: var(--space-8);
   }
   .case-index { display: none; }
-  .case-sections { display: grid; gap: var(--space-4); max-width: var(--measure); }
+  /* Text keeps the measure; figures may use the whole reading area so images
+     read large next to a narrow column of prose. */
+  .case-sections { display: grid; gap: var(--space-4); }
   .case-section { padding: var(--space-8) 0; display: grid; gap: var(--space-4); border-top: var(--hairline) solid var(--line); }
+  .case-section > :not(div) { max-width: var(--measure); }
+  .case-section > div { max-width: none; padding-top: var(--space-2); }
   .case-section:first-child { border-top: 0; }
   .case-p { font-size: var(--text-md); line-height: var(--leading-relaxed, 1.6); }
   .case-bullets { margin: 0; padding-left: 1.1em; display: grid; gap: var(--space-3); line-height: var(--leading-relaxed, 1.6); }

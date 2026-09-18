@@ -82,11 +82,14 @@ main:focus { outline: none; }
   /* Auto margins center the box and collapse to 0 when it overflows, so the
      top of a tall slide (About on a short screen) stays reachable. */
   .main--snap .slide__box { margin-block: auto; }
+  /* Text column takes the measure, but never more than 56% of the box, so the
+     visual column keeps room between 1024 and ~1280px (at exactly 1024px the
+     measure alone left the right column ~70px wide and overflowing). */
   .slide__box {
     padding: var(--space-8);
-    grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+    grid-template-columns: minmax(0, min(var(--measure), 56%)) minmax(0, 1fr);
     align-items: center;
-    gap: var(--space-16);
+    gap: var(--space-12);
   }
   .slide__box--single { grid-template-columns: minmax(0, 1fr); }
 }

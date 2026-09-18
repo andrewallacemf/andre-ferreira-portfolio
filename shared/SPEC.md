@@ -79,3 +79,4 @@ Refinement pass with the Impeccable design skill and detector (impeccable.style)
 - **Scrollspy:** the sticky index on case and method pages marks the current section (`aria-current`, accent left bar on a hairline).
 - **/work rows:** the case's first fact (number + caption) is a third column at ≥1024px and a compact line below the text on narrower screens.
 - **Case hero placeholder:** capped at `min(56vh, 34rem)` until the real image exists.
+- **Second pass (same day, André's Chrome at 1440 / 1024 / 784 / 657):** at exactly 1024px the two-column slide gave the text column the whole measure and the visual column ~70px (About overflowed sideways); the text column is now `min(var(--measure), 56%)` with a `--space-12` gap. Case-page figures span the whole reading area (text keeps the measure). The mobile menu panel also closes on Escape, on a tap outside the header and once the page scrolls.
