@@ -400,7 +400,8 @@
     "role": "Role",
     "scope": "Scope",
     "client": "Client",
-    "year": "Year"
+    "year": "Year",
+    "tags": "Kinds of work"
   },
   "method": {
     "slug": "how-i-work",

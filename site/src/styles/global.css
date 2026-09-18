@@ -11,7 +11,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { overflow-x: hidden; }
+main { overflow-x: clip; }
 
 /* Layers: canvas (0) < content (1) < header (10) < cursor (100) */
 .dotgrid { z-index: 0; }
@@ -122,12 +122,12 @@ main:focus { outline: none; }
 .eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
 .display {
   font-size: var(--text-2xl);
-  font-weight: 500;
+  font-weight: var(--weight-display);
   line-height: var(--leading-tight);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
-.title-xl { font-size: var(--text-xl); line-height: var(--leading-tight); }
+.title-xl { font-size: var(--text-xl); font-weight: var(--weight-display); line-height: 1.15; letter-spacing: -0.025em; text-wrap: balance; }
 .muted { color: var(--fg-muted); }
 .measure { max-width: var(--measure); }
 .link {
@@ -143,16 +143,23 @@ main:focus { outline: none; }
   background-size: 28px 28px;
 }
 
-/* --- Reveal: visible at rest; only hidden when JS + motion are on --- */
-.reveal {
-  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+/* --- Entrance: one authored moment, on the hero only ------------------
+   Everything else is visible at rest; sections do not fade in one by one. */
+.slide--intro .reveal {
+  transition: opacity 640ms cubic-bezier(0.16, 1, 0.3, 1), transform 640ms cubic-bezier(0.16, 1, 0.3, 1), filter 640ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-html[data-motion] .slide:not(.is-in) .reveal {
+html[data-motion] .slide--intro:not(.is-in) .reveal {
   opacity: 0.001;
-  transform: translateY(12px);
+  transform: translateY(14px);
+  filter: blur(6px);
 }
-.reveal:nth-child(2) { transition-delay: 60ms; }
-.reveal:nth-child(3) { transition-delay: 120ms; }
+.slide--intro .reveal:nth-child(2) { transition-delay: 90ms; }
+.slide--intro .reveal:nth-child(3) { transition-delay: 180ms; }
+
+/* --- Browser surfaces carry the design too ---------------------------- */
+::selection { background: var(--accent); color: var(--accent-fg); }
+html { caret-color: var(--accent); scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
+.num { font-variant-numeric: tabular-nums; }
 
 /* --- Touch vs desktop affordances ------------------------------------ */
 @media (hover: hover) and (pointer: fine) { .touch-only { display: none !important; } }

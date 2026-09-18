@@ -5,7 +5,7 @@ interface Props { t: Content }
 const { t } = Astro.props;
 ---
 
-<section class="slide hero" aria-labelledby="hero-title">
+<section class="slide hero slide--intro" aria-labelledby="hero-title">
   <div class="slide__box slide__box--single hero__box">
     <CornerMarks />
     <div class="hero__text">
@@ -17,7 +17,7 @@ const { t } = Astro.props;
       <p class="hero__sub muted reveal">{t.hero.sub}</p>
       <div class="hero__meta reveal">
         <p class="hero__now"><span class="hero__live" aria-hidden="true"></span>{t.hero.now}</p>
-        <p><span class="pill">{t.hero.status}</span></p>
+        <p class="hero__status muted">{t.hero.status}</p>
       </div>
     </div>
   </div>
@@ -34,13 +34,8 @@ const { t } = Astro.props;
   .hero__sub { max-width: 52ch; font-size: var(--text-lg); line-height: var(--leading-snug); }
   .hero__meta { display: grid; gap: var(--space-4); justify-items: start; }
   .hero__now { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); }
-  .hero__live {
-    width: 6px; height: 6px; flex: none;
-    border-radius: 50%;
-    background: var(--fg);
-    animation: pulse 2.4s var(--ease-out) infinite;
-  }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .hero__live { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--accent); }
+  .hero__status { font-size: var(--text-sm); }
 
   .hero__foot {
     width: 100%;

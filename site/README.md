@@ -10,7 +10,7 @@ Home page + `/work` of André Ferreira's portfolio, implemented in **Astro 5** w
 | Bundler | Vite 6.4.3 (ships with Astro) |
 | UI runtime | none (no React/Vue/Svelte) |
 | Styling | plain CSS: tokens + one global layout sheet + Astro-scoped `<style>` per component |
-| Fonts | Instrument Sans via the Google Fonts `<link>` from SPEC.md; fallback stack from tokens |
+| Fonts | Schibsted Grotesk via the Google Fonts `<link>` from SPEC.md; fallback stack from tokens |
 | Dependencies | 1 direct (`astro`), 282 packages installed in total |
 
 ## How to run

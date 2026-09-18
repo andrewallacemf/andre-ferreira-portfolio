@@ -5,7 +5,7 @@ const { t } = Astro.props;
 ---
 
 <footer class="footer">
-  <p class="label">{t.footer.line}</p>
+  <p class="footer__line muted">{t.footer.line}</p>
   <a class="label footer__source" href="https://github.com/andrewallacemf/andre-ferreira-portfolio" rel="noopener" data-cursor={t.cursor.open}>{t.footer.source} <span aria-hidden="true">↗</span></a>
 </footer>
 
@@ -18,6 +18,7 @@ const { t } = Astro.props;
     padding-top: var(--space-6);
     border-top: var(--hairline) solid var(--line);
   }
+  .footer__line { font-size: var(--text-sm); margin: 0; }
   .footer__source { text-decoration: none; }
   .footer__source:hover { color: var(--fg); }
 </style>

@@ -6,7 +6,11 @@
 
 :root {
   /* --- Type ------------------------------------------------------------ */
-  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  /* Weights: body 400, UI and small titles 500, display and section titles 700. */
+  --weight-body: 400;
+  --weight-ui: 500;
+  --weight-display: 700;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   --text-xs: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
@@ -16,8 +20,8 @@
   --text-xl: clamp(1.8rem, 1.4rem + 1.8vw, 2.9rem);
   --text-2xl: clamp(2.4rem, 1.6rem + 3.4vw, 4.4rem);
 
-  --leading-tight: 1.08;
-  --leading-snug: 1.25;
+  --leading-tight: 1.1;
+  --leading-snug: 1.35;
   --leading-body: 1.55;
   --tracking-label: 0.08em;
 
@@ -148,7 +152,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 500; letter-spacing: -0.015em; }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: var(--weight-display); letter-spacing: -0.02em; }
 p { margin: 0; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-sm); }

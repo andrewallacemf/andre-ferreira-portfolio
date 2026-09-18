@@ -21,9 +21,8 @@ const m = t.method;
     <header class="slide method-head">
       <div class="slide__box slide__box--single method-head__box">
         <CornerMarks />
-        <p class="label reveal">{m.navLabel}</p>
-        <h1 class="display reveal">{m.title}</h1>
-        <p class="method-head__lede reveal">{m.lede}</p>
+        <h1 class="display">{m.title}</h1>
+        <p class="method-head__lede">{m.lede}</p>
       </div>
     </header>
 
@@ -38,13 +37,12 @@ const m = t.method;
       <div class="method-sections">
         {m.sections.map((s, i) => (
           <section class="method-section slide" id={s.id} aria-labelledby={`${s.id}-title`}>
-            <p class="label num reveal">{String(i + 1).padStart(2, '0')} · {s.label}</p>
-            <h2 id={`${s.id}-title`} class="title-xl reveal">{s.title}</h2>
-            {s.paragraphs.map((p) => <p class="method-p reveal">{p}</p>)}
+            <h2 id={`${s.id}-title`} class="title-xl">{s.title}</h2>
+            {s.paragraphs.map((p) => <p class="method-p">{p}</p>)}
             {s.evidence && (
-              <dl class="method-facts reveal">
+              <dl class="method-facts">
                 {s.evidence.map(([n, l]) => (
-                  <div class="fact"><dt class="fact__n">{n}</dt><dd class="label">{l}</dd></div>
+                  <div class="fact"><dt class="fact__n num">{n}</dt><dd class="muted">{l}</dd></div>
                 ))}
               </dl>
             )}
@@ -67,7 +65,7 @@ const m = t.method;
   .method { display: grid; gap: var(--space-8); }
   .method-head { padding-bottom: 0; }
   .method-head__box { gap: var(--space-6); }
-  .method-head__lede { font-size: var(--text-lg); line-height: var(--leading-snug); max-width: var(--measure); color: var(--fg-muted); }
+  .method-head__lede { font-size: var(--text-lg); line-height: 1.4; max-width: var(--measure); color: var(--fg-muted); }
 
   .method-body {
     padding-inline: var(--gutter);
@@ -83,10 +81,10 @@ const m = t.method;
   .method-section:first-child { border-top: 0; }
   .method-p { font-size: var(--text-md); line-height: 1.6; }
 
-  .method-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-3); margin: var(--space-2) 0 0; }
-  .fact { padding: var(--space-4); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); display: grid; gap: var(--space-2); }
-  .fact__n { font-size: var(--text-xl); line-height: 1; font-weight: 500; letter-spacing: -0.02em; }
-  .fact dd { margin: 0; }
+  .method-facts { margin: var(--space-2) 0 0; display: grid; border-top: var(--hairline) solid var(--line); }
+  .fact { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; padding-block: var(--space-3); border-bottom: var(--hairline) solid var(--line); }
+  .fact__n { font-size: var(--text-xl); line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; }
+  .fact dd { margin: 0; font-size: var(--text-sm); }
 
   .method-foot__box { gap: var(--space-8); }
 

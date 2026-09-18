@@ -400,7 +400,8 @@
     "role": "Papel",
     "scope": "Escopo",
     "client": "Cliente",
-    "year": "Ano"
+    "year": "Ano",
+    "tags": "Tipos de trabalho"
   },
   "method": {
     "slug": "como-trabalho",

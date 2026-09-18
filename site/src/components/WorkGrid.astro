@@ -7,78 +7,56 @@ const { t, lang } = Astro.props;
 const ui = uiLabels(t, lang);
 ---
 
-<ul class="work-grid">
-  {t.cases.items.map((item) => (
-    <li>
-      <!-- With a case page the card links to it; without one it links to itself (#slug) and :target lifts the 4-line clamp. -->
-      <a class="card" id={item.slug} href={caseHref(lang, item.slug, hasCasePage(lang, item.slug))} data-cursor={t.cursor.view}>
-        <span class="eyebrow">
-          <span class="label num">{item.year}</span>
-          <span class="card__arrow touch-only" aria-hidden="true">↗</span>
-        </span>
-        <h2 class="card__title">{item.title}</h2>
-        <p class="card__result">{item.result}</p>
-        <span class="card__foot">
-          <span class="label">{item.client}</span>
-          <span class="card__role"><span class="label">{ui.role}</span> {item.role}</span>
-          <span class="card__tags" aria-label={ui.scope}>
-            {item.tags.map((tag) => <span class="tag">{tag}</span>)}
-          </span>
-        </span>
-      </a>
-    </li>
-  ))}
-</ul>
+<!-- /work as an index: one hairline row per case, year and client on the left,
+     title, result and the kinds of work on the right. No cards. -->
+<ol class="work-list">
+  {t.cases.items.map((item) => {
+    const hasPage = hasCasePage(lang, item.slug);
+    return (
+      <li class="row" id={item.slug}>
+        <a class="row__link" href={caseHref(lang, item.slug, hasPage)} data-cursor={t.cursor.view}>
+          <div class="row__meta">
+            <span class="row__year num">{item.year}</span>
+            <span class="row__client">{item.client}</span>
+          </div>
+          <div class="row__body">
+            <h2 class="row__title">{item.title} <span class="row__arrow" aria-hidden="true">→</span></h2>
+            <p class="row__result">{item.result}</p>
+            <p class="row__foot">
+              <span class="row__role"><span class="muted">{ui.role}:</span> {item.role}</span>
+              <span class="row__tags">{item.tags.join(' · ')}</span>
+            </p>
+          </div>
+        </a>
+      </li>
+    );
+  })}
+</ol>
 
 <style>
-  .work-grid {
-    list-style: none; margin: 0; padding: 0;
+  .work-list { list-style: none; margin: 0; padding: 0; border-top: var(--hairline) solid var(--line); }
+  .row { border-bottom: var(--hairline) solid var(--line); scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+  .row__link {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-  @media (min-width: 640px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-  .card {
-    display: grid;
-    gap: var(--space-4);
-    height: 100%;
-    padding: var(--space-6);
-    border: var(--hairline) solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--bg-elev);
+    gap: var(--space-2) var(--space-8);
+    padding-block: var(--space-6);
     text-decoration: none;
     color: inherit;
-    scroll-margin-top: calc(var(--header-h) + var(--space-4));
-    transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
   }
-  .card__arrow { margin-left: auto; font-size: var(--text-md); line-height: 1; }
-  .card__title { font-size: var(--text-lg); line-height: var(--leading-tight); }
-  .card__result {
-    font-size: var(--text-sm);
-    color: var(--fg-muted);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    overflow: hidden;
-  }
-  .card:target .card__result { -webkit-line-clamp: unset; display: block; }
-  .card:target { border-color: var(--line-strong); }
-  .card__foot { display: grid; gap: var(--space-2); margin-top: auto; font-size: var(--text-sm); }
-  .card__role .label { margin-right: var(--space-1); }
-  .card__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
-  .tag {
-    font-size: var(--text-xs);
-    line-height: 1;
-    padding: 0.45em 0.7em;
-    border: var(--hairline) solid var(--line);
-    border-radius: 999px;
-    color: var(--fg-muted);
-    white-space: nowrap;
-  }
+  .row__meta { display: flex; gap: var(--space-3); font-size: var(--text-sm); color: var(--fg-muted); }
+  .row__body { display: grid; gap: var(--space-3); min-width: 0; }
+  .row__title { font-size: var(--text-lg); line-height: 1.2; font-weight: var(--weight-display); letter-spacing: -0.02em; text-wrap: balance; }
+  .row__arrow { display: inline-block; color: var(--fg-muted); transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+  .row__result { font-size: var(--text-md); color: var(--fg-muted); max-width: var(--measure); line-height: 1.5; }
+  .row__foot { display: grid; gap: var(--space-1); font-size: var(--text-sm); }
+  .row__tags { color: var(--fg-muted); }
 
+  @media (min-width: 768px) {
+    .row__link { grid-template-columns: 11rem minmax(0, 1fr); }
+    .row__meta { flex-direction: column; gap: var(--space-1); padding-top: 0.35em; }
+  }
   @media (hover: hover) and (pointer: fine) {
-    .card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+    .row__link:hover .row__title { color: var(--accent); }
+    .row__link:hover .row__arrow { transform: translateX(4px); color: var(--accent); }
   }
 </style>

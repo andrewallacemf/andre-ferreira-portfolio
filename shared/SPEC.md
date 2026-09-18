@@ -5,7 +5,7 @@ The site (`site/`, Astro) implements exactly this; the archived React prototype 
 ## Design plan
 
 - **Color:** dark-first. Ground `#0e0f12`, elevated `#15171c`, text `#e9eaee`, muted `#8d919b`, hairline `#262931`, accent blueprint blue `#4f7dff`. Light theme in tokens. The accent is used sparingly: cursor label hot state, the reactive dots near the pointer, focus ring, one CTA. Everything else is monochrome. Status pills are hairline-outlined, not filled.
-- **Type:** one family, Instrument Sans (Google Fonts, `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">`), weights 400/500 only; display lines at `--text-2xl`, weight 500, tight leading, `text-wrap: balance`. Uppercase labels with `letter-spacing: 0.08em`. Numbers `tabular-nums`.
+- **Type:** one family, Schibsted Grotesk (Google Fonts, `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap">`; chosen 2026-09-18, replacing Instrument Sans). Weights: body 400 (`--weight-body`), UI and small titles 500 (`--weight-ui`), display and section titles 700 (`--weight-display`); display lines at `--text-2xl`, tracking -0.03em, tight leading, `text-wrap: balance`. Uppercase labels with `letter-spacing: 0.08em`. Numbers `tabular-nums`.
 - **Layout concept:** garri.design as spine. Desktop (≥1024px): full-viewport sections with CSS `scroll-snap-type: y mandatory` on the scroll container; each section is a slide with text column left (max 62ch) and visual column right; corner marks (short L-shaped hairlines, 14px) at the four corners of each slide's content box as the blueprint signature. Mobile (<1024px): no snap, sections stack with generous `padding-block`, visual above or below text, full-width. A dotted grid (`--grid-dot`) sits behind the whole page as a fixed canvas; in the hero, dots within ~140px of the pointer scale up and take `--grid-dot-hot` (desktop only; static on touch).
 
 ## Sections (home, in order)
@@ -55,3 +55,18 @@ Each prototype ships a `README.md` (stack, how to run, what is implemented, know
 ## "How I work" page (phase 4, 2026-09-15)
 
 `/how-i-work/` and `/pt/como-trabalho/` (localized slugs, `Page = 'method'`), linked from the header nav (`nav.method`). Content in `method` of the shared JSON: title, lede and sections (label, title, paragraphs, optional `evidence` facts). Same reading layout as a case page (sticky index at ≥1024px), ends with a link to /work and the footer. Language rule applies with full force: André does not write code; AI carries the design into code; no single AI vendor named.
+
+## Impeccable review (2026-09-18)
+
+Refinement pass with the Impeccable design skill and detector (impeccable.style), preserving the visual world (dark default, blueprint dot grid, corner marks, Instrument Sans). Detector findings went from 131 to 22, all of them the "overused font" advisory. What changed:
+
+- **No kickers/eyebrows above headings** anywhere (section labels, "Contact", "Como trabalho" duplicate, "01 · Contexto"). Headings carry themselves; the sticky index keeps the short labels. Section headings on the home (About, Path, Worked with, How I design) are real headings in sentence case, not uppercase tracked labels.
+- **No section numbering** (case index "01", "01 · Contexto"). Process steps stay numbered because the sequence is the information.
+- **No stat tiles / hero-metric template.** Facts are hairline rows (number, then caption) on case slides, case pages and the method page; captions in sentence case.
+- **No identical card grids.** `/work` is an index of hairline rows (year and client left; title, result, role and kinds of work right). Decisions and findings are a hairline definition list. "Next case" is a hairline block, not a card. Tags and client names are text runs separated by middle dots, not chips.
+- **Hero:** static accent dot (no pulse), status as plain text (no pill). The home case slide's right panel is the case's hero figure slot (placeholder + caption), not a repeat of the numbers.
+- **Motion:** one authored entrance (hero: opacity, 14px lift, blur, exponential ease-out); no per-section fade-in. Contact keeps its conversation stagger. Cursor scales with `transform` (no width/height transition).
+- **Type:** `--leading-snug` 1.35, `--leading-tight` 1.1, `.title-xl` 1.15 with balanced wrapping; lede 1.4; footer line in sentence case.
+- **Browser surfaces:** `::selection`, caret and scrollbar themed from tokens; `.num` uses tabular numerals.
+- **Layout:** `overflow-x: clip` on `main` instead of `body`.
+- **Kept on purpose (brief wins):** dot-grid canvas and corner marks (blueprint world from the references), the header's blur (functional, content scrolls under it), the cursor bubble's blur (a specific effect), the typeface decision was left to André; on 2026-09-18 he chose Schibsted Grotesk with bold titles (see Type above).

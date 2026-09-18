@@ -8,14 +8,15 @@ const { t } = Astro.props;
 <section class="slide principles" aria-labelledby="principles-title">
   <div class="slide__box slide__box--single">
     <CornerMarks />
-    <h2 id="principles-title" class="label reveal">{t.principles.sectionLabel}</h2>
-    <ul class="principles__list reveal">
+    <h2 id="principles-title" class="principles__h">{t.principles.sectionLabel}</h2>
+    <ul class="principles__list">
       {t.principles.items.map((q) => <li><blockquote>{q}</blockquote></li>)}
     </ul>
   </div>
 </section>
 
 <style>
+  .principles__h { font-size: var(--text-md); font-weight: var(--weight-ui); letter-spacing: 0; color: var(--fg-muted); }
   .principles__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); }
   .principles__list blockquote {
     margin: 0;

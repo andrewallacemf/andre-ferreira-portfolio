@@ -13,3 +13,5 @@
 | 2026-09-15 | Custom cursor only for `hover:hover and pointer:fine` at ≥1024px; every target keeps a visible affordance | Reference analysis: cursor labels are never the only affordance |
 | 2026-09-15 | Builds must be sub-path safe (relative URLs) | GitHub Pages serves under `/<repo>/`; previews live elsewhere |
 | 2026-09-15 | Stack: **Astro** (`site/`); the React + Vite prototype is kept in `archive/prototype-react-vite/` | Same result with 3.2 kB vs 76.8 kB of JS, one dependency, `.astro` files read like HTML; André accepted the recommendation |
+| 2026-09-18 | Typeface: **Schibsted Grotesk**, body 400, UI 500, titles 700 | André's pick after the Impeccable review flagged Instrument Sans as saturated; he asked for bolder titles |
+| 2026-09-18 | Impeccable refinement: no kickers, no section numbers, no stat tiles, no identical card grids, no chips, one authored entrance | See SPEC.md "Impeccable review" |

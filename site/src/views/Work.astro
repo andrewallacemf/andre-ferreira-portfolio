@@ -15,11 +15,11 @@ const t = getContent(lang);
   <section class="slide work" aria-labelledby="work-title">
     <div class="slide__box slide__box--single work__box">
       <CornerMarks />
-      <header class="work__head reveal">
+      <header class="work__head">
         <h1 id="work-title" class="display">{t.work.title}</h1>
         <p class="muted measure">{t.work.intro}</p>
       </header>
-      <div class="reveal"><WorkGrid t={t} lang={lang} /></div>
+      <div><WorkGrid t={t} lang={lang} /></div>
     </div>
   </section>
 </BaseLayout>

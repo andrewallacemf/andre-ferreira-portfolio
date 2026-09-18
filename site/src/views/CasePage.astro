@@ -27,20 +27,15 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
     <header class="slide case-head">
       <div class="slide__box slide__box--single case-head__box">
         <CornerMarks />
-        <p class="eyebrow reveal">
-          <a class="label link" href={pageHref(lang, 'work')}>← {ui.back}</a>
-          <span class="label num">{item.year}</span>
-          <span class="label">{item.client}</span>
-        </p>
-        <h1 class="display reveal">{item.title}</h1>
-        <p class="case-head__lede reveal">{body.lede}</p>
-        <dl class="case-head__meta reveal">
-          <div><dt class="label">{ui.role}</dt><dd>{item.role}</dd></div>
-          <div><dt class="label">{ui.scope}</dt><dd>{item.scope}</dd></div>
+        <p class="case-head__back"><a class="link" href={pageHref(lang, 'work')}>← {ui.back}</a></p>
+        <h1 class="display">{item.title}</h1>
+        <p class="case-head__lede">{body.lede}</p>
+        <dl class="case-head__meta">
+          <div><dt>{ui.client}</dt><dd>{item.client} · <span class="num">{item.year}</span></dd></div>
+          <div><dt>{ui.role}</dt><dd>{item.role}</dd></div>
+          <div><dt>{ui.scope}</dt><dd>{item.scope}</dd></div>
+          <div><dt>{ui.tags}</dt><dd>{item.tags.join(' · ')}</dd></div>
         </dl>
-        <p class="case-head__tags reveal" aria-label={ui.scope}>
-          {item.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </p>
       </div>
     </header>
 
@@ -61,16 +56,15 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
       <div class="case-sections">
         {body.sections.map((s, i) => (
           <section class="case-section slide" id={s.id} aria-labelledby={`${s.id}-title`}>
-            <p class="label num reveal">{String(i + 1).padStart(2, '0')} · {s.label}</p>
-            <h2 id={`${s.id}-title`} class="title-xl reveal">{s.title}</h2>
-            {s.paragraphs?.map((p) => <p class="case-p reveal">{p}</p>)}
+            <h2 id={`${s.id}-title`} class="title-xl">{s.title}</h2>
+            {s.paragraphs?.map((p) => <p class="case-p">{p}</p>)}
             {s.bullets && (
-              <ul class="case-bullets reveal">
+              <ul class="case-bullets">
                 {s.bullets.map((b) => <li>{b}</li>)}
               </ul>
             )}
             {s.steps && (
-              <ol class="case-steps reveal">
+              <ol class="case-steps">
                 {s.steps.map((st, n) => (
                   <li>
                     <span class="label num">{String(n + 1).padStart(2, '0')}</span>
@@ -80,24 +74,24 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
               </ol>
             )}
             {s.decisions && (
-              <div class="case-decisions reveal">
+              <dl class="case-decisions">
                 {s.decisions.map((d) => (
-                  <article class="decision">
-                    <h3>{d.title}</h3>
-                    <p>{d.text}</p>
-                  </article>
+                  <div class="decision">
+                    <dt>{d.title}</dt>
+                    <dd>{d.text}</dd>
+                  </div>
                 ))}
-              </div>
+              </dl>
             )}
             {s.showFacts && (
-              <dl class="case-facts reveal" aria-label={ui.facts}>
+              <dl class="case-facts" aria-label={ui.facts}>
                 {item.facts.map(([n, l]) => (
-                  <div class="fact"><dt class="fact__n">{n}</dt><dd class="label">{l}</dd></div>
+                  <div class="fact"><dt class="fact__n num">{n}</dt><dd class="muted">{l}</dd></div>
                 ))}
               </dl>
             )}
             {s.figure && (
-              <div class="reveal"><CaseFigure caption={s.figure} aspect={s.aspect} label={ui.image} /></div>
+              <div><CaseFigure caption={s.figure} aspect={s.aspect} label={ui.image} /></div>
             )}
           </section>
         ))}
@@ -109,8 +103,8 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
         <CornerMarks />
         {next && nextHref && (
           <a class="case-next" href={nextHref} data-cursor={t.cursor.view}>
-            <span class="label">{ui.next} →</span>
-            <span class="case-next__title title-xl">{next.title}</span>
+            <span class="case-next__kicker muted">{ui.next}</span>
+            <span class="case-next__title title-xl">{next.title} <span class="case-next__arrow" aria-hidden="true">→</span></span>
             <span class="muted">{next.result}</span>
           </a>
         )}
@@ -127,16 +121,12 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
   /* Header block */
   .case-head { padding-bottom: 0; }
   .case-head__box { gap: var(--space-6); }
-  .case-head__lede { font-size: var(--text-lg); line-height: var(--leading-snug); max-width: var(--measure); color: var(--fg-muted); }
-  .case-head__meta { display: grid; gap: var(--space-4); margin: 0; max-width: var(--measure); }
+  .case-head__lede { font-size: var(--text-lg); line-height: 1.4; max-width: var(--measure); color: var(--fg-muted); }
+  .case-head__back { font-size: var(--text-sm); }
+  .case-head__meta { display: grid; gap: var(--space-2); margin: 0; max-width: var(--measure); font-size: var(--text-sm); border-top: var(--hairline) solid var(--line); padding-top: var(--space-4); }
+  .case-head__meta div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--space-3); }
+  .case-head__meta dt { color: var(--fg-muted); }
   .case-head__meta dd { margin: 0; }
-  .case-head__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; }
-  .tag {
-    font-size: var(--text-xs); line-height: 1; padding: 0.45em 0.7em;
-    border: var(--hairline) solid var(--line); border-radius: 999px;
-    color: var(--fg-muted); white-space: nowrap;
-  }
-  @media (min-width: 640px) { .case-head__meta { grid-template-columns: 1fr 1fr; } }
 
   /* Hero figure spans the reading area */
   .case-hero { padding-inline: var(--gutter); }
@@ -161,24 +151,28 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
 
   .case-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
   .case-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: var(--space-3); padding-top: var(--space-3); border-top: var(--hairline) solid var(--line); }
-  .case-steps h3 { font-size: var(--text-md); font-weight: 500; margin: 0 0 var(--space-1); }
+  .case-steps h3 { font-size: var(--text-md); font-weight: var(--weight-ui); letter-spacing: 0; margin: 0 0 var(--space-1); }
   .case-steps p { margin: 0; color: var(--fg-muted); }
 
-  .case-decisions { display: grid; gap: var(--space-4); }
-  .decision { padding: var(--space-5, 1.25rem) var(--space-6); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); }
-  .decision h3 { font-size: var(--text-md); font-weight: 500; margin: 0 0 var(--space-2); }
-  .decision p { margin: 0; color: var(--fg-muted); }
+  /* Decisions and findings as a hairline list: title, then text. No boxes. */
+  .case-decisions { margin: 0; display: grid; border-top: var(--hairline) solid var(--line); }
+  .decision { padding-block: var(--space-4); border-bottom: var(--hairline) solid var(--line); display: grid; gap: var(--space-2); }
+  .decision dt { font-size: var(--text-md); font-weight: 500; }
+  .decision dd { margin: 0; color: var(--fg-muted); line-height: 1.6; }
 
-  .case-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-3); margin: 0; }
-  .fact { padding: var(--space-4); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); display: grid; gap: var(--space-2); }
-  .fact__n { font-size: var(--text-xl); line-height: 1; font-weight: 500; letter-spacing: -0.02em; }
-  .fact dd { margin: 0; }
+  /* Facts as rows: number leads, caption follows. */
+  .case-facts { margin: 0; display: grid; border-top: var(--hairline) solid var(--line); }
+  .fact { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline; padding-block: var(--space-3); border-bottom: var(--hairline) solid var(--line); }
+  .fact__n { font-size: var(--text-xl); line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; }
+  .fact dd { margin: 0; font-size: var(--text-sm); }
 
   /* Foot: next case + back */
   .case-foot__box { gap: var(--space-8); }
-  .case-next { display: grid; gap: var(--space-3); text-decoration: none; color: inherit; padding: var(--space-6); border: var(--hairline) solid var(--line); border-radius: var(--radius-md); background: var(--bg-elev); transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+  .case-next { display: grid; gap: var(--space-3); text-decoration: none; color: inherit; padding-top: var(--space-6); border-top: var(--hairline) solid var(--line-strong); max-width: var(--measure); }
+  .case-next__kicker { font-size: var(--text-sm); }
   .case-next__title { text-wrap: balance; }
-  @media (hover: hover) and (pointer: fine) { .case-next:hover { border-color: var(--line-strong); transform: translateY(-4px); } }
+  .case-next__arrow { display: inline-block; color: var(--fg-muted); transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .case-next:hover .case-next__title { color: var(--accent); } .case-next:hover .case-next__arrow { transform: translateX(6px); color: var(--accent); } }
 
   @media (min-width: 1024px) {
     .case-head__box { padding-top: var(--space-12); }
