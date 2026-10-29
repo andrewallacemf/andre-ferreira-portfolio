@@ -305,13 +305,34 @@
   "principles": {
     "sectionLabel": "How I design",
     "items": [
-      "One source of truth, many consumers.",
-      "Pretty that solves nothing is decoration.",
-      "I write the acceptance criteria before I open Figma.",
-      "Simple, not simplistic.",
-      "Research exists to kill the wrong feature before it's built.",
-      "AI is a user of the design system too.",
-      "I stay through release."
+      {
+        "text": "One source of truth, many consumers.",
+        "note": "Tokens, components and copy live in one place. Figma, code and the AI assistant read from it, and nobody keeps copies."
+      },
+      {
+        "text": "Pretty that solves nothing is decoration.",
+        "note": "Every visual choice answers a use. The ones that don't are removed, however nice they look."
+      },
+      {
+        "text": "I write the acceptance criteria before I open Figma.",
+        "note": "What has to be true when the work is done comes before the first screen. The screen follows."
+      },
+      {
+        "text": "Simple, not simplistic.",
+        "note": "I remove what distracts and keep what the work demands. Hiding real complexity is not simplifying."
+      },
+      {
+        "text": "Research exists to kill the wrong feature before it's built.",
+        "note": "The best outcome of a research round is the feature that never gets made."
+      },
+      {
+        "text": "AI is a user of the design system too.",
+        "note": "The assistant renders the same components and follows the same manifest as the people on the team. No exception for the machine."
+      },
+      {
+        "text": "I stay through release.",
+        "note": "Design that never shipped was never done. I follow the build, review what came out different and only let go after launch."
+      }
     ]
   },
   "about": {

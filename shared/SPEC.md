@@ -118,3 +118,8 @@ Einstein: hero `img/einstein/concierge-totem.webp` (the Medium cover, a field ph
 ### Lighthouse pass (2026-10-29)
 
 Desktop and mobile, home and case pages: performance 98–100, accessibility 100, SEO 100, best practices 92–96. Two fixes: every raster figure now carries `width`/`height` read at build time (`src/lib/imgsize.ts`, WebP and PNG headers) so the page reserves the box before the image loads (CLS went from 0.08 to 0); the home rail links grew to a 24px hit area (the visible mark stays 6×22). The remaining best-practice deductions are a Google Fonts request blocked in the audit sandbox and the ~700px CAIXA cover from Medium, which will go away with a higher-resolution original.
+
+
+### Principles as a ledger (2026-10-29)
+
+The home's principles section no longer staggers seven one-liners. Each principle is a statement (display weight) with a one-sentence note on what it means in practice; `principles.items` became `{ text, note }`. From 1024px the list is two columns with a hairline above each pair, three pairs, and the seventh principle as a full-width closing row (statement left, note right), sized to fit a 720px-tall slide; below 1024px it stacks. Hover only brightens the note.

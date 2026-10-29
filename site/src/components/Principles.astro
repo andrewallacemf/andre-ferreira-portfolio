@@ -1,4 +1,8 @@
 ---
+/* Principles as a ledger: one row per principle, hairline between rows. The
+   statement sits on the left at display weight; a one-sentence note on the
+   right says what it means in practice. The same content stacks on mobile;
+   nothing lives only in hover. */
 import type { Content } from '../lib/content';
 import CornerMarks from './CornerMarks.astro';
 interface Props { t: Content }
@@ -9,28 +13,58 @@ const { t } = Astro.props;
   <div class="slide__box slide__box--single">
     <CornerMarks />
     <h2 id="principles-title" class="principles__h">{t.principles.sectionLabel}</h2>
-    <ul class="principles__list">
-      {t.principles.items.map((q) => <li><blockquote>{q}</blockquote></li>)}
-    </ul>
+    <ol class="principles__list">
+      {t.principles.items.map((p) => (
+        <li class="principle">
+          <p class="principle__text">{p.text}</p>
+          <p class="principle__note">{p.note}</p>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
 
 <style>
+  .principles .slide__box { gap: var(--space-6); }
   .principles__h { font-size: var(--text-md); font-weight: var(--weight-ui); letter-spacing: 0; color: var(--fg-muted); }
-  .principles__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); }
-  .principles__list blockquote {
-    margin: 0;
-    padding-left: var(--space-4);
-    border-left: var(--hairline) solid var(--line-strong);
-    font-size: var(--text-lg);
-    font-weight: 400;
-    line-height: var(--leading-snug);
-    max-width: var(--measure);
-    text-wrap: balance;
+  .principles__list { list-style: none; margin: 0; padding: 0; display: grid; }
+  .principle {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+    border-top: var(--hairline) solid var(--line-strong);
   }
+  .principle__text {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-display);
+    letter-spacing: -0.01em;
+    line-height: var(--leading-snug);
+    text-wrap: balance;
+    max-width: 34ch;
+  }
+  .principle__note {
+    margin: 0;
+    font-size: var(--text-md);
+    color: var(--fg-muted);
+    line-height: var(--leading-body);
+    max-width: 60ch;
+    text-wrap: pretty;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  /* Two columns from 1024px: three pairs of principles, then the last one as a
+     full-width closing line with its note beside it. Fits a 720px-tall slide. */
   @media (min-width: 1024px) {
-    .principles__list { gap: var(--space-4); }
-    .principles__list li:nth-child(even) { margin-left: clamp(var(--space-12), 18vw, 20rem); }
-    .principles__list li:nth-child(3n) { margin-left: clamp(var(--space-8), 9vw, 10rem); }
+    .principles__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-12); }
+    .principle { padding-block: var(--space-3) var(--space-4); align-content: start; }
+    .principle:last-child {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-12);
+      align-items: baseline;
+    }
+    .principle:last-child .principle__text { max-width: none; }
+    /* The pair under the pointer brightens its note; nothing changes in content. */
+    .principle:hover .principle__note { color: var(--fg); transition-duration: var(--dur-fast); }
   }
 </style>

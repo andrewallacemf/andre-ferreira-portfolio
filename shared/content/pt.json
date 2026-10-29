@@ -305,13 +305,34 @@
   "principles": {
     "sectionLabel": "Como eu desenho",
     "items": [
-      "Uma fonte de verdade, muitos consumidores.",
-      "Bonito que não resolve nada é decoração.",
-      "Escrevo o critério de aceite antes de abrir o Figma.",
-      "Simples, não simplista.",
-      "Pesquisa serve para matar a feature errada antes de construí-la.",
-      "A IA também é usuária do design system.",
-      "Fico até o release."
+      {
+        "text": "Uma fonte de verdade, muitos consumidores.",
+        "note": "Tokens, componentes e textos moram num lugar só. Figma, código e assistente de IA leem dali, e ninguém mantém cópias."
+      },
+      {
+        "text": "Bonito que não resolve nada é decoração.",
+        "note": "Cada escolha visual responde a um uso. A que não responde, sai, por mais bonita que seja."
+      },
+      {
+        "text": "Escrevo o critério de aceite antes de abrir o Figma.",
+        "note": "O que precisa ser verdade quando o trabalho terminar vem antes da primeira tela. A tela é consequência."
+      },
+      {
+        "text": "Simples, não simplista.",
+        "note": "Tiro o que distrai e deixo o que o trabalho exige. Esconder complexidade real não é simplificar."
+      },
+      {
+        "text": "Pesquisa serve para matar a feature errada antes de construí-la.",
+        "note": "O melhor resultado de uma rodada de pesquisa é a funcionalidade que deixa de ser feita."
+      },
+      {
+        "text": "A IA também é usuária do design system.",
+        "note": "O assistente renderiza os mesmos componentes e segue o mesmo manifesto que as pessoas do time. Sem exceção para a máquina."
+      },
+      {
+        "text": "Fico até o release.",
+        "note": "Design que não chegou ao ar não foi feito. Acompanho a implementação, reviso o que saiu diferente e só largo depois do lançamento."
+      }
     ]
   },
   "about": {
