@@ -39,7 +39,9 @@ const { items, label } = Astro.props;
     align-items: center;
     justify-content: flex-end;
     gap: var(--space-3);
-    padding: 0 var(--space-2);
+    /* 24px tall hit area per item (the visible mark stays 6×22): meets the touch-target floor. */
+    min-height: 24px;
+    padding: 1px var(--space-2);
     text-decoration: none;
     color: var(--fg-muted);
   }

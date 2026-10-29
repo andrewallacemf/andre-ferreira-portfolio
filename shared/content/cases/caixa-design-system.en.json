@@ -3,9 +3,9 @@
   "kicker": "Case",
   "lede": "I started out trying to change the color of a button in an internal system at Caixa. I ended up designing the first design system of Brazil's largest social bank, and the governance structure that keeps it alive today.",
   "hero": {
-    "figure": "Two pages of the DS CAIXA portal: \"Colors\", with the fixed palette and its codes, and \"Text HTML tags\", with the type scale documented for design and development.",
-    "src": "img/caixa/portal-cores-tags.webp",
-    "alt": "Two screens of the DS CAIXA portal side by side: the Colors page, with the Caixa palette in a table, and the Text HTML tags page, with the heading hierarchy"
+    "figure": "The Colors page of the design system portal, in the high-fidelity prototype: the fixed palette with values, description, token and contrast for each color.",
+    "src": "img/caixa/portal-cores.webp",
+    "alt": "DS CAIXA portal screen on the Colors page: side menu with Getting started, Principles, Visual foundations, Tokens, Components and Templates; on the right, the fixed palette as a table with sample, values, description, token and contrast."
   },
   "sections": [
     {
@@ -120,9 +120,9 @@
         "The design system was adopted across the whole Housing area, by Cards, by Checking Accounts and by every one of the bank's apps. It became the starting point for the design-at-scale initiatives that followed at Caixa."
       ],
       "showFacts": true,
-      "figure": "The DS CAIXA portal at launch: home with the web (Bootstrap and Material) and mobile versions, the DS CAIXA + Bootstrap guide and the \"What is DS CAIXA\" page.",
-      "src": "img/caixa/resultado-portal.webp",
-      "alt": "Three screens of the DS CAIXA portal: home page, DS CAIXA + Bootstrap guide and the What is DS CAIXA page"
+      "figure": "The home of the DS CAIXA + Bootstrap guide in the portal prototype: getting started, components and templates, project principles and visual foundations.",
+      "src": "img/caixa/portal-home.webp",
+      "alt": "DS CAIXA portal home screen: three cards (Getting started, Angular+Bootstrap components, Angular+Bootstrap templates) and, below, the Project principles and Visual foundations lists."
     },
     {
       "id": "legacy",

@@ -3,9 +3,9 @@
   "kicker": "Case",
   "lede": "Comecei tentando mudar a cor de um botão num sistema interno da Caixa. Terminei desenhando o primeiro design system do maior banco social do Brasil, e a estrutura de governança que o mantém vivo até hoje.",
   "hero": {
-    "figure": "Duas páginas do portal do DS CAIXA: \"Cores\", com a paleta fixa e seus códigos, e \"Tags HTML de texto\", com a escala tipográfica documentada para design e desenvolvimento.",
-    "src": "img/caixa/portal-cores-tags.webp",
-    "alt": "Duas telas do portal do DS CAIXA lado a lado: a página Cores, com a paleta de cores da Caixa em tabela, e a página Tags HTML de texto, com a hierarquia de títulos"
+    "figure": "A página Cores do portal do design system, no protótipo de alta fidelidade: paleta fixa com valores, descrição, token e contraste de cada cor.",
+    "src": "img/caixa/portal-cores.webp",
+    "alt": "Tela do portal DS CAIXA na página Cores: menu lateral com Começando, Princípios, Fundamentos visuais, Tokens, Componentes e Templates; à direita, a paleta fixa em tabela com exemplo, valores, descrição, token e contraste."
   },
   "sections": [
     {
@@ -120,9 +120,9 @@
         "O design system foi adotado por toda a área de Habitação, por Cartões, por Conta Corrente e por todos os aplicativos do banco. Foi o ponto de partida para as iniciativas seguintes de design em escala na Caixa."
       ],
       "showFacts": true,
-      "figure": "O portal do DS CAIXA no lançamento: home com as versões para web (Bootstrap e Material) e para mobile, o guia DS CAIXA + Bootstrap e a página \"O que é o DS CAIXA\".",
-      "src": "img/caixa/resultado-portal.webp",
-      "alt": "Três telas do portal do DS CAIXA: página inicial, guia DS CAIXA + Bootstrap e página O que é o DS CAIXA"
+      "figure": "A home do guia DS CAIXA + Bootstrap no protótipo do portal: como começar, componentes e templates, princípios de projeto e fundamentos visuais.",
+      "src": "img/caixa/portal-home.webp",
+      "alt": "Tela da home do portal DS CAIXA: três cartões (Como começar, Componentes Angular+Bootstrap, Templates Angular+Bootstrap) e, abaixo, as listas Princípios de projeto e Fundamentos visuais."
     },
     {
       "id": "legado",

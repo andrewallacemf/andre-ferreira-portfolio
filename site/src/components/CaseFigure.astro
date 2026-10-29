@@ -7,8 +7,10 @@
      so the page's layout and rhythm are final before any image is produced. */
 import type { Lang } from '../lib/content';
 import { href } from '../lib/paths';
+import { imageSize } from '../lib/imgsize';
 interface Props { caption: string; aspect?: string; label: string; src?: string; alt?: string; component?: string; lang?: Lang }
 const { caption, aspect = '16 / 9', label, src, alt, component, lang = 'en' } = Astro.props;
+const size = src ? imageSize(src) : undefined;
 
 const figures = import.meta.glob<{ default: any }>('../figures/*.astro', { eager: true });
 const Figure = component ? figures[`../figures/${component}.astro`]?.default : undefined;
@@ -19,7 +21,7 @@ if (component && !Figure) throw new Error(`Figure component not found: ${compone
   {Figure ? (
     <div class="figure__panel figure__panel--drawn"><Figure lang={lang} /></div>
   ) : src ? (
-    <div class="figure__panel figure__panel--image"><img src={href(src)} alt={alt ?? caption} loading="lazy" decoding="async" /></div>
+    <div class="figure__panel figure__panel--image"><img src={href(src)} alt={alt ?? caption} width={size?.width} height={size?.height} loading="lazy" decoding="async" /></div>
   ) : (
     <div class="figure__panel dotted-panel" style={`aspect-ratio: ${aspect}`} role="img" aria-label={`${label}: ${caption}`}>
       <span class="label figure__tag">{label}</span>
