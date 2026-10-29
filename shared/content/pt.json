@@ -339,7 +339,11 @@
     "sectionLabel": "Sobre",
     "p1": "Sou designer de produto há mais de dez anos, quase sempre em B2B e em domínios onde errar custa caro: banco, seguros, cobrança em SaaS. Comecei no design gráfico ainda adolescente, passei por quase 4.000 horas de treinamento técnico para a WorldSkills e voltei como instrutor antes de entrar em produto digital.",
     "p2": "Hoje cuido do design de produto de uma plataforma B2B all-in-one: desenho o assistente de IA embarcado, reconstruí o design system sobre uma fonte única de tokens que alimenta Figma, código e o que a IA renderiza, e uso IA para levar protótipos até o código do produto, que os desenvolvedores assumem dali.",
-    "p3": "Liderei times por mais de quatro anos. Gosto de gestão. Prefiro fazer."
+    "p3": "Liderei times por mais de quatro anos. Gosto de gestão. Prefiro fazer.",
+    "photo": {
+      "src": "img/sobre/andre.webp",
+      "alt": "Retrato de André Ferreira sorrindo, em frente a uma estante de livros de design e jogos."
+    }
   },
   "timeline": {
     "sectionLabel": "Trajetória",

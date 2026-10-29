@@ -339,7 +339,11 @@
     "sectionLabel": "About",
     "p1": "I've been a product designer for over ten years, mostly in B2B and in domains where mistakes are expensive: banking, insurance, SaaS billing. I started in graphic design as a teenager, went through nearly 4,000 hours of technical training for WorldSkills, and came back as an instructor before moving into digital product.",
     "p2": "Today I own product design for a B2B all-in-one platform: I design its embedded AI assistant, rebuilt the design system on a single token source that feeds Figma, code and what the AI renders, and use AI to carry prototypes into the product's codebase, where developers take over.",
-    "p3": "I led teams for over four years. I like managing. I'd rather build."
+    "p3": "I led teams for over four years. I like managing. I'd rather build.",
+    "photo": {
+      "src": "img/sobre/andre.webp",
+      "alt": "Portrait of André Ferreira smiling, in front of a bookshelf of design and games books."
+    }
   },
   "timeline": {
     "sectionLabel": "Path",

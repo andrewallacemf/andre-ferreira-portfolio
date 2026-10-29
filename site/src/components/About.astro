@@ -1,14 +1,19 @@
 ---
 import type { Content } from '../lib/content';
 import CornerMarks from './CornerMarks.astro';
+import { href } from '../lib/paths';
+import { imageSize } from '../lib/imgsize';
 interface Props { t: Content }
 const { t } = Astro.props;
+const photo = t.about.photo;
+const size = photo ? imageSize(photo.src) : undefined;
 ---
 
 <section class="slide about" id="about" aria-labelledby="about-title">
   <div class="slide__box about__box">
     <CornerMarks />
     <div class="about__text">
+      {photo && <img class="about__photo" src={href(photo.src)} alt={photo.alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" />}
       <h2 id="about-title" class="about__h">{t.about.sectionLabel}</h2>
       <p>{t.about.p1}</p>
       <p>{t.about.p2}</p>
@@ -39,6 +44,18 @@ const { t } = Astro.props;
 <style>
   .about__text { display: grid; gap: var(--space-4); max-width: var(--measure); align-content: start; }
   .about__h { font-size: var(--text-md); font-weight: var(--weight-ui); letter-spacing: 0; color: var(--fg-muted); }
+  /* Portrait: a modest square, same radius as the figure panels, sitting above the
+     label like a byline photo. Not a hero. */
+  .about__photo {
+    display: block;
+    width: clamp(7rem, 16vw, 11rem);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 12px;
+    border: var(--hairline) solid var(--line-strong);
+    margin-bottom: var(--space-2);
+  }
   .about__p3 { font-weight: 500; }
   .about__path { display: grid; gap: var(--space-4); align-content: start; }
   .about__eras { list-style: none; margin: 0; padding: 0; display: grid; }
