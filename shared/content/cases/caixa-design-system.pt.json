@@ -3,7 +3,7 @@
   "kicker": "Case",
   "lede": "Comecei tentando mudar a cor de um botão num sistema interno da Caixa. Terminei desenhando o primeiro design system do maior banco social do Brasil, e a estrutura de governança que o mantém vivo até hoje.",
   "hero": {
-    "figure": "A arquitetura do design system em quatro camadas: marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em design e em código; a governança ao lado.",
+    "figure": "A estrutura do design system como foi desenhada: regras, princípios e boas práticas de design e desenvolvimento; guia visual da marca e guia de estilos; biblioteca de padrões em design e em código; design estratégico.",
     "component": "caixa-architecture"
   },
   "sections": [

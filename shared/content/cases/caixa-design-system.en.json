@@ -3,7 +3,7 @@
   "kicker": "Case",
   "lede": "I started out trying to change the color of a button in an internal system at Caixa. I ended up designing the first design system of Brazil's largest social bank, and the governance structure that keeps it alive today.",
   "hero": {
-    "figure": "The design system architecture in four layers: brand and principles, StyleGuide, design and development practices, pattern libraries in design and in code; governance alongside.",
+    "figure": "The design system structure as it was drawn: design and development rules, principles and practices; brand visual guide and style guide; pattern library in design and in code; strategic design.",
     "component": "caixa-architecture"
   },
   "sections": [

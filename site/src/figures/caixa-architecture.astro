@@ -1,91 +1,96 @@
 ---
-/* CAIXA Design System · architecture in four layers, with governance alongside.
-   Redrawn from the 2021 structure diagram in the site's tokens. */
+/* CAIXA Design System · the structure diagram from the 2021 case, redrawn with
+   the site's tokens. The composition is the original's: overlapping boxes show
+   what each part of the system contains and shares; the edges of a box hidden by
+   another are dashed, as in the source. Coordinates are the original's × 0.6. */
 import type { Lang } from '../lib/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const L = {
   pt: {
-    layers: [
-      ['Marca e princípios', 'Guia visual da marca, sete princípios de design, diretrizes estratégicas e de usabilidade'],
-      ['StyleGuide', 'Cores, tipografia, grid, componentes e regras de uso, escritos para design e para desenvolvimento'],
-      ['Boas práticas de design e desenvolvimento', 'Como desenhar e como implementar: acessibilidade, estados, validações, nomenclatura'],
-    ],
-    libs: 'Bibliotecas de padrões',
-    design: ['Biblioteca de design', 'Figma, para prototipação rápida'],
-    code: ['Framework e templates', 'Angular: componentes, estados, validações'],
-    same: 'mesma fonte, mesmo lançamento',
-    gov: ['Governança', 'Portal restrito', 'Cursos preparatórios', 'Embaixadores por área'],
+    rules: ['Regras de', 'design e', 'desenv.'],
+    principles: ['Princípios', 'de design'],
+    practices: 'Boas práticas de design e desenvolvimento',
+    visual: ['Guia', 'visual'], visualSub: '(marca)',
+    styles: ['Guia de', 'estilos'],
+    patterns: 'Biblioteca de padrões',
+    designLib: 'Biblioteca de design', codeLib: 'Biblioteca de código',
+    strategic: 'Design estratégico',
+    func: 'Definições de funcionalidade', tech: 'Definições de tecnologia',
+    system: 'Sistema de Design',
   },
   en: {
-    layers: [
-      ['Brand and principles', 'Brand visual guide, seven design principles, strategic and usability guidelines'],
-      ['StyleGuide', 'Color, type, grid, components and usage rules, written for design and for development'],
-      ['Design and development practices', 'How to design and how to implement: accessibility, states, validation, naming'],
-    ],
-    libs: 'Pattern libraries',
-    design: ['Design library', 'Figma, for fast prototyping'],
-    code: ['Framework and templates', 'Angular: components, states, validation'],
-    same: 'same source, same release',
-    gov: ['Governance', 'Restricted portal', 'Preparatory courses', 'Ambassadors per area'],
+    rules: ['Design and', 'development', 'rules'],
+    principles: ['Design', 'principles'],
+    practices: 'Design and development practices',
+    visual: ['Visual', 'guide'], visualSub: '(brand)',
+    styles: ['Style', 'guide'],
+    patterns: 'Pattern library',
+    designLib: 'Design library', codeLib: 'Code library',
+    strategic: 'Strategic design',
+    func: 'Functional definitions', tech: 'Technology definitions',
+    system: 'Design System',
   },
 }[lang];
-const bandH = 108, gap = 26, top = 36, left = 40, width = 830;
+/* Boxes, back to front. */
+const rules = { x: 29, y: 29, w: 1141, h: 194 };
+const visual = { x: 29, y: 251, w: 417, h: 279 };
+const practices = { x: 474, y: 56, w: 670, h: 615 };
+const principles = { x: 223, y: 56, w: 195, h: 446 };
+const styles = { x: 251, y: 280, w: 865, h: 193 };
+const patterns = { x: 502, y: 306, w: 585, h: 139 };
+const strategic = { x: 502, y: 502, w: 585, h: 140 };
+const btn = { w: 251, h: 56 };
 ---
 
-<svg viewBox="0 0 1200 675" role="img" aria-label={`${L.layers.map((l) => l[0]).join(' · ')} · ${L.libs}`}>
+<svg viewBox="0 0 1200 700" role="img" aria-label={`${L.system}: ${L.rules.join(' ')}, ${L.principles.join(' ')}, ${L.practices}, ${L.visual.join(' ')}, ${L.styles.join(' ')}, ${L.patterns} (${L.designLib}, ${L.codeLib}), ${L.strategic}`}>
   <style>
-    .t { fill: var(--fg); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
-    .s { fill: var(--fg-muted); font-size: 19px; }
-    .k { fill: var(--fg-muted); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .box { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
-    .acc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
-    .acc-t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
-    .chev { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
-    .link { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 6; }
-    .link-t { fill: var(--accent); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .box { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .hidden { fill: none; stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 5 7; }
+    .t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .s { fill: var(--fg-muted); font-size: 17px; }
+    .lib { fill: var(--accent); }
+    .lib-t { fill: var(--accent-fg); font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+    .def { fill: var(--line); stroke: var(--line-strong); stroke-width: 1; }
+    .def-t { fill: var(--fg); font-size: 17px; }
+    .sys { fill: var(--accent); font-weight: 500; font-size: 30px; letter-spacing: -0.02em; }
   </style>
 
-  {L.layers.map(([title, sub], i) => {
-    const y = top + i * (bandH + gap);
-    return (
-      <g>
-        <rect class="box" x={left} y={y} width={width} height={bandH} rx="10" />
-        <text class="t" x={left + 28} y={y + 46}>{title}</text>
-        <text class="s" x={left + 28} y={y + 80}>{sub}</text>
-        <path class="chev" d={`M ${left + width / 2 - 10} ${y + bandH + 6} l 10 10 l 10 -10`} />
-      </g>
-    );
-  })}
+  <!-- back to front: each box hides what it covers -->
+  <rect class="box" x={rules.x} y={rules.y} width={rules.w} height={rules.h} rx="12" />
+  <rect class="box" x={visual.x} y={visual.y} width={visual.w} height={visual.h} rx="12" />
+  <rect class="box" x={practices.x} y={practices.y} width={practices.w} height={practices.h} rx="12" />
+  <rect class="box" x={principles.x} y={principles.y} width={principles.w} height={principles.h} rx="12" />
+  <rect class="box" x={styles.x} y={styles.y} width={styles.w} height={styles.h} rx="12" />
 
-  {(() => {
-    const y = top + 3 * (bandH + gap);
-    const h = 675 - y - 36;
-    const colW = (width - 28 * 3) / 2;
-    return (
-      <g>
-        <rect class="box" x={left} y={y} width={width} height={h} rx="10" />
-        <text class="t" x={left + 28} y={y + 46}>{L.libs}</text>
-        <rect class="acc" x={left + 28} y={y + 68} width={colW} height={h - 112} rx="8" />
-        <text class="acc-t" x={left + 50} y={y + 110}>{L.design[0]}</text>
-        <text class="s" x={left + 50} y={y + 140}>{L.design[1]}</text>
-        <rect class="acc" x={left + 56 + colW} y={y + 68} width={colW} height={h - 112} rx="8" />
-        <text class="acc-t" x={left + 78 + colW} y={y + 110}>{L.code[0]}</text>
-        <text class="s" x={left + 78 + colW} y={y + 140}>{L.code[1]}</text>
-        <line class="link" x1={left + 28 + colW} y1={y + 68 + (h - 112) / 2} x2={left + 56 + colW} y2={y + 68 + (h - 112) / 2} />
-        <text class="link-t" x={left + 28 + colW + 14} y={y + h - 14} text-anchor="middle">{L.same}</text>
-      </g>
-    );
-  })()}
+  <!-- covered edges, drawn dashed as in the original -->
+  <line class="hidden" x1={principles.x} y1={rules.y + rules.h} x2={principles.x + principles.w} y2={rules.y + rules.h} />
+  <line class="hidden" x1={practices.x} y1={rules.y + rules.h} x2={practices.x + practices.w} y2={rules.y + rules.h} />
+  <line class="hidden" x1={principles.x} y1={visual.y} x2={principles.x + principles.w} y2={visual.y} />
+  <line class="hidden" x1={visual.x + visual.w} y1={styles.y} x2={visual.x + visual.w} y2={styles.y + styles.h} />
+  <line class="hidden" x1={principles.x + principles.w} y1={styles.y} x2={principles.x + principles.w} y2={styles.y + styles.h} />
+  <line class="hidden" x1={practices.x} y1={styles.y} x2={practices.x} y2={styles.y + styles.h} />
 
-  <g>
-    <rect class="box" x={left + width + 36} y={top} width={1200 - left - width - 76} height={675 - top - 36} rx="10" stroke-dasharray="6 6" />
-    <text class="k" x={left + width + 60} y={top + 42}>{L.gov[0]}</text>
-    {L.gov.slice(1).map((g, i) => (
-      <g>
-        <circle cx={left + width + 66} cy={top + 96 + i * 54} r="4" fill="var(--accent)" />
-        <text class="s" x={left + width + 82} y={top + 102 + i * 54}>{g}</text>
-      </g>
-    ))}
-  </g>
+  <!-- inner blocks -->
+  <rect class="box" x={patterns.x} y={patterns.y} width={patterns.w} height={patterns.h} rx="10" />
+  <rect class="lib" x={patterns.x + 28} y={patterns.y + 57} width={btn.w} height={btn.h} rx="8" />
+  <rect class="lib" x={patterns.x + patterns.w - 28 - btn.w} y={patterns.y + 57} width={btn.w} height={btn.h} rx="8" />
+  <rect class="box" x={strategic.x} y={strategic.y} width={strategic.w} height={strategic.h} rx="10" />
+  <rect class="def" x={strategic.x + 28} y={strategic.y + 56} width={btn.w} height={btn.h} rx="8" />
+  <rect class="def" x={strategic.x + strategic.w - 28 - btn.w} y={strategic.y + 56} width={btn.w} height={btn.h} rx="8" />
+
+  <!-- labels -->
+  {L.rules.map((l, i) => <text class="t" x="126" y={100 + i * 30} text-anchor="middle">{l}</text>)}
+  {L.principles.map((l, i) => <text class="t" x="320" y={150 + i * 30} text-anchor="middle">{l}</text>)}
+  <text class="t" x={practices.x + practices.w / 2} y="150" text-anchor="middle">{L.practices}</text>
+  {L.visual.map((l, i) => <text class="t" x="126" y={370 + i * 30} text-anchor="middle">{l}</text>)}
+  <text class="s" x="126" y="432" text-anchor="middle">{L.visualSub}</text>
+  {L.styles.map((l, i) => <text class="t" x="335" y={366 + i * 30} text-anchor="middle">{l}</text>)}
+  <text class="t" x={patterns.x + patterns.w / 2} y={patterns.y + 38} text-anchor="middle">{L.patterns}</text>
+  <text class="lib-t" x={patterns.x + 28 + btn.w / 2} y={patterns.y + 57 + 35} text-anchor="middle">{L.designLib}</text>
+  <text class="lib-t" x={patterns.x + patterns.w - 28 - btn.w / 2} y={patterns.y + 57 + 35} text-anchor="middle">{L.codeLib}</text>
+  <text class="t" x={strategic.x + strategic.w / 2} y={strategic.y + 38} text-anchor="middle">{L.strategic}</text>
+  <text class="def-t" x={strategic.x + 28 + btn.w / 2} y={strategic.y + 56 + 34} text-anchor="middle">{L.func}</text>
+  <text class="def-t" x={strategic.x + strategic.w - 28 - btn.w / 2} y={strategic.y + 56 + 34} text-anchor="middle">{L.tech}</text>
+  <text class="sys" x="84" y="616">{L.system}</text>
 </svg>
