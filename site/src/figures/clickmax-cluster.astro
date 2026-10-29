@@ -1,41 +1,78 @@
 ---
 /* Clickmax · monetization foundation: 173 scattered billing issues reorganized
-   into five parts under one principle. The parts are unnamed on purpose. */
+   into five parts under one principle. The parts are unnamed on purpose; the
+   173 squares on the right are the same 173, now sorted (35/35/35/34/34). */
 import type { Lang } from '../lib/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const L = {
-  pt: { before: ['173 issues', '12 projetos · 8 times · 29 lacunas sem issue'], after: ['5 partes', 'sob um único princípio'], q: '“esta conta pode fazer esta ação nesta funcionalidade?”', part: 'Parte' },
-  en: { before: ['173 issues', '12 projects · 8 teams · 29 gaps with no issue'], after: ['5 parts', 'under a single principle'], q: '“can this account do this action in this feature?”', part: 'Part' },
+  pt: {
+    before: ['173 issues', '12 projetos · 8 times · 29 lacunas sem issue'],
+    after: ['5 partes', 'sob um único princípio'],
+    q: ['“esta conta pode fazer', 'esta ação nesta funcionalidade?”'],
+    part: 'Parte',
+  },
+  en: {
+    before: ['173 issues', '12 projects · 8 teams · 29 gaps with no issue'],
+    after: ['5 parts', 'under a single principle'],
+    q: ['“can this account do', 'this action in this feature?”'],
+    part: 'Part',
+  },
 }[lang];
 const rnd = (i: number) => { const x = Math.sin(i * 3.7 + 1) * 10000; return x - Math.floor(x); };
+/* scatter inside a soft panel on the left */
+const panel = { x: 40, y: 120, w: 480, h: 322 };
+const pts = Array.from({ length: 173 }, (_, i) => ({ x: panel.x + 14 + rnd(i) * (panel.w - 38), y: panel.y + 14 + rnd(i + 500) * (panel.h - 38) }));
+/* right side */
+const R = { x: 640, w: 520 };
+const qBox = { y: 116, h: 96 };
+const counts = [35, 35, 35, 34, 34];
+const cardW = 96, cardGap = 10, cardY = 262, cols = 5, cell = 13, cgap = 5;
+const cardH = 44 + 7 * (cell + cgap) + 10;
 ---
 
-<svg class="fg-clickmax-cluster" viewBox="0 0 1200 560" role="img" aria-label={`${L.before.join(' · ')} → ${L.after.join(' ')}: ${L.q}`}>
+<svg class="fg-clickmax-cluster" viewBox="0 0 1200 490" role="img" aria-label={`${L.before.join(' · ')} → ${L.after.join(' ')}: ${L.q.join(' ')}`}>
   <style>
     .fg-clickmax-cluster .t { fill: var(--fg); font-weight: 700; font-size: 30px; letter-spacing: -0.03em; }
     .fg-clickmax-cluster .s { fill: var(--fg-muted); font-size: 16px; }
-    .fg-clickmax-cluster .issue { fill: var(--fg-muted); opacity: 0.8; }
-    .fg-clickmax-cluster .part { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
-    .fg-clickmax-cluster .pt { fill: var(--fg); font-weight: 500; font-size: 16px; }
+    .fg-clickmax-cluster .panel { fill: var(--bg); stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 6; }
+    .fg-clickmax-cluster .issue { fill: var(--fg-muted); opacity: 0.75; }
+    .fg-clickmax-cluster .issue-s { fill: var(--fg-muted); opacity: 0.9; }
+    .fg-clickmax-cluster .part { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-cluster .pt { fill: var(--fg); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+    .fg-clickmax-cluster .pn { fill: var(--fg-muted); font-size: 12px; }
     .fg-clickmax-cluster .acc { fill: var(--accent); }
     .fg-clickmax-cluster .acc-t { fill: var(--accent-fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
     .fg-clickmax-cluster .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
   </style>
+
+  <!-- before -->
   <text class="t" x="40" y="60">{L.before[0]}</text>
   <text class="s" x="40" y="88">{L.before[1]}</text>
-  {Array.from({ length: 173 }, (_, i) => <rect class="issue" x={40 + rnd(i) * 440} y={120 + rnd(i + 500) * 400} width="9" height="9" rx="1.5" />)}
-  <path class="wire" d="M 520 320 h 70 m -8 -8 l 8 8 l -8 8" />
-  <text class="t" x="640" y="60">{L.after[0]}</text>
-  <text class="s" x="640" y="88">{L.after[1]}</text>
-  <rect class="acc" x="640" y="112" width="520" height="70" rx="10" />
-  <text class="acc-t" x="900" y="155" text-anchor="middle">{L.q}</text>
-  {[0, 1, 2, 3, 4].map((i) => (
-    <g>
-      <rect class="part" x={640 + i * 106} y="230" width="96" height="150" rx="10" />
-      <text class="pt" x={640 + i * 106 + 14} y="258">{L.part} {i + 1}</text>
-      {Array.from({ length: 12 }, (_, k) => <rect class="issue" x={640 + i * 106 + 14 + (k % 4) * 18} y={274 + Math.floor(k / 4) * 18} width="11" height="11" rx="2" />)}
-      <path class="wire" d={`M ${640 + i * 106 + 48} 182 V 230`} />
-    </g>
-  ))}
+  <rect class="panel" x={panel.x} y={panel.y} width={panel.w} height={panel.h} rx="12" />
+  {pts.map((p) => <rect class="issue" x={p.x} y={p.y} width="9" height="9" rx="1.5" />)}
+
+  <!-- arrow -->
+  <path class="wire" d="M 548 290 h 64 m -8 -8 l 8 8 l -8 8" />
+
+  <!-- after -->
+  <text class="t" x={R.x} y="60">{L.after[0]}</text>
+  <text class="s" x={R.x} y="88">{L.after[1]}</text>
+  <rect class="acc" x={R.x} y={qBox.y} width={R.w} height={qBox.h} rx="12" />
+  {L.q.map((l, i) => <text class="acc-t" x={R.x + R.w / 2} y={qBox.y + 40 + i * 28} text-anchor="middle">{l}</text>)}
+
+  {counts.map((n, i) => {
+    const x = R.x + i * (cardW + cardGap);
+    return (
+      <g>
+        <path class="wire" d={`M ${x + cardW / 2} ${qBox.y + qBox.h} V ${cardY}`} />
+        <rect class="part" x={x} y={cardY} width={cardW} height={cardH} rx="10" />
+        <text class="pt" x={x + 12} y={cardY + 24}>{L.part} {i + 1}</text>
+        <text class="pn" x={x + cardW - 12} y={cardY + 24} text-anchor="end">{n}</text>
+        {Array.from({ length: n }, (_, k) => (
+          <rect class="issue-s" x={x + 12 + (k % cols) * (cell + cgap)} y={cardY + 40 + Math.floor(k / cols) * (cell + cgap)} width={cell} height={cell} rx="2" />
+        ))}
+      </g>
+    );
+  })}
 </svg>

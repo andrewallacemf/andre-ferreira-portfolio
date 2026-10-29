@@ -1,7 +1,8 @@
 ---
 /* Clickmax design system · alias graph: primitive palettes → semantic tokens in
-   two modes → component tokens. Five tokens as the worked example; the real
-   palette values come from the library (neutral scale and the lime). */
+   two modes → component tokens. Five tokens as the worked example, each token in
+   its own card so the wires read edge to edge; the lime chain is highlighted.
+   The real palette values come from the library (neutral scale and the lime). */
 import type { Lang } from '../lib/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -10,11 +11,13 @@ const L = {
     cols: [['Primitivas', '7 paletas · 132 variáveis'], ['Semânticos', '58 tokens · modo claro e escuro'], ['Componente', '48 tokens']],
     light: 'claro', dark: 'escuro',
     note: 'exemplo com cinco tokens; o arquivo completo tem 238 variáveis geradas desta forma',
+    chain: 'a cadeia em destaque: a cor da marca vira ação primária e, daí, fundo do botão',
   },
   en: {
     cols: [['Primitives', '7 palettes · 132 variables'], ['Semantic', '58 tokens · light and dark'], ['Component', '48 tokens']],
     light: 'light', dark: 'dark',
     note: 'five tokens as the example; the full file has 238 variables generated this way',
+    chain: 'the highlighted chain: the brand color becomes the primary action and, from there, the button background',
   },
 }[lang];
 /* Real primitive values from the library's neutral scale and brand lime. */
@@ -25,70 +28,104 @@ const prim = [
 /* semantic: name, light primitive index, dark primitive index */
 const sem = [
   ['surface/base', 0, 5], ['surface/raised', 1, 4], ['border/subtle', 2, 4], ['text/primary', 4, 1], ['action/primary', 6, 6],
-];
+] as const;
 /* component: name, semantic index */
 const comp = [
   ['button/primary/bg', 4], ['button/primary/text', 3], ['card/bg', 1], ['card/border', 2], ['page/bg', 0],
-];
-const x1 = 40, x2 = 470, x3 = 880;
-const y0 = 120, rowP = 58, rowS = 92, rowC = 92;
-const py = (i: number) => y0 + i * rowP;
-const sy = (i: number) => y0 + 24 + i * rowS;
-const cy = (i: number) => y0 + 24 + i * rowC;
+] as const;
+const HOT_P = 6, HOT_S = 4, HOT_C = 0;
+/* columns: x, width */
+const C1 = { x: 40, w: 300 }, C2 = { x: 430, w: 350 }, C3 = { x: 870, w: 290 };
+const y0 = 130, bh = 54;
+const py = (i: number) => y0 + i * 62;
+const sy = (i: number) => y0 + 34 + i * 96;
+const cy = (i: number) => y0 + 34 + i * 96;
+const mid = (y: number) => y + bh / 2;
 ---
 
-<svg class="fg-clickmax-tokens" viewBox="0 0 1200 680" role="img" aria-label={L.cols.map((c) => c[0]).join(' → ')}>
+<svg class="fg-clickmax-tokens" viewBox="0 0 1200 700" role="img" aria-label={L.cols.map((c) => c[0]).join(' → ')}>
   <style>
     .fg-clickmax-tokens .k { fill: var(--fg-muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
     .fg-clickmax-tokens .t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
     .fg-clickmax-tokens .s { fill: var(--fg-muted); font-size: 16px; }
-    .fg-clickmax-tokens .m { fill: var(--fg); font-size: 16px; font-family: var(--font-mono); }
-    .fg-clickmax-tokens .mm { fill: var(--fg-muted); font-size: 13px; font-family: var(--font-mono); }
+    .fg-clickmax-tokens .card { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.25; }
+    .fg-clickmax-tokens .card-hot { fill: var(--bg-elev); stroke: var(--accent); stroke-width: 1.75; }
+    .fg-clickmax-tokens .m { fill: var(--fg); font-size: 15px; font-family: var(--font-mono); }
+    .fg-clickmax-tokens .mm { fill: var(--fg-muted); font-size: 12px; font-family: var(--font-mono); }
     .fg-clickmax-tokens .sw { stroke: var(--line-strong); stroke-width: 1; }
-    .fg-clickmax-tokens .wire { fill: none; stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
-    .fg-clickmax-tokens .wire-acc { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+    .fg-clickmax-tokens .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.25; opacity: 0.9; }
+    .fg-clickmax-tokens .wire-hot { fill: none; stroke: var(--accent); stroke-width: 2; }
+    .fg-clickmax-tokens .port { fill: var(--line-strong); }
+    .fg-clickmax-tokens .port-hot { fill: var(--accent); }
     .fg-clickmax-tokens .note { fill: var(--fg-muted); font-size: 15px; }
   </style>
 
-  {[x1, x2, x3].map((x, i) => (
+  {[C1, C2, C3].map((c, i) => (
     <g>
-      <text class="t" x={x} y="56">{L.cols[i][0]}</text>
-      <text class="s" x={x} y="82">{L.cols[i][1]}</text>
+      <text class="t" x={c.x} y="56">{L.cols[i][0]}</text>
+      <text class="s" x={c.x} y="82">{L.cols[i][1]}</text>
     </g>
   ))}
+
+  <!-- wires first, so cards sit on top -->
+  {sem.map(([name, li, di], i) => {
+    const hot = li === HOT_P && i === HOT_S;
+    const x1 = C1.x + C1.w, y1 = mid(py(li)), x2 = C2.x, y2 = mid(sy(i));
+    return <path class={hot ? 'wire-hot' : 'wire'} d={`M ${x1} ${y1} C ${x1 + 50} ${y1}, ${x2 - 50} ${y2}, ${x2} ${y2}`} />;
+  })}
+  {comp.map(([name, si], i) => {
+    const hot = si === HOT_S && i === HOT_C;
+    const x1 = C2.x + C2.w, y1 = mid(sy(si)), x2 = C3.x, y2 = mid(cy(i));
+    return <path class={hot ? 'wire-hot' : 'wire'} d={`M ${x1} ${y1} C ${x1 + 50} ${y1}, ${x2 - 50} ${y2}, ${x2} ${y2}`} />;
+  })}
 
   <!-- primitives -->
-  {prim.map(([name, hex], i) => (
-    <g>
-      <rect class="sw" x={x1} y={py(i)} width="40" height="40" rx="8" fill={hex} />
-      <text class="m" x={x1 + 56} y={py(i) + 20}>{name}</text>
-      <text class="mm" x={x1 + 56} y={py(i) + 38}>{hex}</text>
-    </g>
-  ))}
+  {prim.map(([name, hex], i) => {
+    const y = py(i), hot = i === HOT_P;
+    return (
+      <g>
+        <rect class={hot ? 'card-hot' : 'card'} x={C1.x} y={y} width={C1.w} height={bh} rx="10" />
+        <rect class="sw" x={C1.x + 12} y={y + 11} width="32" height="32" rx="7" fill={hex} />
+        <text class="m" x={C1.x + 58} y={y + 24}>{name}</text>
+        <text class="mm" x={C1.x + 58} y={y + 42}>{hex}</text>
+        <circle class={hot ? 'port-hot' : 'port'} cx={C1.x + C1.w} cy={mid(y)} r="3.5" />
+      </g>
+    );
+  })}
 
   <!-- semantic: two swatches (light, dark) -->
-  <text class="k" x={x2 + 20} y={y0 + 8} text-anchor="middle">{L.light}</text>
-  <text class="k" x={x2 + 76} y={y0 + 8} text-anchor="middle">{L.dark}</text>
-  {sem.map(([name, li, di], i) => (
-    <g>
-      <rect class="sw" x={x2} y={sy(i)} width="40" height="40" rx="8" fill={prim[li as number][1]} />
-      <rect class="sw" x={x2 + 56} y={sy(i)} width="40" height="40" rx="8" fill={prim[di as number][1]} />
-      <text class="m" x={x2 + 116} y={sy(i) + 20}>{name}</text>
-      <text class="mm" x={x2 + 116} y={sy(i) + 38}>{prim[li as number][0]} · {prim[di as number][0]}</text>
-      <path class={i === 4 ? 'wire-acc' : 'wire'} d={`M ${x1 + 40} ${py(li as number) + 20} C ${x1 + 240} ${py(li as number) + 20}, ${x2 - 200} ${sy(i) + 20}, ${x2} ${sy(i) + 20}`} />
-    </g>
-  ))}
+  <text class="k" x={C2.x + 12} y={y0 + 24}>{L.light} · {L.dark}</text>
+  {sem.map(([name, li, di], i) => {
+    const y = sy(i), hot = i === HOT_S;
+    return (
+      <g>
+        <rect class={hot ? 'card-hot' : 'card'} x={C2.x} y={y} width={C2.w} height={bh} rx="10" />
+        <rect class="sw" x={C2.x + 12} y={y + 11} width="32" height="32" rx="7" fill={prim[li][1]} />
+        <rect class="sw" x={C2.x + 52} y={y + 11} width="32" height="32" rx="7" fill={prim[di][1]} />
+        <text class="m" x={C2.x + 98} y={y + 24}>{name}</text>
+        <text class="mm" x={C2.x + 98} y={y + 42}>{prim[li][0]} · {prim[di][0]}</text>
+        <circle class={hot ? 'port-hot' : 'port'} cx={C2.x} cy={mid(y)} r="3.5" />
+        <circle class={hot ? 'port-hot' : 'port'} cx={C2.x + C2.w} cy={mid(y)} r="3.5" />
+      </g>
+    );
+  })}
 
   <!-- component -->
-  {comp.map(([name, si], i) => (
-    <g>
-      <rect class="sw" x={x3} y={cy(i)} width="40" height="40" rx="8" fill={prim[sem[si as number][1] as number][1]} />
-      <rect class="sw" x={x3 + 56} y={cy(i)} width="40" height="40" rx="8" fill={prim[sem[si as number][2] as number][1]} />
-      <text class="m" x={x3 + 116} y={cy(i) + 20}>{name}</text>
-      <text class="mm" x={x3 + 116} y={cy(i) + 38}>→ {sem[si as number][0]}</text>
-      <path class={si === 4 ? 'wire-acc' : 'wire'} d={`M ${x2 + 96 + 240} ${sy(si as number) + 20} C ${x2 + 380} ${sy(si as number) + 20}, ${x3 - 60} ${cy(i) + 20}, ${x3} ${cy(i) + 20}`} />
-    </g>
-  ))}
+  {comp.map(([name, si], i) => {
+    const y = cy(i), hot = i === HOT_C;
+    const s = sem[si];
+    return (
+      <g>
+        <rect class={hot ? 'card-hot' : 'card'} x={C3.x} y={y} width={C3.w} height={bh} rx="10" />
+        <rect class="sw" x={C3.x + 12} y={y + 11} width="32" height="32" rx="7" fill={prim[s[1]][1]} />
+        <rect class="sw" x={C3.x + 52} y={y + 11} width="32" height="32" rx="7" fill={prim[s[2]][1]} />
+        <text class="m" x={C3.x + 98} y={y + 24}>{name}</text>
+        <text class="mm" x={C3.x + 98} y={y + 42}>→ {s[0]}</text>
+        <circle class={hot ? 'port-hot' : 'port'} cx={C3.x} cy={mid(y)} r="3.5" />
+      </g>
+    );
+  })}
 
-  <text class="note" x="40" y="656">{L.note}</text>
+  <text class="note" x="40" y="652">{L.note}</text>
+  <text class="note" x="40" y="676">{L.chain}</text>
 </svg>

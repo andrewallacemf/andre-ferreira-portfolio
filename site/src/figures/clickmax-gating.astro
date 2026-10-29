@@ -7,12 +7,12 @@ const { lang } = Astro.props;
 const L = {
   pt: {
     buckets: [['Limite quantitativo', 'quantos funis, páginas, produtos, contatos'], ['Permissão', 'esta funcionalidade existe neste plano?'], ['Gate de publicação', 'criar é livre; publicar depende do plano']],
-    before: 'hoje: tudo no momento de criar', after: 'proposto: a barreira vai para a publicação',
+    before: ['hoje', 'tudo no momento de criar'], after: ['proposto', 'a barreira vai para a publicação'],
     q: '“esta conta pode fazer esta ação nesta funcionalidade?”',
   },
   en: {
     buckets: [['Quantitative limit', 'how many funnels, pages, products, contacts'], ['Permission', 'does this feature exist in this plan?'], ['Publishing gate', 'creating is free; publishing depends on the plan']],
-    before: 'today: everything at creation time', after: 'proposed: the barrier moves to publishing',
+    before: ['today', 'everything at creation time'], after: ['proposed', 'the barrier moves to publishing'],
     q: '“can this account do this action in this feature?”',
   },
 }[lang];
@@ -27,9 +27,9 @@ const L = {
     .fg-clickmax-gating .blk { fill: var(--line-strong); }
     .fg-clickmax-gating .blk-acc { fill: var(--accent); }
     .fg-clickmax-gating .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
-    .fg-clickmax-gating .q { fill: var(--fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+    .fg-clickmax-gating .q { fill: var(--accent-fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
     .fg-clickmax-gating .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
-    .fg-clickmax-gating .muted { fill: var(--fg-muted); font-size: 15px; }
+    .fg-clickmax-gating .muted { fill: var(--accent-fg); font-size: 15px; }
   </style>
   {L.buckets.map(([t, s], i) => {
     const x = 40 + i * 380; const acc = i === 2;
@@ -40,12 +40,16 @@ const L = {
         <text class="s" x={x + 24} y="112">{s}</text>
         {i === 0 && <g><rect x={x + 24} y="190" width="312" height="14" rx="7" fill="var(--line)" /><rect x={x + 24} y="190" width="230" height="14" rx="7" fill="var(--fg-muted)" /><rect x={x + 252} y="180" width="3" height="34" fill="var(--fg)" /></g>}
         {i === 1 && <g><rect x={x + 24} y="184" width="64" height="32" rx="16" fill="var(--line)" /><circle cx={x + 40} cy="200" r="12" fill="var(--bg)" stroke="var(--line-strong)" /><rect x={x + 104} y="184" width="64" height="32" rx="16" fill="var(--fg-muted)" /><circle cx={x + 152} cy="200" r="12" fill="var(--bg)" /></g>}
-        {i === 2 && <g><rect x={x + 24} y="176" width="150" height="48" rx="24" fill="var(--accent)" /><text x={x + 99} y="206" text-anchor="middle" fill="var(--accent-fg)" font-weight="700" font-size="16">{lang === 'pt' ? 'Publicar' : 'Publish'}</text><rect x={x + 190} y="186" width="22" height="18" rx="3" fill="none" stroke="var(--fg)" stroke-width="1.5" /><path d={`M ${x + 194} 186 v -6 a 7 7 0 0 1 14 0 v 6`} fill="none" stroke="var(--fg)" stroke-width="1.5" /></g>}
-        <text class="k" x={x + 24} y="300">{i < 2 ? L.before : L.after}</text>
+        {i === 2 && <g><rect x={x + 24} y="176" width="150" height="48" rx="24" fill="var(--accent)" /><text x={x + 99} y="206" text-anchor="middle" fill="var(--accent-fg)" font-weight="700" font-size="16px">{lang === 'pt' ? 'Publicar' : 'Publish'}</text><rect x={x + 190} y="186" width="22" height="18" rx="3" fill="none" stroke="var(--fg)" stroke-width="1.5" /><path d={`M ${x + 194} 186 v -6 a 7 7 0 0 1 14 0 v 6`} fill="none" stroke="var(--fg)" stroke-width="1.5" /></g>}
+        <line x1={x + 24} y1="268" x2={x + 336} y2="268" stroke="var(--line)" stroke-width="1" />
+        <text class="k" x={x + 24} y="296">{(i < 2 ? L.before : L.after)[0]}</text>
+        <text class="s" x={x + 24} y="296" dx={((i < 2 ? L.before : L.after)[0].length) * 9.5 + 12}>{(i < 2 ? L.before : L.after)[1]}</text>
       </g>
     );
   })}
-  <path class="wire" d="M 600 320 v 40" />
-  <text class="q" x="600" y="410" text-anchor="middle">{L.q}</text>
-  <text class="muted" x="600" y="444" text-anchor="middle">{lang === 'pt' ? 'um princípio para limites, permissões e gates de publicação' : 'one principle for limits, permissions and publishing gates'}</text>
+  {[220, 600, 980].map((cx) => <path class="wire" d={`M ${cx} 320 v 28`} />)}
+  <path class="wire" d="M 220 348 H 980 M 600 348 v 20" />
+  <rect x="140" y="368" width="920" height="92" rx="14" fill="var(--accent)" />
+  <text class="q" x="600" y="410" text-anchor="middle" fill="var(--accent-fg)">{L.q}</text>
+  <text class="muted" x="600" y="440" text-anchor="middle" fill="var(--accent-fg)" opacity="0.85">{lang === 'pt' ? 'um princípio para limites, permissões e gates de publicação' : 'one principle for limits, permissions and publishing gates'}</text>
 </svg>

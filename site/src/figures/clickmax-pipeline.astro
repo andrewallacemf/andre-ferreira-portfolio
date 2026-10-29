@@ -25,14 +25,15 @@ const L = {
     one: 'one source', three: 'three consumers',
   },
 }[lang];
-const src = { x: 60, y: 210, w: 300, h: 250 };
+const src = { x: 60, y: 105, w: 300, h: 250 };
+/* Figma and Code side by side on the source's level; the AI widgets stand on Code. */
+const colH = 150, colW = 500, colX = 640;
 const cols = [
-  { key: 'figma', y: 60 }, { key: 'code', y: 290 }, { key: 'ai', y: 470 },
+  { key: 'figma', y: 60, x: colX, w: colW }, { key: 'code', y: 250, x: colX, w: colW }, { key: 'ai', y: 470, x: colX + 40, w: colW - 40 },
 ] as const;
-const colX = 640, colW = 500, colH = 150;
 ---
 
-<svg class="fg-clickmax-pipeline" viewBox="0 0 1200 680" role="img" aria-label={`${L.source.join(' ')} → ${L.figma[0]}, ${L.code[0]}, ${L.ai[0]}`}>
+<svg class="fg-clickmax-pipeline" viewBox="0 0 1200 660" role="img" aria-label={`${L.source.join(' ')} → ${L.figma[0]}, ${L.code[0]}, ${L.ai[0]}`}>
   <style>
     .fg-clickmax-pipeline .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
     .fg-clickmax-pipeline .t { fill: var(--fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
@@ -57,10 +58,11 @@ const colX = 640, colW = 500, colH = 150;
 
   <!-- wires: from the source's right edge to each consumer -->
   {cols.map((c) => {
+    if (c.key === 'ai') return null;
     const y1 = src.y + src.h / 2, y2 = c.y + colH / 2;
-    const x1 = src.x + src.w, x2 = colX;
+    const x1 = src.x + src.w, x2 = c.x;
     const mx = (x1 + x2) / 2;
-    return <path class={c.key === 'ai' ? 'wire' : 'wire-acc'} d={`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`} stroke-dasharray={c.key === 'ai' ? '6 6' : undefined} />;
+    return <path class="wire-acc" d={`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`} />;
   })}
   <text class="k" x={colX} y="40">{L.three}</text>
 
@@ -71,15 +73,15 @@ const colX = 640, colW = 500, colH = 150;
     const s = L[(c.key + 'S') as 'figmaS'];
     return (
       <g>
-        <rect class={`box ${c.key === 'ai' ? 'ai' : ''}`} x={colX} y={c.y} width={colW} height={colH} rx="12" />
-        <text class="t" x={colX + 28} y={c.y + 46}>{d[0]}</text>
-        <text class="s" x={colX + 28} y={c.y + 74}>{d[1]}</text>
-        <text class="n" x={colX + 28} y={c.y + 126}>{n}</text>
-        <text class="s" x={colX + 28 + (n.length > 2 ? 86 : 70)} y={c.y + 124}>{s}</text>
+        <rect class={`box ${c.key === 'ai' ? 'ai' : ''}`} x={c.x} y={c.y} width={c.w} height={colH} rx="12" />
+        <text class="t" x={c.x + 28} y={c.y + 46}>{d[0]}</text>
+        <text class="s" x={c.x + 28} y={c.y + 74}>{d[1]}</text>
+        <text class="n" x={c.x + 28} y={c.y + 126}>{n}</text>
+        <text class="s" x={c.x + 28} y={c.y + 124} dx={n.split('').reduce((a, ch) => a + (/\d/.test(ch) ? 26 : 12), 0) + 14}>{s}</text>
       </g>
     );
   })}
   <!-- the AI widgets stand on the components: short vertical tie with a label -->
-  <line class="wire" x1={colX + colW / 2} y1={cols[1].y + colH} x2={colX + colW / 2} y2={cols[2].y} />
-  <text class="tag" x={colX + colW / 2 + 12} y={cols[1].y + colH + 22}>{L.layer}</text>
+  {[0.3, 0.5, 0.7].map((f) => <line class="wire" x1={cols[2].x + cols[2].w * f} y1={cols[1].y + colH} x2={cols[2].x + cols[2].w * f} y2={cols[2].y} stroke-dasharray="4 5" />)}
+  <text class="tag" x={cols[2].x + cols[2].w} y={cols[1].y + colH + 42} text-anchor="end">{L.layer}</text>
 </svg>

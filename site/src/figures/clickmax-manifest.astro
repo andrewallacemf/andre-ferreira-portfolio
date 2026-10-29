@@ -28,14 +28,33 @@ const L = {
   <rect class="layer" x="140" y="40" width="1020" height="190" rx="12" />
   <text class="t" x="164" y="80">{L.l2[0]}</text>
   <text class="s" x="164" y="106">{L.l2[1]}</text>
-  {Array.from({ length: 14 }, (_, i) => <rect class="w" x={164 + i * 70} y="134" width="56" height="64" rx="8" />)}
+  {Array.from({ length: 14 }, (_, i) => {
+    const x = 164 + i * 70; const kind = i % 4;
+    return (
+      <g>
+        <rect class="w" x={x} y="134" width="56" height="64" rx="8" />
+        {kind === 0 && <g><rect x={x + 10} y="148" width="36" height="6" rx="3" fill="var(--accent)" opacity="0.7" /><rect x={x + 10} y="160" width="26" height="4" rx="2" fill="var(--fg-muted)" opacity="0.5" /><rect x={x + 10} y="170" width="32" height="4" rx="2" fill="var(--fg-muted)" opacity="0.5" /></g>}
+        {kind === 1 && <g>{[0, 1, 2, 3].map((k) => <rect x={x + 10 + k * 9} y={186 - 10 - k * 7} width="6" height={10 + k * 7} rx="1.5" fill="var(--accent)" opacity={0.45 + k * 0.15} />)}</g>}
+        {kind === 2 && <g>{[0, 1, 2].map((k) => <g><circle cx={x + 15} cy={152 + k * 14} r="3.5" fill="none" stroke="var(--fg-muted)" stroke-width="1.2" /><rect x={x + 24} y={150 + k * 14} width="22" height="4" rx="2" fill="var(--fg-muted)" opacity="0.5" /></g>)}</g>}
+        {kind === 3 && <g><rect x={x + 10} y="146" width="36" height="24" rx="4" fill="var(--fg-muted)" opacity="0.25" /><rect x={x + 10} y="178" width="36" height="10" rx="5" fill="var(--accent)" opacity="0.8" /></g>}
+      </g>
+    );
+  })}
   <text class="side" x="40" y="140">{L.ai}</text>
   <path class="wire" d="M 650 230 v 40" />
   <!-- layer 1 -->
   <rect class="layer" x="140" y="270" width="1020" height="190" rx="12" />
   <text class="t" x="164" y="310">{L.l1[0]}</text>
   <text class="s" x="164" y="336">{L.l1[1]}</text>
-  {Array.from({ length: 24 }, (_, i) => <rect class="c" x={164 + (i % 12) * 82} y={364 + Math.floor(i / 12) * 40} width="70" height="30" rx="6" />)}
+  {Array.from({ length: 24 }, (_, i) => {
+    const x = 164 + (i % 12) * 82, y = 364 + Math.floor(i / 12) * 40;
+    return (
+      <g>
+        <rect class="c" x={x} y={y} width="70" height="30" rx="6" />
+        <rect x={x + 10} y={y + 12} width={22 + ((i * 7) % 26)} height="6" rx="3" fill="var(--fg-muted)" opacity="0.4" />
+      </g>
+    );
+  })}
   <text class="side" x="40" y="370">{L.human}</text>
   <path class="wire" d="M 650 460 v 40" />
   <!-- tokens -->
