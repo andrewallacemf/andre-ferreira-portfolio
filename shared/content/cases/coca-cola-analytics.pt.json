@@ -3,8 +3,9 @@
   "kicker": "Case",
   "lede": "O cliente perguntou como aumentar em 30% a adoção da plataforma de dados do marketing. A pesquisa respondeu que um dashboard que leva 30 segundos para carregar não tem um problema de interface. Tem um problema de serviço.",
   "hero": {
-    "figure": "Dos pain points às ideias: 8 grupos de problemas à esquerda, 13 ideias à direita, ligados pelas perguntas \"como poderíamos\" que fizeram a ponte.",
-    "aspect": "16 / 9"
+    "figure": "Dos pain points às ideias: sete grupos de problemas à esquerda, 13 ideias à direita, ligados pelas 12 perguntas \"como poderíamos\" que fizeram a ponte.",
+    "aspect": "16 / 9",
+    "component": "coca-bridge"
   },
   "sections": [
     {
@@ -24,8 +25,9 @@
         "Os usuários descreviam a plataforma como sobrecarregada, lenta, pouco intuitiva e sem a flexibilidade ou a granularidade de que precisavam. Muitas tentativas de usar dados terminavam em \"eu desisto\" e num atalho: pedir para alguém fazer, usar os dados do ano anterior ou decidir sem dados.",
         "O time do cliente acreditava que melhorar a interface dos dashboards bastaria para chegar aos 30%. Essa era a hipótese que a pesquisa precisava testar."
       ],
-      "figure": "Os oito grupos de problemas encontrados: navegação, design, acrônimos, acurácia, tempo de carregamento, dados ausentes e mais dois, com o número de pain points em cada um.",
-      "aspect": "16 / 9"
+      "figure": "Os sete grupos de problemas encontrados (design, navegação, acrônimos, acurácia, carregamento, dados ausentes e padronização) e as perguntas \"como poderíamos\" que cada um gerou.",
+      "aspect": "16 / 9",
+      "component": "coca-clusters"
     },
     {
       "id": "papel",
@@ -44,14 +46,30 @@
         "Enquanto a frente de service design entrevistava 36 pessoas em nove unidades operacionais e construía seis personas e cinco jornadas, a frente de UX abriu a plataforma."
       ],
       "steps": [
-        { "title": "Análise heurística", "text": "Uma primeira leitura estruturada da plataforma pelas heurísticas de Nielsen, para saber onde olhar antes de ouvir os usuários." },
-        { "title": "Testes de usabilidade", "text": "Onze sessões com usuários da empresa, em inglês, sobre quatro dashboards priorizados, com protocolo, critérios de sucesso e relatório." },
-        { "title": "Fluxogramas", "text": "Vinte e dois fluxogramas mapeando o fluxo de cada dashboard e marcando exatamente onde cada pain point acontecia. Um problema localizado no fluxo é um problema que dá para resolver." },
-        { "title": "Cocriação", "text": "Uma sessão interna para transformar pain points em ideias, guiada por perguntas do tipo \"como poderíamos evitar que as pessoas adivinhem o significado dos acrônimos?\" e \"como poderíamos fazer os dashboards carregarem melhor?\"." },
-        { "title": "Treze ideias", "text": "Em cinco categorias (frameworks e taxonomia, tecnologia, processo, pessoas, interface), cada uma com valor para o usuário, valor para o negócio e esforço estimado." }
+        {
+          "title": "Análise heurística",
+          "text": "Uma primeira leitura estruturada da plataforma pelas heurísticas de Nielsen, para saber onde olhar antes de ouvir os usuários."
+        },
+        {
+          "title": "Testes de usabilidade",
+          "text": "Onze sessões com usuários da empresa, em inglês, sobre quatro dashboards priorizados, com protocolo, critérios de sucesso e relatório."
+        },
+        {
+          "title": "Fluxogramas",
+          "text": "Vinte e dois fluxogramas mapeando o fluxo de cada dashboard e marcando exatamente onde cada pain point acontecia. Um problema localizado no fluxo é um problema que dá para resolver."
+        },
+        {
+          "title": "Cocriação",
+          "text": "Uma sessão interna para transformar pain points em ideias, guiada por perguntas do tipo \"como poderíamos evitar que as pessoas adivinhem o significado dos acrônimos?\" e \"como poderíamos fazer os dashboards carregarem melhor?\"."
+        },
+        {
+          "title": "Treze ideias",
+          "text": "Em cinco categorias (frameworks e taxonomia, tecnologia, processo, pessoas, interface), cada uma com valor para o usuário e esforço estimados."
+        }
       ],
       "figure": "Um dos 22 fluxogramas, em versão abstrata: o fluxo de um dashboard com os pain points marcados nos passos em que aconteciam.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "coca-flowchart"
     },
     {
       "id": "decisoes",
@@ -76,7 +94,8 @@
         }
       ],
       "figure": "Mockup recriado do padrão \"do resumo ao detalhe\": grandes números, gráficos e tabela empilhados numa tela só.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "coca-granularity"
     },
     {
       "id": "resultado",
@@ -87,8 +106,9 @@
         "Segundo o retorno do cliente, a busca foi amplamente elogiada, os perfis bem recebidos e o onboarding reduziu o tempo de aprendizado. Não tenho os números de adoção da fase dois; conto o que foi reportado."
       ],
       "showFacts": true,
-      "figure": "As 13 ideias em cinco categorias, cada uma com valor para o usuário, valor para o negócio e esforço.",
-      "aspect": "16 / 9"
+      "figure": "As 13 ideias em cinco categorias, cada uma com o valor para o usuário e o esforço estimados no projeto.",
+      "aspect": "16 / 9",
+      "component": "coca-ideas"
     },
     {
       "id": "aprendizados",

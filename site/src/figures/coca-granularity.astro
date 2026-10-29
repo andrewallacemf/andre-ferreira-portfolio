@@ -1,0 +1,121 @@
+---
+/* Coca-Cola · "summary to granularity", the proposed page pattern: three levels
+   of the same data stacked on one screen (big numbers for a quick read, charts
+   for context, a table for whoever needs the detail). Redrawn from the
+   project's mockup; the two screens show the chart view and the table view. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Padrão de página · do resumo ao detalhe',
+    title: 'Título da página', desc: 'Uma frase dizendo o que esta página responde e com que dados.',
+    filters: ['Filtro 1', 'Filtro 2', 'Filtro 3'],
+    tabs: ['Gráficos', 'Tabela'],
+    levels: [['1', 'Grandes números', 'leitura em segundos'], ['2', 'Gráficos', 'contexto e tendência'], ['3', 'Tabela', 'o dado bruto, linha a linha']],
+    who: ['executivo', 'gestor', 'analista'],
+  },
+  en: {
+    k: 'Page pattern · summary to granularity',
+    title: 'Page title', desc: 'One line saying what this page answers and with which data.',
+    filters: ['Filter 1', 'Filter 2', 'Filter 3'],
+    tabs: ['Charts', 'Table'],
+    levels: [['1', 'Big numbers', 'read in seconds'], ['2', 'Charts', 'context and trend'], ['3', 'Table', 'raw data, row by row']],
+    who: ['executive', 'manager', 'analyst'],
+  },
+}[lang];
+const screens = [{ x: 300, tab: 0 }, { x: 760, tab: 1 }];
+const sw = 400, sy = 90, sh = 540;
+const kpis = ['XX%', 'XX%', 'XX%', 'XX%'];
+const bars = [38, 62, 50, 78, 66, 90, 72];
+---
+
+<svg class="fg-coca-granularity" viewBox="0 0 1200 680" role="img" aria-label={`${L.k}: ${L.levels.map((l) => l[1]).join(' → ')}.`}>
+  <style>
+    .fg-coca-granularity .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-granularity .screen { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-coca-granularity .t { fill: var(--fg); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+    .fg-coca-granularity .d { fill: var(--fg-muted); font-size: 12px; }
+    .fg-coca-granularity .chip { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+    .fg-coca-granularity .chip-t { fill: var(--fg-muted); font-size: 12px; }
+    .fg-coca-granularity .kpi { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1; }
+    .fg-coca-granularity .kpi-t { fill: var(--fg); font-weight: 700; font-size: 16px; }
+    .fg-coca-granularity .tab { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1; }
+    .fg-coca-granularity .tab-on { fill: var(--accent); }
+    .fg-coca-granularity .tab-t { fill: var(--fg-muted); font-size: 12px; }
+    .fg-coca-granularity .tab-ton { fill: var(--accent-fg); font-size: 12px; font-weight: 700; }
+    .fg-coca-granularity .panel { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+    .fg-coca-granularity .bar { fill: var(--accent); opacity: 0.85; }
+    .fg-coca-granularity .line { stroke: var(--fg-muted); stroke-width: 1.25; fill: none; }
+    .fg-coca-granularity .cell { stroke: var(--line); stroke-width: 1; }
+    .fg-coca-granularity .cell-h { fill: var(--line); }
+    .fg-coca-granularity .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-coca-granularity .lvl { fill: var(--accent); font-weight: 700; font-size: 40px; letter-spacing: -0.03em; }
+    .fg-coca-granularity .lvl-t { fill: var(--fg); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+    .fg-coca-granularity .lvl-s { fill: var(--fg-muted); font-size: 14px; }
+    .fg-coca-granularity .who { fill: var(--fg-muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fg-coca-granularity .brace { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 5; fill: none; }
+  </style>
+
+  <text class="k" x="40" y="44">{L.k}</text>
+
+  <!-- the three levels, on the left -->
+  {L.levels.map(([n, t, s], i) => {
+    const y = [236, 340, 480][i];
+    return (
+      <g>
+        <text class="lvl" x="40" y={y + 14}>{n}</text>
+        <text class="lvl-t" x="92" y={y}>{t}</text>
+        <text class="lvl-s" x="92" y={y + 22}>{s}</text>
+        <text class="who" x="92" y={y + 44}>{L.who[i]}</text>
+      </g>
+    );
+  })}
+
+  {screens.map(({ x, tab }) => (
+    <g>
+      <rect class="screen" x={x} y={sy} width={sw} height={sh} rx="12" />
+      <text class="t" x={x + 20} y={sy + 36}>{L.title}</text>
+      <circle class="chip" cx={x + 20 + L.title.length * 9.5 + 10} cy={sy + 30} r="6" />
+      <text class="d" x={x + 20} y={sy + 58}>{L.desc}</text>
+      <line class="rule" x1={x + 20} y1={sy + 72} x2={x + sw - 20} y2={sy + 72} />
+      {L.filters.map((f, j) => (
+        <g>
+          <rect class="chip" x={x + 20 + j * 92} y={sy + 82} width="80" height="22" rx="4" />
+          <text class="chip-t" x={x + 30 + j * 92} y={sy + 97}>{f}</text>
+        </g>
+      ))}
+      <!-- level 1: big numbers -->
+      {kpis.map((kv, j) => (
+        <g>
+          <rect class="kpi" x={x + 20 + j * 92} y={sy + 120} width="80" height="48" rx="6" />
+          <text class="kpi-t" x={x + 60 + j * 92} y={sy + 150} text-anchor="middle">{kv}</text>
+        </g>
+      ))}
+      <!-- tabs -->
+      {L.tabs.map((tname, j) => (
+        <g>
+          <rect class={j === tab ? 'tab-on' : 'tab'} x={x + 20 + j * 96} y={sy + 196} width="90" height="24" rx="4" />
+          <text class={j === tab ? 'tab-ton' : 'tab-t'} x={x + 65 + j * 96} y={sy + 212} text-anchor="middle">{tname}</text>
+        </g>
+      ))}
+      <rect class="panel" x={x + 20} y={sy + 228} width={sw - 40} height={sh - 250} rx="6" />
+      {tab === 0 ? (
+        <g>
+          {bars.map((h, j) => <rect class="bar" x={x + 46 + j * 46} y={sy + 228 + (sh - 250) - 30 - h * 2.2} width="26" height={h * 2.2} rx="3" />)}
+          <path class="line" d={bars.map((h, j) => `${j === 0 ? 'M' : 'L'} ${x + 59 + j * 46} ${sy + 228 + (sh - 250) - 60 - h * 1.6}`).join(' ')} />
+        </g>
+      ) : (
+        <g>
+          {Array.from({ length: 9 }, (_, r) => (
+            <g>
+              {r === 0 && <rect class="cell-h" x={x + 36} y={sy + 244} width={sw - 72} height="26" rx="3" />}
+              <line class="cell" x1={x + 36} y1={sy + 270 + r * 28} x2={x + sw - 36} y2={sy + 270 + r * 28} />
+            </g>
+          ))}
+          {Array.from({ length: 4 }, (_, c) => <line class="cell" x1={x + 36 + (c + 1) * ((sw - 72) / 5)} y1={sy + 244} x2={x + 36 + (c + 1) * ((sw - 72) / 5)} y2={sy + 270 + 8 * 28} />)}
+        </g>
+      )}
+    </g>
+  ))}
+</svg>

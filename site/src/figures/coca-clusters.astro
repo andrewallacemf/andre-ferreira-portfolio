@@ -1,0 +1,87 @@
+---
+/* Coca-Cola · the seven problem clusters from the heuristic review, usability
+   tests and flowcharts, each with the "how might we" questions it produced in
+   the co-creation session. Questions paraphrased from the project's board. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Dores agrupadas · 7 grupos, 12 perguntas',
+    clusters: [
+      ['Design', ['Como deixar as páginas menos cansativas de ler?', 'Como garantir componentes padronizados?', 'Como garantir uma escrita padrão?', 'Como manter os títulos sempre visíveis nos filtros e menus?', 'Como dar contexto sobre o que cada página oferece (filtros, abas, hovers)?']],
+      ['Navegação', ['Como diferenciar as páginas de um dashboard antes de abri-las?', 'Como tornar os nomes de páginas e categorias mais intuitivos?']],
+      ['Acrônimos', ['Como evitar que o usuário adivinhe o significado das siglas?']],
+      ['Acurácia', ['Como deixar claro qual período está sendo considerado em cada visualização?']],
+      ['Carregamento', ['Como garantir que os dashboards tenham melhor performance?']],
+      ['Dados ausentes', ['Como explicar por que um dado não está disponível na tela?']],
+      ['Padronização', ['Como garantir que os filtros escolhidos se reflitam nas demais páginas?']],
+    ],
+  },
+  en: {
+    k: 'Pain points grouped · 7 clusters, 12 questions',
+    clusters: [
+      ['Design', ['How might we make pages less visually tiring?', 'How might we guarantee standardized components?', 'How might we guarantee standard writing?', 'How might we keep titles visible in filters and menus?', 'How might we give context about what each page offers (filters, tabs, hovers)?']],
+      ['Navigation', ['How might we tell a dashboard\'s pages apart before opening them?', 'How might we make page and category names more intuitive?']],
+      ['Acronyms', ['How might we stop users from guessing what acronyms mean?']],
+      ['Accuracy', ['How might we make clear which period a view is showing?']],
+      ['Page loading', ['How might we make dashboards perform better?']],
+      ['Missing data', ['How might we explain why a piece of data is not on screen?']],
+      ['Standardization', ['How might we carry chosen filters over to the other pages?']],
+    ],
+  },
+}[lang];
+const wrap = (s: string, n: number) => {
+  const words = s.split(' '); const lines: string[] = []; let cur = '';
+  for (const w of words) { if ((cur + ' ' + w).trim().length > n) { lines.push(cur.trim()); cur = w; } else cur += ' ' + w; }
+  if (cur.trim()) lines.push(cur.trim()); return lines;
+};
+/* two columns: Design alone on the left (5 questions), the other six stacked on the right */
+const lx = 40, lw = 480, rx = 580, rw = 580;
+const rightBlocks: { name: string; lines: string[]; y: number }[] = [];
+let ry = 100;
+for (const [name, qs] of L.clusters.slice(1)) {
+  const lines = (qs as string[]).flatMap((q) => wrap(q, 62));
+  rightBlocks.push({ name: name as string, lines, y: ry });
+  ry += 34 + lines.length * 20 + 18;
+}
+const designLines = (L.clusters[0][1] as string[]).map((q) => wrap(q, 50));
+---
+
+<svg class="fg-coca-clusters" viewBox="0 0 1200 560" role="img" aria-label={`${L.k}: ${L.clusters.map((c) => `${c[0]} (${(c[1] as string[]).length})`).join(', ')}.`}>
+  <style>
+    .fg-coca-clusters .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-clusters .c { fill: var(--fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .fg-coca-clusters .n { fill: var(--accent); font-weight: 700; font-size: 20px; }
+    .fg-coca-clusters .q { fill: var(--fg); font-size: 15px; }
+    .fg-coca-clusters .dot { fill: var(--fg-muted); }
+    .fg-coca-clusters .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-coca-clusters .div { stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-coca-clusters .band { fill: var(--accent-soft); opacity: 0.5; }
+  </style>
+
+  <text class="k" x={lx} y="44">{L.k}</text>
+
+  <!-- Design, the largest cluster -->
+  <rect class="band" x={lx - 12} y="86" width={lw} height={40 + designLines.reduce((s, l) => s + l.length * 20 + 14, 0)} rx="10" />
+  <text class="c" x={lx} y="124">{L.clusters[0][0]}</text>
+  <text class="n" x={lx + lw - 36} y="124" text-anchor="end">{designLines.length}</text>
+  {(() => { let y = 150; return designLines.map((ls) => { const y0 = y; y += ls.length * 20 + 14; return (
+    <g>
+      <circle class="dot" cx={lx + 4} cy={y0 - 5} r="3" />
+      {ls.map((l, j) => <text class="q" x={lx + 18} y={y0 + j * 20}>{l}</text>)}
+    </g>
+  ); }); })()}
+
+  <line class="div" x1={rx - 30} y1="90" x2={rx - 30} y2="540" />
+
+  <!-- the other six -->
+  {rightBlocks.map((b, i) => (
+    <g>
+      <text class="c" x={rx} y={b.y + 24}>{b.name}</text>
+      <text class="n" x={rx + rw} y={b.y + 24} text-anchor="end">{(L.clusters[i + 1][1] as string[]).length}</text>
+      {b.lines.map((l, j) => <text class="q" x={rx} y={b.y + 52 + j * 20}>{l}</text>)}
+      {i < rightBlocks.length - 1 && <line class="rule" x1={rx} y1={b.y + 34 + b.lines.length * 20 + 8} x2={rx + rw} y2={b.y + 34 + b.lines.length * 20 + 8} />}
+    </g>
+  ))}
+</svg>

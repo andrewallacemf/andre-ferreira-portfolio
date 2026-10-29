@@ -1,0 +1,102 @@
+---
+/* Einstein · the research in numbers. The scope on the first row (weeks, units,
+   flows, insights, heuristic findings); below it, the four profiles with the
+   volume of interviews, shadowing sessions and usability tests for each. All
+   figures from the validated case notes. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Pesquisa em campo · 2021',
+    scope: [['7', 'semanas'], ['6', 'unidades'], ['5', 'fluxos'], ['24', 'insights'], ['489', 'achados heurísticos']],
+    cols: ['Entrevistas', 'Sombras', 'Testes de usabilidade'],
+    profiles: [
+      ['Executivo', '30 a 60 anos, ativo no mercado', [93, 45, 48]],
+      ['Família', 'responsáveis com crianças', [31, 14, 17]],
+      ['Idoso', '60+, com e sem afinidade tecnológica', [32, 13, 19]],
+      ['Jovem tecnológico', 'menos de 30, alta afinidade', [22, 12, 10]],
+    ],
+    total: 'Total',
+    note: 'Cada perfil dividido entre quem já usava o totem e quem usava pela primeira vez.',
+  },
+  en: {
+    k: 'Field research · 2021',
+    scope: [['7', 'weeks'], ['6', 'units'], ['5', 'flows'], ['24', 'insights'], ['489', 'heuristic findings']],
+    cols: ['Interviews', 'Shadowing', 'Usability tests'],
+    profiles: [
+      ['Executive', '30 to 60, active in the workforce', [93, 45, 48]],
+      ['Family', 'guardians with children', [31, 14, 17]],
+      ['Older adult', '60+, with and without tech affinity', [32, 13, 19]],
+      ['Tech-savvy young adult', 'under 30, high tech affinity', [22, 12, 10]],
+    ],
+    total: 'Total',
+    note: 'Each profile split between people who had used the kiosk before and first-time users.',
+  },
+}[lang];
+const totals = [0, 1, 2].map((i) => L.profiles.reduce((s, p) => s + (p[2] as number[])[i], 0));
+const max = 93;
+const x0 = 40, nameW = 300, colW = 270, rowY = 262, rowH = 66;
+const barMax = colW - 90;
+---
+
+<svg class="fg-einstein-profiles" viewBox="0 0 1200 640" role="img" aria-label={`${L.scope.map((s) => s.join(' ')).join(', ')}. ${L.profiles.map((p) => `${p[0]}: ${(p[2] as number[]).join(' / ')}`).join('; ')}. ${L.total}: ${totals.join(' / ')}.`}>
+  <style>
+    .fg-einstein-profiles .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-einstein-profiles .big { fill: var(--fg); font-weight: 700; font-size: 52px; letter-spacing: -0.03em; }
+    .fg-einstein-profiles .bigl { fill: var(--fg-muted); font-size: 16px; }
+    .fg-einstein-profiles .h { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-einstein-profiles .name { fill: var(--fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .fg-einstein-profiles .sub { fill: var(--fg-muted); font-size: 14px; }
+    .fg-einstein-profiles .n { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-einstein-profiles .bar { fill: var(--accent); }
+    .fg-einstein-profiles .bar-soft { fill: var(--accent); opacity: 0.35; }
+    .fg-einstein-profiles .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-einstein-profiles .rule-strong { stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-einstein-profiles .tot { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-einstein-profiles .note { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+
+  <text class="k" x={x0} y="44">{L.k}</text>
+  {L.scope.map(([n, l], i) => {
+    const x = x0 + i * 232;
+    return (
+      <g>
+        <text class="big" x={x} y="120">{n}</text>
+        <text class="bigl" x={x} y="148">{l}</text>
+      </g>
+    );
+  })}
+  <line class="rule-strong" x1={x0} y1="186" x2="1160" y2="186" />
+
+  <!-- header -->
+  {L.cols.map((c, i) => <text class="h" x={x0 + nameW + i * colW} y="226">{c}</text>)}
+
+  <!-- rows -->
+  {L.profiles.map(([name, sub, vals], r) => {
+    const y = rowY + r * rowH;
+    return (
+      <g>
+        <text class="name" x={x0} y={y + 24}>{name}</text>
+        <text class="sub" x={x0} y={y + 46}>{sub}</text>
+        {(vals as number[]).map((v, i) => {
+          const x = x0 + nameW + i * colW;
+          const w = Math.max(6, (v / max) * barMax);
+          return (
+            <g>
+              <rect class={i === 0 ? 'bar' : 'bar-soft'} x={x} y={y + 12} width={w} height="22" rx="4" />
+              <text class="n" x={x + w + 12} y={y + 31}>{v}</text>
+            </g>
+          );
+        })}
+        <line class="rule" x1={x0} y1={y + rowH - 6} x2="1160" y2={y + rowH - 6} />
+      </g>
+    );
+  })}
+
+  <!-- totals -->
+  <text class="name" x={x0} y={rowY + 4 * rowH + 30}>{L.total}</text>
+  {totals.map((t, i) => <text class="tot" x={x0 + nameW + i * colW} y={rowY + 4 * rowH + 30}>{t}</text>)}
+
+  <text class="note" x={x0} y="620">{L.note}</text>
+</svg>

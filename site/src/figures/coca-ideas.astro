@@ -1,0 +1,81 @@
+---
+/* Coca-Cola · the thirteen ideas in five categories, each with the value to the
+   user and the effort estimated in the deliverable (1 to 10 scales). Business
+   value was not scored for these ideas, so it is not shown. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: '13 ideias · 5 categorias',
+    cols: ['Valor para o usuário', 'Esforço'],
+    cats: [
+      ['Frameworks e taxonomia', [['Padronização da plataforma', 8.8, 2.2], ['Clareza de nomes e acrônimos', 9.7, 2.2]]],
+      ['Tecnologia', [['Performance dos dashboards', 9.7, 9.7], ['Perfis de sistema por conta', 9.7, 9.7], ['Atualização automática de dados', 6.9, 2.6]]],
+      ['Processo', [['Catálogo de dashboards', 5.5, 4.3], ['Diagnóstico de saúde dos dashboards', 7.9, 1.3], ['Onboarding de novos usuários', 9.5, 6.2], ['Comunicação do que mudou', 9.5, 6.2]]],
+      ['Pessoas', [['Governança com metas', 9.5, 6.2]]],
+      ['Interface', [['Do resumo ao detalhe', 4.8, 3.6], ['Template de dashboard', 8.8, 2.7], ['Ajuda num lugar só', 7.9, 6.2]]],
+    ],
+    scale: 'escala de 1 a 10, estimada no projeto',
+  },
+  en: {
+    k: '13 ideas · 5 categories',
+    cols: ['Value to the user', 'Effort'],
+    cats: [
+      ['Frameworks and taxonomy', [['Platform standardization', 8.8, 2.2], ['Clear names and acronyms', 9.7, 2.2]]],
+      ['Technology', [['Dashboard performance', 9.7, 9.7], ['System profiles per account', 9.7, 9.7], ['Automated data updates', 6.9, 2.6]]],
+      ['Process', [['Dashboard catalog', 5.5, 4.3], ['Dashboard health diagnosis', 7.9, 1.3], ['Onboarding for new users', 9.5, 6.2], ['Communicating what changed', 9.5, 6.2]]],
+      ['People', [['Governance with goals', 9.5, 6.2]]],
+      ['Interface', [['Summary to granularity', 4.8, 3.6], ['Dashboard template', 8.8, 2.7], ['Help in one place', 7.9, 6.2]]],
+    ],
+    scale: '1 to 10 scale, estimated in the project',
+  },
+}[lang];
+const x0 = 40, nameX = 80, vX = 560, eX = 880, bw = 240, row = 32, gap = 30;
+let y = 112; let idx = 0;
+const blocks = L.cats.map(([name, ideas]) => { const b = { name: name as string, ideas: ideas as [string, number, number][], y, start: idx }; y += 26 + (ideas as unknown[]).length * row + gap; idx += (ideas as unknown[]).length; return b; });
+const H = y + 10;
+---
+
+<svg class="fg-coca-ideas" viewBox={`0 0 1200 ${H}`} role="img" aria-label={`${L.k}. ${blocks.map((b) => `${b.name}: ${b.ideas.map((i) => i[0]).join(', ')}`).join('; ')}.`}>
+  <style>
+    .fg-coca-ideas .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-ideas .h { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-ideas .cat { fill: var(--fg); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+    .fg-coca-ideas .idx { fill: var(--accent); font-size: 13px; font-weight: 700; }
+    .fg-coca-ideas .idea { fill: var(--fg); font-size: 16px; }
+    .fg-coca-ideas .track { fill: var(--line); }
+    .fg-coca-ideas .v { fill: var(--accent); }
+    .fg-coca-ideas .e { fill: var(--fg-muted); }
+    .fg-coca-ideas .n { fill: var(--fg-muted); font-size: 12px; font-family: var(--font-mono); }
+    .fg-coca-ideas .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-coca-ideas .note { fill: var(--fg-muted); font-size: 14px; }
+  </style>
+
+  <text class="k" x={x0} y="44">{L.k}</text>
+  <text class="h" x={vX} y="82">{L.cols[0]}</text>
+  <text class="h" x={eX} y="82">{L.cols[1]}</text>
+
+  {blocks.map((b) => (
+    <g>
+      <text class="cat" x={x0} y={b.y + 18}>{b.name}</text>
+      {b.ideas.map(([t, v, e], j) => {
+        const yy = b.y + 26 + j * row;
+        return (
+          <g>
+            <text class="idx" x={x0} y={yy + 21}>{String(b.start + j + 1).padStart(2, '0')}</text>
+            <text class="idea" x={nameX} y={yy + 21}>{t}</text>
+            <rect class="track" x={vX} y={yy + 11} width={bw} height="8" rx="4" />
+            <rect class="v" x={vX} y={yy + 11} width={(v / 10) * bw} height="8" rx="4" />
+            <text class="n" x={vX + bw + 10} y={yy + 20}>{String(v).replace('.', lang === 'pt' ? ',' : '.')}</text>
+            <rect class="track" x={eX} y={yy + 11} width={bw} height="8" rx="4" />
+            <rect class="e" x={eX} y={yy + 11} width={(e / 10) * bw} height="8" rx="4" />
+            <text class="n" x={eX + bw + 10} y={yy + 20}>{String(e).replace('.', lang === 'pt' ? ',' : '.')}</text>
+          </g>
+        );
+      })}
+      <line class="rule" x1={x0} y1={b.y + 26 + b.ideas.length * row + 10} x2="1160" y2={b.y + 26 + b.ideas.length * row + 10} />
+    </g>
+  ))}
+  <text class="note" x={x0} y={H - 14}>{L.scale}</text>
+</svg>

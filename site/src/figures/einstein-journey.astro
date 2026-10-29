@@ -1,0 +1,109 @@
+---
+/* Einstein · the vaccine check-in journey, redrawn from the project's own
+   service map: five stages, what the patient does, where it hurts, who or what
+   they touch, how they feel, what happens backstage and what to improve. The
+   content is the original board's, condensed; no unit or person is named. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Jornada · vacina no totem',
+    rows: ['Etapa', 'O que o paciente faz', 'Onde dói', 'Com quem interage', 'Como se sente', 'Nos bastidores', 'O que melhorar'],
+    stages: [
+      { t: 'Seleção do serviço', a: ['Escolhe o serviço', 'Responde ao questionário de sintomas', 'Responde aos pré-requisitos'], p: ['Questionário longo e pouco claro', 'Quem responde "sim" não sabe o próximo passo'], tp: ['Totem'], f: 'inseguro', fy: 0.55, b: '', o: 'Simplificar o questionário e dizer o que acontece depois de um "sim"' },
+      { t: 'Cadastro', a: ['Digita o CPF', 'Preenche ou confere o cadastro', 'Digitaliza o documento'], p: ['Não fica claro que é preciso tocar em CPF', 'Sem conseguir concluir, não avança sem ajuda', 'A digitalização é a etapa de maior fricção'], tp: ['Totem', 'Concierge'], f: 'perdido', fy: 0.95, b: '', o: 'Mostrar o que falta preencher, com mensagens e sinais na tela' },
+      { t: 'Pagamento', a: ['Informa se é médico ou funcionário', 'Confere valores e forma de pagamento', 'Paga no cartão'], p: ['Mesmo pagando no totem, a confirmação depende do concierge'], tp: ['Totem', 'Concierge'], f: 'aliviado', fy: 0.15, b: 'O concierge vai ao balcão conferir se o pagamento entrou no sistema', o: 'Revisar as regras do questionário e levar a confirmação para a tela' },
+      { t: 'Espera', a: ['Pergunta ao concierge onde esperar', 'Aguarda a chamada da senha'], p: ['Falta saber quais são os próximos passos e se deu tudo certo'], tp: ['Concierge', 'Painel de senhas'], f: 'confuso', fy: 0.5, b: '', o: 'Orientar os próximos passos na própria tela do totem' },
+      { t: 'Atendimento', a: ['Espera a enfermeira buscar as etiquetas', 'Responde de novo aos pré-requisitos', 'Recebe a vacina'], p: ['Demora e repetição do que já foi feito no totem'], tp: ['Enfermeira'], f: 'impaciente', fy: 0.85, b: 'A enfermeira busca na recepção as etiquetas impressas', o: 'Imprimir na sala de vacina e integrar o questionário do totem ao sistema' },
+    ],
+  },
+  en: {
+    k: 'Journey · vaccine at the kiosk',
+    rows: ['Stage', 'What the patient does', 'Where it hurts', 'Who they deal with', 'How they feel', 'Backstage', 'What to improve'],
+    stages: [
+      { t: 'Choosing the service', a: ['Picks the service', 'Answers the symptoms questionnaire', 'Answers the prerequisites'], p: ['Long, unclear questionnaire', 'Whoever answers "yes" does not know the next step'], tp: ['Kiosk'], f: 'unsure', fy: 0.55, b: '', o: 'Simplify the questionnaire and say what happens after a "yes"' },
+      { t: 'Registration', a: ['Types the ID number', 'Fills in or checks the record', 'Scans the document'], p: ['Unclear that you must tap the ID button', 'Stuck here, nobody moves on without help', 'Scanning is the biggest friction'], tp: ['Kiosk', 'Concierge'], f: 'lost', fy: 0.95, b: '', o: 'Show what is missing, with messages and cues on screen' },
+      { t: 'Payment', a: ['States whether staff or doctor', 'Checks amount and payment method', 'Pays by card'], p: ['Even paying at the kiosk, confirmation depends on the concierge'], tp: ['Kiosk', 'Concierge'], f: 'relieved', fy: 0.15, b: 'The concierge walks to the desk to check the payment went through', o: 'Review the questionnaire rules and bring confirmation to the screen' },
+      { t: 'Waiting', a: ['Asks the concierge where to wait', 'Waits for the ticket call'], p: ['No idea what the next steps are or whether it all worked'], tp: ['Concierge', 'Ticket display'], f: 'confused', fy: 0.5, b: '', o: 'Guide the next steps on the kiosk screen itself' },
+      { t: 'Vaccination', a: ['Waits for the nurse to fetch labels', 'Answers the prerequisites again', 'Gets the vaccine'], p: ['Delay and repeating what was done at the kiosk'], tp: ['Nurse'], f: 'impatient', fy: 0.85, b: 'The nurse fetches the labels printed at the reception', o: 'Print in the vaccine room and connect the kiosk questionnaire to the system' },
+    ],
+  },
+}[lang];
+const x0 = 40, labelW = 168, colW = 190, X = (i: number) => x0 + labelW + i * colW;
+/* row tops */
+const R = { stage: 60, act: 118, pain: 236, tp: 348, feel: 404, back: 528, opp: 606 };
+const H = 690;
+const wrap = (s: string, n: number) => {
+  const words = s.split(' '); const lines: string[] = []; let cur = '';
+  for (const w of words) { if ((cur + ' ' + w).trim().length > n) { lines.push(cur.trim()); cur = w; } else cur += ' ' + w; }
+  if (cur.trim()) lines.push(cur.trim()); return lines;
+};
+const feelPath = L.stages.map((s, i) => `${i === 0 ? 'M' : 'L'} ${X(i) + colW / 2} ${R.feel + 18 + s.fy * 64}`).join(' ');
+---
+
+<svg class="fg-einstein-journey" viewBox={`0 0 1200 ${H}`} role="img" aria-label={`${L.k}: ${L.stages.map((s) => s.t).join(' → ')}.`}>
+  <style>
+    .fg-einstein-journey .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-einstein-journey .row { fill: var(--fg-muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fg-einstein-journey .stage { fill: var(--fg); font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+    .fg-einstein-journey .num { fill: var(--accent); font-weight: 700; font-size: 13px; }
+    .fg-einstein-journey .a { fill: var(--fg); font-size: 12.5px; }
+    .fg-einstein-journey .p { fill: var(--fg); font-size: 12.5px; }
+    .fg-einstein-journey .pm { fill: var(--accent); }
+    .fg-einstein-journey .pill { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1; }
+    .fg-einstein-journey .pill-t { fill: var(--fg); font-size: 12px; }
+    .fg-einstein-journey .curve { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+    .fg-einstein-journey .dot { fill: var(--accent); }
+    .fg-einstein-journey .feel { fill: var(--fg); font-size: 12px; font-weight: 500; }
+    .fg-einstein-journey .b { fill: var(--fg-muted); font-size: 12px; font-style: italic; }
+    .fg-einstein-journey .o { fill: var(--fg); font-size: 12.5px; }
+    .fg-einstein-journey .grid { stroke: var(--line); stroke-width: 1; }
+    .fg-einstein-journey .gridv { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 6; }
+    .fg-einstein-journey .band { fill: var(--accent-soft); opacity: 0.5; }
+  </style>
+
+  <text class="k" x={x0} y="36">{L.k}</text>
+
+  <!-- row labels and horizontal rules -->
+  {Object.entries(R).map(([key, y], i) => (
+    <g>
+      {wrap(L.rows[i], 16).map((l, j) => <text class="row" x={x0} y={y + 16 + j * 15}>{l}</text>)}
+      {i > 0 && <line class="grid" x1={x0} y1={y - 8} x2="1160" y2={y - 8} />}
+    </g>
+  ))}
+  <!-- column separators -->
+  {L.stages.map((_, i) => i > 0 && <line class="gridv" x1={X(i) - 8} y1={R.stage - 4} x2={X(i) - 8} y2={H - 30} />)}
+
+  {L.stages.map((s, i) => {
+    const x = X(i);
+    return (
+      <g>
+        <rect class="band" x={x - 2} y={R.stage - 4} width={colW - 12} height="44" rx="6" />
+        <text class="num" x={x + 10} y={R.stage + 24}>{i + 1}</text>
+        <text class="stage" x={x + 26} y={R.stage + 24}>{s.t}</text>
+
+        {s.a.flatMap((t, j) => wrap(t, 26)).slice(0, 6).map((l, j) => <text class="a" x={x + 2} y={R.act + 16 + j * 15}>{l}</text>)}
+
+        {s.p.flatMap((t) => wrap(t, 27)).slice(0, 6).map((l, j) => <text class="p" x={x + 12} y={R.pain + 16 + j * 15}>{l}</text>)}
+        <circle class="pm" cx={x + 4} cy={R.pain + 12} r="3.5" />
+
+        {(() => { let px = x + 2; return s.tp.map((t) => { const w = Math.round(t.length * 6.4 + 18); const px0 = px; px += w + 6; return (
+          <g>
+            <rect class="pill" x={px0} y={R.tp + 4} width={w} height="22" rx="11" />
+            <text class="pill-t" x={px0 + 9} y={R.tp + 19}>{t}</text>
+          </g>
+        ); }); })()}
+
+        <text class="feel" x={x + colW / 2} y={R.feel + 18 + s.fy * 64 + 22} text-anchor="middle">{s.f}</text>
+
+        {wrap(s.b, 27).map((l, j) => <text class="b" x={x + 2} y={R.back + 16 + j * 15}>{l}</text>)}
+        {wrap(s.o, 27).map((l, j) => <text class="o" x={x + 2} y={R.opp + 16 + j * 15}>{l}</text>)}
+      </g>
+    );
+  })}
+
+  <!-- sentiment curve over the stage centers -->
+  <path class="curve" d={feelPath} />
+  {L.stages.map((s, i) => <circle class="dot" cx={X(i) + colW / 2} cy={R.feel + 18 + s.fy * 64} r="5" />)}
+</svg>

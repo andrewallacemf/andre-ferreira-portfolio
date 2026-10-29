@@ -1,0 +1,84 @@
+---
+/* Einstein · steps × time for the kiosk check-in. The hospital's average against
+   four competitors, kept anonymous; the hospital's own range across units is a
+   thin line behind the average. Figures from the benchmark in the final report. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Benchmark · check-in no totem',
+    steps: 'Passos até concluir', time: 'Tempo médio',
+    hospital: 'Hospital (média das 6 unidades)',
+    range: 'faixa entre unidades',
+    comp: ['Concorrente A', 'Concorrente B', 'Concorrente C', 'Concorrente D'],
+    note: 'Os concorrentes exigem de 6 a 9 passos e menos de 3 minutos. No hospital, a melhor unidade levava 10 passos e a pior, 19 passos e mais de 14 minutos.',
+  },
+  en: {
+    k: 'Benchmark · kiosk check-in',
+    steps: 'Steps to complete', time: 'Average time',
+    hospital: 'Hospital (average of 6 units)',
+    range: 'range across units',
+    comp: ['Competitor A', 'Competitor B', 'Competitor C', 'Competitor D'],
+    note: 'Competitors take 6 to 9 steps and under 3 minutes. At the hospital, the best unit took 10 steps and the worst 19 steps and over 14 minutes.',
+  },
+}[lang];
+/* [steps, seconds]; hospital range: steps 10–19, time 1:20–14:40 */
+const hosp = { steps: 14.4, sec: 342, stepsMin: 10, stepsMax: 19, secMin: 80, secMax: 880 };
+const comps = [[8, 80], [6, 150], [8, 110], [9, 160]];
+const fmt = (s: number) => `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}`;
+const x0 = 40, labelW = 300;
+const stepsX = x0 + labelW, stepsW = 300, stepsMax = 20;
+const timeX = stepsX + stepsW + 100, timeW = 360, timeMax = 900;
+const rowY = 150, rowH = 74;
+const rows = [{ name: L.hospital, steps: hosp.steps, sec: hosp.sec, hosp: true }, ...comps.map(([s, t], i) => ({ name: L.comp[i], steps: s, sec: t, hosp: false }))];
+---
+
+<svg class="fg-einstein-benchmark" viewBox="0 0 1200 600" role="img" aria-label={`${L.k}. ${rows.map((r) => `${r.name}: ${r.steps} ${L.steps.toLowerCase()}, ${fmt(r.sec)}`).join('; ')}.`}>
+  <style>
+    .fg-einstein-benchmark .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-einstein-benchmark .h { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-einstein-benchmark .name { fill: var(--fg); font-size: 18px; font-weight: 500; }
+    .fg-einstein-benchmark .name-h { fill: var(--fg); font-size: 18px; font-weight: 700; }
+    .fg-einstein-benchmark .bar { fill: var(--line-strong); }
+    .fg-einstein-benchmark .bar-h { fill: var(--accent); }
+    .fg-einstein-benchmark .range { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 5; }
+    .fg-einstein-benchmark .cap { stroke: var(--accent); stroke-width: 1.5; }
+    .fg-einstein-benchmark .n { fill: var(--fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .fg-einstein-benchmark .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-einstein-benchmark .note { fill: var(--fg-muted); font-size: 15px; }
+    .fg-einstein-benchmark .leg { fill: var(--fg-muted); font-size: 13px; }
+  </style>
+
+  <text class="k" x={x0} y="44">{L.k}</text>
+  <text class="h" x={stepsX} y="110">{L.steps}</text>
+  <text class="h" x={timeX} y="110">{L.time}</text>
+
+  {rows.map((r, i) => {
+    const y = rowY + i * rowH + (i > 0 ? 18 : 0);
+    const sw = (r.steps / stepsMax) * stepsW, tw = (r.sec / timeMax) * timeW;
+    return (
+      <g>
+        <text class={r.hosp ? 'name-h' : 'name'} x={x0} y={y + 30}>{r.name}</text>
+        <rect class={r.hosp ? 'bar-h' : 'bar'} x={stepsX} y={y + 12} width={sw} height="26" rx="4" />
+        <text class="n" x={stepsX + sw + 12} y={y + 32}>{String(r.steps).replace('.', ',')}</text>
+        <rect class={r.hosp ? 'bar-h' : 'bar'} x={timeX} y={y + 12} width={tw} height="26" rx="4" />
+        <text class="n" x={timeX + tw + 12} y={y + 32}>{fmt(r.sec)}</text>
+        {r.hosp && (
+          <g>
+            <line class="range" x1={stepsX + (hosp.stepsMin / stepsMax) * stepsW} y1={y + 52} x2={stepsX + (hosp.stepsMax / stepsMax) * stepsW} y2={y + 52} />
+            <line class="cap" x1={stepsX + (hosp.stepsMin / stepsMax) * stepsW} y1={y + 47} x2={stepsX + (hosp.stepsMin / stepsMax) * stepsW} y2={y + 57} />
+            <line class="cap" x1={stepsX + (hosp.stepsMax / stepsMax) * stepsW} y1={y + 47} x2={stepsX + (hosp.stepsMax / stepsMax) * stepsW} y2={y + 57} />
+            <line class="range" x1={timeX + (hosp.secMin / timeMax) * timeW} y1={y + 52} x2={timeX + (hosp.secMax / timeMax) * timeW} y2={y + 52} />
+            <line class="cap" x1={timeX + (hosp.secMin / timeMax) * timeW} y1={y + 47} x2={timeX + (hosp.secMin / timeMax) * timeW} y2={y + 57} />
+            <line class="cap" x1={timeX + (hosp.secMax / timeMax) * timeW} y1={y + 47} x2={timeX + (hosp.secMax / timeMax) * timeW} y2={y + 57} />
+            <text class="leg" x={timeX} y={y + 72}>{L.range}</text>
+          </g>
+        )}
+        <line class="rule" x1={x0} y1={y + rowH - 4 + (r.hosp ? 14 : 0)} x2="1160" y2={y + rowH - 4 + (r.hosp ? 14 : 0)} />
+      </g>
+    );
+  })}
+
+  <text class="note" x={x0} y="572">{L.note}</text>
+</svg>

@@ -3,8 +3,9 @@
   "kicker": "Case",
   "lede": "The client asked how to grow adoption of marketing's data platform by 30%. Research answered that a dashboard that takes 30 seconds to load does not have an interface problem. It has a service problem.",
   "hero": {
-    "figure": "From pain points to ideas: 8 problem clusters on the left, 13 ideas on the right, connected by the \"how might we\" questions that bridged them.",
-    "aspect": "16 / 9"
+    "figure": "From pain points to ideas: seven problem clusters on the left, 13 ideas on the right, connected by the 12 \"how might we\" questions that bridged them.",
+    "aspect": "16 / 9",
+    "component": "coca-bridge"
   },
   "sections": [
     {
@@ -24,8 +25,9 @@
         "Users described the platform as overwhelming, slow, unintuitive and lacking the flexibility or granularity they needed. Many attempts to use data ended in \"I give up\" and a workaround: ask someone else to do it, use last year's data, or decide without data.",
         "The client's team believed that improving the dashboards' interface would be enough to reach the 30%. That was the hypothesis the research had to test."
       ],
-      "figure": "The eight problem clusters found: navigation, design, acronyms, accuracy, loading time, missing data and two more, with the number of pain points in each.",
-      "aspect": "16 / 9"
+      "figure": "The seven problem clusters found (design, navigation, acronyms, accuracy, loading, missing data and standardization) and the \"how might we\" questions each one produced.",
+      "aspect": "16 / 9",
+      "component": "coca-clusters"
     },
     {
       "id": "role",
@@ -44,14 +46,30 @@
         "While the service design workstream interviewed 36 people across nine operating units and built six personas and five journeys, the UX workstream opened up the platform."
       ],
       "steps": [
-        { "title": "Heuristic analysis", "text": "A first structured read of the platform against Nielsen's heuristics, to know where to look before listening to users." },
-        { "title": "Usability tests", "text": "Eleven sessions with the company's users, in English, on four prioritized dashboards, with protocol, success criteria and a report." },
-        { "title": "Flowcharts", "text": "Twenty-two flowcharts mapping the flow of each dashboard and marking exactly where each pain point happened. A problem located in a flow is a problem that can be fixed." },
-        { "title": "Co-creation", "text": "An internal session to turn pain points into ideas, guided by questions such as \"how might we keep people from guessing what the acronyms mean?\" and \"how might we make dashboards load better?\"." },
-        { "title": "Thirteen ideas", "text": "In five categories (frameworks and taxonomy, technology, process, people, interface), each with user value, business value and estimated effort." }
+        {
+          "title": "Heuristic analysis",
+          "text": "A first structured read of the platform against Nielsen's heuristics, to know where to look before listening to users."
+        },
+        {
+          "title": "Usability tests",
+          "text": "Eleven sessions with the company's users, in English, on four prioritized dashboards, with protocol, success criteria and a report."
+        },
+        {
+          "title": "Flowcharts",
+          "text": "Twenty-two flowcharts mapping the flow of each dashboard and marking exactly where each pain point happened. A problem located in a flow is a problem that can be fixed."
+        },
+        {
+          "title": "Co-creation",
+          "text": "An internal session to turn pain points into ideas, guided by questions such as \"how might we keep people from guessing what the acronyms mean?\" and \"how might we make dashboards load better?\"."
+        },
+        {
+          "title": "Thirteen ideas",
+          "text": "In five categories (frameworks and taxonomy, technology, process, people, interface), each with estimated user value and effort."
+        }
       ],
       "figure": "One of the 22 flowcharts, in abstract form: a dashboard's flow with the pain points marked on the steps where they happened.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "coca-flowchart"
     },
     {
       "id": "decisions",
@@ -76,7 +94,8 @@
         }
       ],
       "figure": "Recreated mockup of the \"summary to granularity\" pattern: big numbers, charts and table stacked on a single screen.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "coca-granularity"
     },
     {
       "id": "result",
@@ -87,8 +106,9 @@
         "According to the client's feedback, the search was widely praised, the profiles well received, and the onboarding reduced learning time. I do not have the adoption numbers from phase two; I tell what was reported."
       ],
       "showFacts": true,
-      "figure": "The 13 ideas in five categories, each with user value, business value and effort.",
-      "aspect": "16 / 9"
+      "figure": "The 13 ideas in five categories, each with the user value and effort estimated in the project.",
+      "aspect": "16 / 9",
+      "component": "coca-ideas"
     },
     {
       "id": "learnings",

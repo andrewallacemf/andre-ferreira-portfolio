@@ -3,8 +3,10 @@
   "kicker": "Case",
   "lede": "Os totens funcionavam. 87% dos pacientes avaliavam o serviço bem. E mesmo assim precisava haver alguém de pé ao lado de cada um deles. Sete semanas de pesquisa em campo, em seis unidades, para explicar por quê.",
   "hero": {
-    "figure": "Os grandes números da pesquisa: 7 semanas, 6 unidades, 5 fluxos, 178 pacientes entrevistados, 84 sombras, 94 testes de usabilidade, 24 insights, 489 achados heurísticos.",
-    "aspect": "16 / 9"
+    "figure": "Um concierge ao lado do totem, em uma das unidades. A pesquisa cobriu 7 semanas, 6 unidades, 5 fluxos, 178 pacientes entrevistados, 84 sombras e 94 testes de usabilidade.",
+    "aspect": "16 / 9",
+    "src": "img/einstein/concierge-totem.webp",
+    "alt": "Foto de campo: um concierge de colete cinza com a inscrição \"Posso ajudar?\" opera o totem de autoatendimento ao lado de um paciente; rostos borrados."
   },
   "sections": [
     {
@@ -24,8 +26,10 @@
         "Totens tecnicamente funcionais que não atendiam plenamente o que se esperava deles: adoção desigual entre perfis, dependência do concierge e fricções em etapas específicas, como digitalizar o documento, encontrar o médico e atualizar o cadastro.",
         "Por cima de tudo, uma armadilha de medição. 87% dos pacientes avaliavam o serviço positivamente mesmo tendo tido problemas, porque comparavam o totem com a fila da recepção, e não com um bom autoatendimento. Sem pesquisa em campo, o hospital teria lido a satisfação como ausência de problema."
       ],
-      "figure": "A frase de um paciente na fila do concierge: \"Vocês não estão com erro no sistema?\", ao lado do segundo totem, livre.",
-      "aspect": "3 / 2"
+      "figure": "Um totem livre na recepção de uma das unidades. Na fila do concierge, ao lado do outro totem, a frase de um paciente: \"Vocês não estão com erro no sistema?\"",
+      "aspect": "3 / 2",
+      "src": "img/einstein/recepcao-totem.webp",
+      "alt": "Foto em preto e branco de uma recepção vazia, com balcão, cadeiras e um totem de autoatendimento junto à porta de vidro."
     },
     {
       "id": "papel",
@@ -41,17 +45,42 @@
       "label": "Processo",
       "title": "Sete semanas, seis unidades, quatro perfis",
       "steps": [
-        { "title": "Imersão preliminar", "text": "Dezoito entrevistas com stakeholders, de TI a supervisores de unidade e concierges, e horas de imersão interna. Daí saíram a história do programa, as premissas (adaptar a função dos atendentes, não eliminar a recepção) e a visão de futuro do hospital." },
-        { "title": "Perfis de pesquisa", "text": "Quatro perfis definidos com o cliente: executivo, família com crianças, idoso e jovem com alta afinidade tecnológica, cada um dividido entre quem já usava o totem e quem usava pela primeira vez." },
-        { "title": "Campo em profundidade", "text": "Em cada uma das seis unidades, a mesma sequência: observação sem interferência, cliente oculto com o próprio time passando pelo fluxo, sombra e teste de usabilidade com pacientes, entrevista ao fim da experiência." },
-        { "title": "Volume", "text": "178 entrevistas com pacientes, 84 sombras e 94 testes de usabilidade, cobrindo cinco fluxos: consulta com especialistas, atenção primária, vacina, reabilitação e testes de COVID." },
-        { "title": "Análise e síntese", "text": "Registro, clusterização por unidade e mapeamento de padrões, com achados reportados ao cliente toda semana. Um deles, no cadastro de endereço, foi corrigido ainda durante o campo. No fim, 24 insights comportamentais." },
-        { "title": "Benchmark", "text": "Quatro concorrentes comparados em tipos de check-in, serviços cobertos, número de passos, tempo, antecipação, repetição de processos e intervenção humana. E as unidades do próprio hospital comparadas entre si." },
-        { "title": "Análise heurística", "text": "Todas as telas avaliadas pelas heurísticas de Nielsen, com grau de severidade. 489 achados, concentrados em consistência e padrões, flexibilidade e eficiência, visibilidade do status do sistema e reconhecimento em vez de memória." },
-        { "title": "Entregas", "text": "Relatório de insights por perfil, análise de benchmark, análise heurística da interface, relatório final e apresentação executiva." }
+        {
+          "title": "Imersão preliminar",
+          "text": "Dezoito entrevistas com stakeholders, de TI a supervisores de unidade e concierges, e horas de imersão interna. Daí saíram a história do programa, as premissas (adaptar a função dos atendentes, não eliminar a recepção) e a visão de futuro do hospital."
+        },
+        {
+          "title": "Perfis de pesquisa",
+          "text": "Quatro perfis definidos com o cliente: executivo, família com crianças, idoso e jovem com alta afinidade tecnológica, cada um dividido entre quem já usava o totem e quem usava pela primeira vez."
+        },
+        {
+          "title": "Campo em profundidade",
+          "text": "Em cada uma das seis unidades, a mesma sequência: observação sem interferência, cliente oculto com o próprio time passando pelo fluxo, sombra e teste de usabilidade com pacientes, entrevista ao fim da experiência."
+        },
+        {
+          "title": "Volume",
+          "text": "178 entrevistas com pacientes, 84 sombras e 94 testes de usabilidade, cobrindo cinco fluxos: consulta com especialistas, atenção primária, vacina, reabilitação e testes de COVID."
+        },
+        {
+          "title": "Análise e síntese",
+          "text": "Registro, clusterização por unidade e mapeamento de padrões, com achados reportados ao cliente toda semana. Um deles, no cadastro de endereço, foi corrigido ainda durante o campo. No fim, 24 insights comportamentais."
+        },
+        {
+          "title": "Benchmark",
+          "text": "Quatro concorrentes comparados em tipos de check-in, serviços cobertos, número de passos, tempo, antecipação, repetição de processos e intervenção humana. E as unidades do próprio hospital comparadas entre si."
+        },
+        {
+          "title": "Análise heurística",
+          "text": "Todas as telas avaliadas pelas heurísticas de Nielsen, com grau de severidade. 489 achados, concentrados em consistência e padrões, flexibilidade e eficiência, visibilidade do status do sistema e reconhecimento em vez de memória."
+        },
+        {
+          "title": "Entregas",
+          "text": "Relatório de insights por perfil, análise de benchmark, análise heurística da interface, relatório final e apresentação executiva."
+        }
       ],
-      "figure": "Grade dos quatro perfis com o volume de entrevistas, sombras e testes de cada um.",
-      "aspect": "16 / 9"
+      "figure": "A pesquisa em números: o escopo e a grade dos quatro perfis, com o volume de entrevistas, sombras e testes de usabilidade de cada um.",
+      "aspect": "16 / 9",
+      "component": "einstein-profiles"
     },
     {
       "id": "achados",
@@ -83,8 +112,9 @@
           "text": "Responsáveis cadastravam cada membro da família do zero. \"Por que não tem um botão para aproveitar o cadastro?\" resumiu o achado."
         }
       ],
-      "figure": "Mapa da jornada do check-in com os pontos de fricção por perfil.",
-      "aspect": "16 / 9"
+      "figure": "A jornada da vacina no totem, redesenhada a partir do mapa de serviço do projeto: o que o paciente faz em cada etapa, onde dói, com quem interage, como se sente e o que melhorar.",
+      "aspect": "16 / 9",
+      "component": "einstein-journey"
     },
     {
       "id": "resultado",
@@ -95,8 +125,9 @@
         "O trabalho terminou com a entrega do diagnóstico e das recomendações. Algum tempo depois, o cliente voltou para informar que todas as correções e melhorias apontadas haviam sido implementadas, e que estava satisfeito com o resultado. Não tenho métricas dessa fase, porque ela não fez parte do escopo; conto o que sei."
       ],
       "showFacts": true,
-      "figure": "Comparação passos × tempo: o totem do hospital contra os quatro concorrentes.",
-      "aspect": "16 / 9"
+      "figure": "Comparação passos × tempo: a média do hospital, com a faixa entre as unidades, contra os quatro concorrentes do benchmark.",
+      "aspect": "16 / 9",
+      "component": "einstein-benchmark"
     },
     {
       "id": "aprendizados",

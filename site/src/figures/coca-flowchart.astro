@@ -1,0 +1,132 @@
+---
+/* Coca-Cola · one of the 22 dashboard flowcharts, in abstract form. The steps a
+   user goes through to answer a question with a dashboard, with the pain points
+   pinned to the steps where they happened. The pain points are the documented
+   clusters; the dashboard itself is not shown. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Fluxograma · um dashboard, em versão abstrata',
+    steps: [
+      ['Entrar', 'página inicial'],
+      ['Encontrar', 'menu e categorias'],
+      ['Abrir', 'o dashboard'],
+      ['Esperar', 'o carregamento'],
+      ['Filtrar', 'período e marca'],
+      ['Ler', 'gráficos e siglas'],
+      ['Detalhar', 'tabela e exportação'],
+    ],
+    pains: [
+      [1, 'Nomes de páginas e categorias pouco intuitivos'],
+      [1, 'Páginas parecidas, sem saber o que cada uma traz'],
+      [3, 'Mais de 30 segundos para carregar'],
+      [4, 'Filtro aplicado sem indicação na tela'],
+      [4, 'Período considerado não fica claro'],
+      [5, 'Siglas sem explicação'],
+      [5, 'Dado ausente sem dizer por quê'],
+      [6, 'Padrão de tabela muda de um dashboard para outro'],
+    ],
+    end: ['Resposta', 'ou "desisto"'],
+    leg: 'ponto de dor registrado nos testes',
+  },
+  en: {
+    k: 'Flowchart · one dashboard, in abstract form',
+    steps: [
+      ['Enter', 'home page'],
+      ['Find', 'menu and categories'],
+      ['Open', 'the dashboard'],
+      ['Wait', 'for it to load'],
+      ['Filter', 'period and brand'],
+      ['Read', 'charts and acronyms'],
+      ['Drill down', 'table and export'],
+    ],
+    pains: [
+      [1, 'Page and category names not intuitive'],
+      [1, 'Similar pages, no way to tell what each holds'],
+      [3, 'Over 30 seconds to load'],
+      [4, 'Filter applied with no cue on screen'],
+      [4, 'Unclear which period is shown'],
+      [5, 'Acronyms with no explanation'],
+      [5, 'Missing data with no reason given'],
+      [6, 'Table pattern changes from one dashboard to the next'],
+    ],
+    end: ['Answer', 'or "I give up"'],
+    leg: 'pain point recorded in the tests',
+  },
+}[lang];
+const n = L.steps.length;
+const x0 = 50, gap = 140, bw = 118, bh = 64, y = 150;
+const sx = (i: number) => x0 + i * gap;
+const wrap = (s: string, w: number) => {
+  const words = s.split(' '); const lines: string[] = []; let cur = '';
+  for (const t of words) { if ((cur + ' ' + t).trim().length > w) { lines.push(cur.trim()); cur = t; } else cur += ' ' + t; }
+  if (cur.trim()) lines.push(cur.trim()); return lines;
+};
+/* group pains by step, lay them out below the step */
+const byStep: Record<number, string[]> = {};
+for (const [i, t] of L.pains) (byStep[i as number] ||= []).push(t as string);
+---
+
+<svg class="fg-coca-flowchart" viewBox="0 0 1200 430" role="img" aria-label={`${L.k}: ${L.steps.map((s) => s[0]).join(' → ')} → ${L.end.join(' ')}. ${L.pains.length} ${L.leg}.`}>
+  <style>
+    .fg-coca-flowchart .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-flowchart .box { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-coca-flowchart .end { fill: var(--accent); }
+    .fg-coca-flowchart .t { fill: var(--fg); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+    .fg-coca-flowchart .s { fill: var(--fg-muted); font-size: 12.5px; }
+    .fg-coca-flowchart .t-acc { fill: var(--accent-fg); font-weight: 700; font-size: 17px; }
+    .fg-coca-flowchart .s-acc { fill: var(--accent-fg); font-size: 12.5px; opacity: 0.9; }
+    .fg-coca-flowchart .arrow { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-coca-flowchart .pin { fill: var(--accent); }
+    .fg-coca-flowchart .pinline { stroke: var(--accent); stroke-width: 1.25; stroke-dasharray: 3 4; }
+    .fg-coca-flowchart .p { fill: var(--fg); font-size: 13px; }
+    .fg-coca-flowchart .leg { fill: var(--fg-muted); font-size: 14px; }
+    .fg-coca-flowchart .loop { fill: none; stroke: var(--line-strong); stroke-width: 1.25; stroke-dasharray: 4 6; }
+  </style>
+
+  <text class="k" x="40" y="44">{L.k}</text>
+
+  <!-- steps -->
+  {L.steps.map(([t, s], i) => (
+    <g>
+      <rect class="box" x={sx(i)} y={y} width={bw} height={bh} rx="10" />
+      <text class="t" x={sx(i) + 14} y={y + 28}>{t}</text>
+      <text class="s" x={sx(i) + 14} y={y + 48}>{s}</text>
+      <path class="arrow" d={`M ${sx(i) + bw} ${y + bh / 2} h ${gap - bw - 6} m -7 -5 l 7 5 l -7 5`} />
+    </g>
+  ))}
+  <!-- end -->
+  <rect class="end" x={sx(n)} y={y} width={bw} height={bh} rx="10" />
+  <text class="t-acc" x={sx(n) + 14} y={y + 28}>{L.end[0]}</text>
+  <text class="s-acc" x={sx(n) + 14} y={y + 48}>{L.end[1]}</text>
+  <!-- the give-up loop back to the start -->
+  <path class="loop" d={`M ${sx(n) + bw / 2} ${y} v -40 H ${sx(0) + bw / 2} v 34 m -5 -8 l 5 8 l 5 -8`} />
+
+  <!-- pain points pinned under their steps -->
+  {Object.entries(byStep).map(([k, list]) => {
+    const i = Number(k);
+    const cx = sx(i) + bw / 2;
+    let yy = y + bh + 40;
+    return (
+      <g>
+        <line class="pinline" x1={cx} y1={y + bh} x2={cx} y2={yy - 10} />
+        {list.map((t) => {
+          const lines = wrap(t, 18);
+          const top = yy;
+          yy += lines.length * 17 + 18;
+          return (
+            <g>
+              <circle class="pin" cx={sx(i) + 6} cy={top + 3} r="4" />
+              {lines.map((l, j) => <text class="p" x={sx(i) + 18} y={top + 8 + j * 17}>{l}</text>)}
+            </g>
+          );
+        })}
+      </g>
+    );
+  })}
+
+  <circle class="pin" cx="46" cy="398" r="4" />
+  <text class="leg" x="58" y="403">{L.leg}</text>
+</svg>

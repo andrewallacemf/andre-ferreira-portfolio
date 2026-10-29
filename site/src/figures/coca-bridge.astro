@@ -1,0 +1,106 @@
+---
+/* Coca-Cola · from pain points to ideas. Seven clusters of problems on the left,
+   the twelve "how might we" questions as the bridge, thirteen ideas in five
+   categories on the right. Redrawn from the project's own synthesis. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    left: 'Grupos de problemas', mid: 'Perguntas "como poderíamos"', right: 'Ideias',
+    clusters: [['Design', 5], ['Navegação', 2], ['Acrônimos', 1], ['Acurácia', 1], ['Carregamento', 1], ['Dados ausentes', 1], ['Padronização', 1]],
+    midN: '12', midS: ['perguntas, numa', 'sessão de cocriação'],
+    cats: [
+      ['Frameworks e taxonomia', ['Padronização da plataforma', 'Clareza de nomes e acrônimos']],
+      ['Tecnologia', ['Performance dos dashboards', 'Perfis por conta', 'Atualização automática de dados']],
+      ['Processo', ['Catálogo de dashboards', 'Diagnóstico de saúde', 'Onboarding de novos usuários', 'Comunicação do que mudou']],
+      ['Pessoas', ['Governança com metas']],
+      ['Interface', ['Do resumo ao detalhe', 'Template de dashboard', 'Ajuda num lugar só']],
+    ],
+    src: 'análise heurística · 11 testes · 22 fluxogramas',
+  },
+  en: {
+    left: 'Problem clusters', mid: '"How might we" questions', right: 'Ideas',
+    clusters: [['Design', 5], ['Navigation', 2], ['Acronyms', 1], ['Accuracy', 1], ['Page loading', 1], ['Missing data', 1], ['Standardization', 1]],
+    midN: '12', midS: ['questions, in one', 'co-creation session'],
+    cats: [
+      ['Frameworks and taxonomy', ['Platform standardization', 'Clear names and acronyms']],
+      ['Technology', ['Dashboard performance', 'Profiles per account', 'Automated data updates']],
+      ['Process', ['Dashboard catalog', 'Health diagnosis', 'Onboarding for new users', 'Communicating what changed']],
+      ['People', ['Governance with goals']],
+      ['Interface', ['Summary to granularity', 'Dashboard template', 'Help in one place']],
+    ],
+    src: 'heuristic review · 11 tests · 22 flowcharts',
+  },
+}[lang];
+const lx = 40, lw = 300, ly0 = 120, lrow = 60;
+const mx = 470, mw = 260, my = 230, mh = 160;
+const rx = 820, rw = 340, ry0 = 112;
+const ROW = 30, GAP = 26;
+let ideaIdx = 0;
+const catBlocks = L.cats.map(([name, ideas], ci) => {
+  const block = { name: name as string, ideas: ideas as string[], y: ry0 + ideaIdx * ROW + ci * GAP, start: ideaIdx };
+  ideaIdx += (ideas as string[]).length;
+  return block;
+});
+---
+
+<svg class="fg-coca-bridge" viewBox="0 0 1200 620" role="img" aria-label={`${L.left}: ${L.clusters.map((c) => c[0]).join(', ')} → ${L.midN} ${L.mid} → 13 ${L.right}.`}>
+  <style>
+    .fg-coca-bridge .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-bridge .c { fill: var(--fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .fg-coca-bridge .cn { fill: var(--fg-muted); font-size: 15px; }
+    .fg-coca-bridge .box { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-coca-bridge .mid { fill: var(--accent); }
+    .fg-coca-bridge .midn { fill: var(--accent-fg); font-weight: 700; font-size: 64px; letter-spacing: -0.04em; }
+    .fg-coca-bridge .mids { fill: var(--accent-fg); font-size: 15px; opacity: 0.9; }
+    .fg-coca-bridge .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.25; opacity: 0.9; }
+    .fg-coca-bridge .wire-acc { fill: none; stroke: var(--accent); stroke-width: 1.25; opacity: 0.8; }
+    .fg-coca-bridge .cat { fill: var(--fg-muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-coca-bridge .idea { fill: var(--fg); font-size: 16px; font-weight: 500; }
+    .fg-coca-bridge .idx { fill: var(--accent); font-size: 13px; font-weight: 700; }
+    .fg-coca-bridge .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-coca-bridge .src { fill: var(--fg-muted); font-size: 14px; }
+  </style>
+
+  <text class="k" x={lx} y="80">{L.left}</text>
+  <text class="k" x={mx} y="80">{L.mid}</text>
+  <text class="k" x={rx} y="80">{L.right} · 13</text>
+
+  <!-- clusters -->
+  {L.clusters.map(([name, n], i) => {
+    const y = ly0 + i * lrow;
+    return (
+      <g>
+        <rect class="box" x={lx} y={y} width={lw} height="46" rx="10" />
+        <text class="c" x={lx + 18} y={y + 30}>{name}</text>
+        <text class="cn" x={lx + lw - 18} y={y + 29} text-anchor="end">{n} {n === 1 ? (lang === 'pt' ? 'pergunta' : 'question') : (lang === 'pt' ? 'perguntas' : 'questions')}</text>
+        <path class="wire" d={`M ${lx + lw} ${y + 23} C ${lx + lw + 70} ${y + 23}, ${mx - 70} ${my + mh / 2}, ${mx} ${my + mh / 2}`} />
+      </g>
+    );
+  })}
+  <text class="src" x={lx} y={ly0 + 7 * lrow + 20}>{L.src}</text>
+
+  <!-- the bridge -->
+  <rect class="mid" x={mx} y={my} width={mw} height={mh} rx="14" />
+  <text class="midn" x={mx + 24} y={my + 78}>{L.midN}</text>
+  {L.midS.map((l, i) => <text class="mids" x={mx + 24} y={my + 104 + i * 20}>{l}</text>)}
+
+  <!-- ideas by category -->
+  {catBlocks.map((b, bi) => (
+    <g>
+      <text class="cat" x={rx} y={b.y}>{b.name}</text>
+      {b.ideas.map((t, j) => {
+        const y = b.y + 12 + j * ROW;
+        return (
+          <g>
+            <text class="idx" x={rx} y={y + 17}>{String(b.start + j + 1).padStart(2, '0')}</text>
+            <text class="idea" x={rx + 32} y={y + 17}>{t}</text>
+            <line class="rule" x1={rx} y1={y + 27} x2={rx + rw} y2={y + 27} />
+            <path class="wire-acc" d={`M ${mx + mw} ${my + mh / 2} C ${mx + mw + 50} ${my + mh / 2}, ${rx - 50} ${y + 12}, ${rx - 12} ${y + 12}`} />
+          </g>
+        );
+      })}
+    </g>
+  ))}
+</svg>
