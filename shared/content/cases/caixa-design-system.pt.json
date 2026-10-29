@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "Comecei tentando mudar a cor de um botão num sistema interno da Caixa. Terminei desenhando o primeiro design system do maior banco social do Brasil, e a estrutura de governança que o mantém vivo até hoje.",
   "hero": {
-    "figure": "Diagrama da arquitetura do design system: marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em Figma e código.",
-    "aspect": "16 / 9"
+    "figure": "A arquitetura do design system em quatro camadas: marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em design e em código; a governança ao lado.",
+    "component": "caixa-architecture"
   },
   "sections": [
     {
@@ -30,8 +30,9 @@
         "Designers e desenvolvedores não tinham como conversar sobre reaproveitamento. Cada designer criava algo novo; o front-end vivia de correções rápidas; os gestores não sabiam onde começava UX e como era o handoff.",
         "O caso mais caro: sistemas inteiros, já desenhados e desenvolvidos, eram barrados antes de ir para produção porque não pareciam Caixa."
       ],
-      "figure": "Colagem dos style guides paralelos em uso, ou dos seletores de data divergentes entre telas do mesmo sistema.",
-      "aspect": "3 / 2"
+      "figure": "Botões coletados em sistemas da Caixa em 2019: dezenas de cores, formas, tamanhos e tecnologias para a mesma ação.",
+      "src": "img/caixa/problema-botoes.webp",
+      "alt": "Colagem de botões de sistemas da Caixa, em laranja, azul, verde, cinza e branco, com formatos e tamanhos diferentes"
     },
     {
       "id": "papel",
@@ -50,17 +51,41 @@
         "O passo que os artigos publicados na época não contam é o primeiro: antes de pedir permissão, eu e o desenvolvedor parceiro aproveitamos a reconstrução do sistema do Minha Casa, Minha Vida para aplicar uma prova de conceito de design system. Funcionou o bastante para convencer a diretoria da Habitação, que ajudou a levar a proposta às demais diretorias. O problema era generalizado, e a solução virou global."
       ],
       "steps": [
-        { "title": "Pesquisa para provar a dor", "text": "Survey quantitativo nas comunidades internas da Caixa pelo Brasil e observação presencial de designers e desenvolvedores. A necessidade se mostrou real e urgente, com dados." },
-        { "title": "Benchmark", "text": "Dezenas de design systems analisados. As referências que ficaram: o Design System do Governo Federal (padrão para o setor público), Duet e Royal Canin (eficiência de documentação) e Fluent UI (multiplataforma)." },
-        { "title": "Alinhamento organizacional", "text": "Apresentação aos gestores mostrando o impacto no fluxo de todas as áreas. O design system entrou no portfólio oficial de projetos do banco." },
-        { "title": "Inventário e auditoria", "text": "Dezenas de telas coletadas. O mesmo componente aparecia com múltiplas variações de tamanho, sombra, espaçamento e estrutura de código." },
-        { "title": "Arquitetura", "text": "Quatro camadas: guia visual da marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em design e em código." },
-        { "title": "Fundamentos", "text": "Sete princípios de design (crie foco, conteúdo primeiro, unifique, modular e escalável, simples e não simplista, previsível e claro, flexível), oito diretrizes estratégicas, três de usabilidade e quatro de design escalável." },
-        { "title": "Bibliotecas", "text": "Uma biblioteca de padrões no Figma para prototipação rápida, e um framework mais templates em código, com componentes reutilizáveis, estados e validações." },
-        { "title": "Distribuição e governança", "text": "Portal restrito a funcionários e terceiros, cursos preparatórios e o modelo federado com embaixadores. Depois da web em Angular, a expansão para Android." }
+        {
+          "title": "Pesquisa para provar a dor",
+          "text": "Survey quantitativo nas comunidades internas da Caixa pelo Brasil e observação presencial de designers e desenvolvedores. A necessidade se mostrou real e urgente, com dados."
+        },
+        {
+          "title": "Benchmark",
+          "text": "Dezenas de design systems analisados. As referências que ficaram: o Design System do Governo Federal (padrão para o setor público), Duet e Royal Canin (eficiência de documentação) e Fluent UI (multiplataforma)."
+        },
+        {
+          "title": "Alinhamento organizacional",
+          "text": "Apresentação aos gestores mostrando o impacto no fluxo de todas as áreas. O design system entrou no portfólio oficial de projetos do banco."
+        },
+        {
+          "title": "Inventário e auditoria",
+          "text": "Dezenas de telas coletadas. O mesmo componente aparecia com múltiplas variações de tamanho, sombra, espaçamento e estrutura de código."
+        },
+        {
+          "title": "Arquitetura",
+          "text": "Quatro camadas: guia visual da marca e princípios, StyleGuide, boas práticas de design e desenvolvimento, bibliotecas de padrões em design e em código."
+        },
+        {
+          "title": "Fundamentos",
+          "text": "Sete princípios de design (crie foco, conteúdo primeiro, unifique, modular e escalável, simples e não simplista, previsível e claro, flexível), oito diretrizes estratégicas, três de usabilidade e quatro de design escalável."
+        },
+        {
+          "title": "Bibliotecas",
+          "text": "Uma biblioteca de padrões no Figma para prototipação rápida, e um framework mais templates em código, com componentes reutilizáveis, estados e validações."
+        },
+        {
+          "title": "Distribuição e governança",
+          "text": "Portal restrito a funcionários e terceiros, cursos preparatórios e o modelo federado com embaixadores. Depois da web em Angular, a expansão para Android."
+        }
       ],
-      "figure": "Mapa do survey por região, matriz do benchmark e auditoria de componentes lado a lado.",
-      "aspect": "16 / 9"
+      "figure": "O que a pesquisa mostrou e o que o benchmark definiu: três números do survey interno e as quatro referências que ficaram.",
+      "component": "caixa-process"
     },
     {
       "id": "decisoes",
@@ -80,8 +105,8 @@
           "text": "Separar marca e princípios, StyleGuide, boas práticas e bibliotecas deixou claro onde cada decisão morava. Um componente podia mudar sem mexer no princípio; um princípio podia ser discutido sem abrir o código."
         }
       ],
-      "figure": "Diagrama do modelo federado: núcleo do design system, embaixadores por área, times de produto.",
-      "aspect": "16 / 9"
+      "figure": "O modelo federado: um núcleo mantém o design system; embaixadores em cada área adaptam, ajudam na adoção e implementam; os times de produto usam e devolvem padrões.",
+      "component": "caixa-federated"
     },
     {
       "id": "resultado",
@@ -92,8 +117,9 @@
         "O design system foi adotado por toda a área de Habitação, por Cartões, por Conta Corrente e por todos os aplicativos do banco. Foi o ponto de partida para as iniciativas seguintes de design em escala na Caixa."
       ],
       "showFacts": true,
-      "figure": "Comparação lado a lado: a tela construída à mão e a tela construída com o design system, ou um gráfico simples da proporção 3:1.",
-      "aspect": "16 / 9"
+      "figure": "O portal do DS CAIXA no lançamento: home com as versões para web (Bootstrap e Material) e para mobile, o guia DS CAIXA + Bootstrap e a página \"O que é o DS CAIXA\".",
+      "src": "img/caixa/resultado-portal.webp",
+      "alt": "Três telas do portal do DS CAIXA: página inicial, guia DS CAIXA + Bootstrap e página O que é o DS CAIXA"
     },
     {
       "id": "legado",

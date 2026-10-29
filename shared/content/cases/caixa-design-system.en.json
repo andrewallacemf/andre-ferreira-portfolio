@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "I started out trying to change the color of a button in an internal system at Caixa. I ended up designing the first design system of Brazil's largest social bank, and the governance structure that keeps it alive today.",
   "hero": {
-    "figure": "Diagram of the design system architecture: brand and principles, StyleGuide, design and development practices, pattern libraries in Figma and code.",
-    "aspect": "16 / 9"
+    "figure": "The design system architecture in four layers: brand and principles, StyleGuide, design and development practices, pattern libraries in design and in code; governance alongside.",
+    "component": "caixa-architecture"
   },
   "sections": [
     {
@@ -30,8 +30,9 @@
         "Designers and developers had no way to talk about reuse. Every designer created something new; the front end lived on quick fixes; managers did not know where UX began or what the handoff looked like.",
         "The most expensive case: entire systems, already designed and developed, were blocked before going to production because they did not look like Caixa."
       ],
-      "figure": "Collage of the parallel style guides in use, or of the diverging date pickers across screens of the same system.",
-      "aspect": "3 / 2"
+      "figure": "Buttons collected from Caixa systems in 2019: dozens of colors, shapes, sizes and technologies for the same action.",
+      "src": "img/caixa/problema-botoes.webp",
+      "alt": "Collage of buttons from Caixa systems, in orange, blue, green, grey and white, with different shapes and sizes"
     },
     {
       "id": "role",
@@ -50,17 +51,41 @@
         "The step the articles published at the time leave out is the first one: before asking for permission, the partner developer and I used the rebuild of the Minha Casa, Minha Vida housing system to apply a design system proof of concept. It worked well enough to convince the Housing directorate, which helped take the proposal to the other directorates. The problem was everywhere, and the solution became global."
       ],
       "steps": [
-        { "title": "Research to prove the pain", "text": "A quantitative survey across Caixa's internal communities throughout Brazil, plus in-person observation of designers and developers. The need turned out to be real and urgent, with data behind it." },
-        { "title": "Benchmark", "text": "Dozens of design systems analyzed. The references that stayed: the Brazilian Federal Government Design System (the public-sector standard), Duet and Royal Canin (documentation efficiency) and Fluent UI (multi-platform)." },
-        { "title": "Organizational alignment", "text": "A presentation to managers showing the impact on the workflow of every area. The design system entered the bank's official project portfolio." },
-        { "title": "Inventory and audit", "text": "Dozens of screens collected. The same component showed up with multiple variations of size, shadow, spacing and code structure." },
-        { "title": "Architecture", "text": "Four layers: brand visual guide and principles, StyleGuide, design and development practices, pattern libraries in design and in code." },
-        { "title": "Foundations", "text": "Seven design principles (create focus, content first, unify, modular and scalable, simple not simplistic, predictable and clear, flexible), eight strategic guidelines, three for usability and four for scalable design." },
-        { "title": "Libraries", "text": "A pattern library in Figma for fast prototyping, and a framework plus templates in code, with reusable components, states and validations." },
-        { "title": "Distribution and governance", "text": "A portal restricted to employees and contractors, preparatory courses and the federated model with ambassadors. After the Angular web, the expansion to Android." }
+        {
+          "title": "Research to prove the pain",
+          "text": "A quantitative survey across Caixa's internal communities throughout Brazil, plus in-person observation of designers and developers. The need turned out to be real and urgent, with data behind it."
+        },
+        {
+          "title": "Benchmark",
+          "text": "Dozens of design systems analyzed. The references that stayed: the Brazilian Federal Government Design System (the public-sector standard), Duet and Royal Canin (documentation efficiency) and Fluent UI (multi-platform)."
+        },
+        {
+          "title": "Organizational alignment",
+          "text": "A presentation to managers showing the impact on the workflow of every area. The design system entered the bank's official project portfolio."
+        },
+        {
+          "title": "Inventory and audit",
+          "text": "Dozens of screens collected. The same component showed up with multiple variations of size, shadow, spacing and code structure."
+        },
+        {
+          "title": "Architecture",
+          "text": "Four layers: brand visual guide and principles, StyleGuide, design and development practices, pattern libraries in design and in code."
+        },
+        {
+          "title": "Foundations",
+          "text": "Seven design principles (create focus, content first, unify, modular and scalable, simple not simplistic, predictable and clear, flexible), eight strategic guidelines, three for usability and four for scalable design."
+        },
+        {
+          "title": "Libraries",
+          "text": "A pattern library in Figma for fast prototyping, and a framework plus templates in code, with reusable components, states and validations."
+        },
+        {
+          "title": "Distribution and governance",
+          "text": "A portal restricted to employees and contractors, preparatory courses and the federated model with ambassadors. After the Angular web, the expansion to Android."
+        }
       ],
-      "figure": "Survey map by region, benchmark matrix and component audit side by side.",
-      "aspect": "16 / 9"
+      "figure": "What the research showed and what the benchmark set: three figures from the internal survey and the four references that stayed.",
+      "component": "caixa-process"
     },
     {
       "id": "decisions",
@@ -80,8 +105,8 @@
           "text": "Separating brand and principles, StyleGuide, practices and libraries made it clear where each decision lived. A component could change without touching a principle; a principle could be debated without opening the code."
         }
       ],
-      "figure": "Diagram of the federated model: design system core, ambassadors per area, product teams.",
-      "aspect": "16 / 9"
+      "figure": "The federated model: a core team maintains the design system; ambassadors in each area adapt it, help adoption and implement; product teams use it and return patterns.",
+      "component": "caixa-federated"
     },
     {
       "id": "result",
@@ -92,8 +117,9 @@
         "The design system was adopted across the whole Housing area, by Cards, by Checking Accounts and by every one of the bank's apps. It became the starting point for the design-at-scale initiatives that followed at Caixa."
       ],
       "showFacts": true,
-      "figure": "Side-by-side comparison: the screen built by hand and the screen built with the design system, or a simple 3:1 chart.",
-      "aspect": "16 / 9"
+      "figure": "The DS CAIXA portal at launch: home with the web (Bootstrap and Material) and mobile versions, the DS CAIXA + Bootstrap guide and the \"What is DS CAIXA\" page.",
+      "src": "img/caixa/resultado-portal.webp",
+      "alt": "Three screens of the DS CAIXA portal: home page, DS CAIXA + Bootstrap guide and the What is DS CAIXA page"
     },
     {
       "id": "legacy",

@@ -1,0 +1,91 @@
+---
+/* CAIXA Design System · architecture in four layers, with governance alongside.
+   Redrawn from the 2021 structure diagram in the site's tokens. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    layers: [
+      ['Marca e princípios', 'Guia visual da marca, sete princípios de design, diretrizes estratégicas e de usabilidade'],
+      ['StyleGuide', 'Cores, tipografia, grid, componentes e regras de uso, escritos para design e para desenvolvimento'],
+      ['Boas práticas de design e desenvolvimento', 'Como desenhar e como implementar: acessibilidade, estados, validações, nomenclatura'],
+    ],
+    libs: 'Bibliotecas de padrões',
+    design: ['Biblioteca de design', 'Figma, para prototipação rápida'],
+    code: ['Framework e templates', 'Angular: componentes, estados, validações'],
+    same: 'mesma fonte, mesmo lançamento',
+    gov: ['Governança', 'Portal restrito', 'Cursos preparatórios', 'Embaixadores por área'],
+  },
+  en: {
+    layers: [
+      ['Brand and principles', 'Brand visual guide, seven design principles, strategic and usability guidelines'],
+      ['StyleGuide', 'Color, type, grid, components and usage rules, written for design and for development'],
+      ['Design and development practices', 'How to design and how to implement: accessibility, states, validation, naming'],
+    ],
+    libs: 'Pattern libraries',
+    design: ['Design library', 'Figma, for fast prototyping'],
+    code: ['Framework and templates', 'Angular: components, states, validation'],
+    same: 'same source, same release',
+    gov: ['Governance', 'Restricted portal', 'Preparatory courses', 'Ambassadors per area'],
+  },
+}[lang];
+const bandH = 108, gap = 26, top = 36, left = 40, width = 830;
+---
+
+<svg viewBox="0 0 1200 675" role="img" aria-label={`${L.layers.map((l) => l[0]).join(' · ')} · ${L.libs}`}>
+  <style>
+    .t { fill: var(--fg); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+    .s { fill: var(--fg-muted); font-size: 19px; }
+    .k { fill: var(--fg-muted); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .box { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .acc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .acc-t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .chev { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .link { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 6; }
+    .link-t { fill: var(--accent); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+  </style>
+
+  {L.layers.map(([title, sub], i) => {
+    const y = top + i * (bandH + gap);
+    return (
+      <g>
+        <rect class="box" x={left} y={y} width={width} height={bandH} rx="10" />
+        <text class="t" x={left + 28} y={y + 46}>{title}</text>
+        <text class="s" x={left + 28} y={y + 80}>{sub}</text>
+        <path class="chev" d={`M ${left + width / 2 - 10} ${y + bandH + 6} l 10 10 l 10 -10`} />
+      </g>
+    );
+  })}
+
+  {(() => {
+    const y = top + 3 * (bandH + gap);
+    const h = 675 - y - 36;
+    const colW = (width - 28 * 3) / 2;
+    return (
+      <g>
+        <rect class="box" x={left} y={y} width={width} height={h} rx="10" />
+        <text class="t" x={left + 28} y={y + 46}>{L.libs}</text>
+        <rect class="acc" x={left + 28} y={y + 68} width={colW} height={h - 112} rx="8" />
+        <text class="acc-t" x={left + 50} y={y + 110}>{L.design[0]}</text>
+        <text class="s" x={left + 50} y={y + 140}>{L.design[1]}</text>
+        <rect class="acc" x={left + 56 + colW} y={y + 68} width={colW} height={h - 112} rx="8" />
+        <text class="acc-t" x={left + 78 + colW} y={y + 110}>{L.code[0]}</text>
+        <text class="s" x={left + 78 + colW} y={y + 140}>{L.code[1]}</text>
+        <line class="link" x1={left + 28 + colW} y1={y + 68 + (h - 112) / 2} x2={left + 56 + colW} y2={y + 68 + (h - 112) / 2} />
+        <text class="link-t" x={left + 28 + colW + 14} y={y + h - 14} text-anchor="middle">{L.same}</text>
+      </g>
+    );
+  })()}
+
+  <g>
+    <rect class="box" x={left + width + 36} y={top} width={1200 - left - width - 76} height={675 - top - 36} rx="10" stroke-dasharray="6 6" />
+    <text class="k" x={left + width + 60} y={top + 42}>{L.gov[0]}</text>
+    {L.gov.slice(1).map((g, i) => (
+      <g>
+        <circle cx={left + width + 66} cy={top + 96 + i * 54} r="4" fill="var(--accent)" />
+        <text class="s" x={left + width + 82} y={top + 102 + i * 54}>{g}</text>
+      </g>
+    ))}
+  </g>
+</svg>

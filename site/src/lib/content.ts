@@ -54,12 +54,17 @@ export interface CaseSection {
   showFacts?: boolean;
   figure?: string;
   aspect?: string;
+  /* Real figure, when it exists: a raster from public/ or a drawn component. */
+  src?: string;
+  alt?: string;
+  component?: string;
 }
+export interface CaseHero { figure: string; aspect?: string; src?: string; alt?: string; component?: string }
 export interface CaseBody {
   slug: string;
   kicker: string;
   lede: string;
-  hero?: { figure: string; aspect?: string };
+  hero?: CaseHero;
   sections: CaseSection[];
   next?: string;
 }

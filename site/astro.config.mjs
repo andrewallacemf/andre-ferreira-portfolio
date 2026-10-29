@@ -7,8 +7,9 @@ import { fileURLToPath } from 'node:url';
 // path relative to the file that references it, so the output works from any
 // sub-path (GitHub Pages under /repo/, a nested preview folder, file://).
 const base = process.env.BASE_PATH ?? '/';
-// Optional: absolute site origin, only used for <link hreflang> alternates.
-const site = process.env.SITE_URL;
+// Absolute site origin: canonical, hreflang, Open Graph image and sitemap need
+// it. SITE_URL overrides (set it when the custom domain arrives).
+const site = process.env.SITE_URL ?? 'https://andrewallacemf.github.io/andre-ferreira-portfolio/';
 
 // The repo root (../ from this folder): shared/tokens.css and shared/content
 // are imported from there, so Vite's dev server must be allowed to read it.
@@ -16,7 +17,7 @@ const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 
 export default defineConfig({
   base,
-  ...(site ? { site } : {}),
+  site,
   trailingSlash: 'always',
   output: 'static',
   devToolbar: { enabled: false },

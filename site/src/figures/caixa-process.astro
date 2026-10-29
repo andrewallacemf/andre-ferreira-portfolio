@@ -1,0 +1,89 @@
+---
+/* CAIXA Design System · the research that proved the pain and the benchmark
+   that set the parameters. Survey figures from the 2019 internal survey. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    survey: 'Survey interno, comunidades da Caixa pelo Brasil',
+    facts: [
+      ['76%', 'dos designers usavam algum dos guias de estilo disponíveis', 'não existia guia oficial'],
+      ['71%', 'dos desenvolvedores precisavam reconstruir componentes', 'ao manter sistemas e aplicações'],
+      ['75%', 'dos desenvolvedores levavam mais de 2 horas', 'para construir botões em projetos novos'],
+    ],
+    bench: 'Benchmark, dezenas de design systems',
+    cols: ['Referência', 'O que mostrou'],
+    rows: [
+      ['Design System do Governo Federal', 'O padrão do setor público: o argumento para a diretoria'],
+      ['Duet Design System', 'Documentação eficiente, pensada para quem implementa'],
+      ['Royal Canin Design System', 'Documentação eficiente em marca com muitos produtos'],
+      ['Fluent UI', 'Multiplataforma: web, mobile e desktop com uma linguagem'],
+    ],
+  },
+  en: {
+    survey: 'Internal survey, Caixa communities across Brazil',
+    facts: [
+      ['76%', 'of designers used one of the available style guides', 'there was no official guide'],
+      ['71%', 'of developers had to rebuild components', 'when maintaining systems and apps'],
+      ['75%', 'of developers took more than 2 hours', 'to build buttons in new projects'],
+    ],
+    bench: 'Benchmark, dozens of design systems',
+    cols: ['Reference', 'What it showed'],
+    rows: [
+      ['Brazilian Federal Government DS', 'The public-sector standard: the argument for the board'],
+      ['Duet Design System', 'Efficient documentation, written for implementers'],
+      ['Royal Canin Design System', 'Efficient documentation for a brand with many products'],
+      ['Fluent UI', 'Multi-platform: web, mobile and desktop in one language'],
+    ],
+  },
+}[lang];
+---
+
+<svg viewBox="0 0 1200 640" role="img" aria-label={`${L.survey}: ${L.facts.map((f) => f[0] + ' ' + f[1]).join('; ')}. ${L.bench}.`}>
+  <style>
+    .k { fill: var(--fg-muted); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .n { fill: var(--fg); font-weight: 700; font-size: 64px; letter-spacing: -0.03em; }
+    .s { fill: var(--fg); font-size: 19px; }
+    .m { fill: var(--fg-muted); font-size: 17px; }
+    .b { fill: var(--fg); font-weight: 500; font-size: 19px; }
+    .hair { stroke: var(--line); stroke-width: 1; }
+    .strong { stroke: var(--line-strong); stroke-width: 1; }
+  </style>
+
+  <!-- Survey: three figures as hairline rows -->
+  <text class="k" x="40" y="60">{L.survey}</text>
+  <line class="strong" x1="40" y1="82" x2="520" y2="82" />
+  {L.facts.map(([n, a, b], i) => {
+    const y = 82 + i * 178;
+    return (
+      <g>
+        <text class="n" x="40" y={y + 92}>{n}</text>
+        <text class="s" x="40" y={y + 130}>{a}</text>
+        <text class="m" x="40" y={y + 156}>{b}</text>
+        <line class="hair" x1="40" y1={y + 178} x2="520" y2={y + 178} />
+      </g>
+    );
+  })}
+
+  <!-- Benchmark: reference and what it taught -->
+  <text class="k" x="600" y="60">{L.bench}</text>
+  <line class="strong" x1="600" y1="82" x2="1160" y2="82" />
+  <text class="k" x="600" y="116">{L.cols[0]}</text>
+  <text class="k" x="880" y="116">{L.cols[1]}</text>
+  <line class="hair" x1="600" y1="134" x2="1160" y2="134" />
+  {L.rows.map(([name, what], i) => {
+    const y = 134 + i * 118;
+    const words = what.split(' ');
+    const mid = Math.ceil(words.length / 2);
+    return (
+      <g>
+        <text class="b" x="600" y={y + 46}>{name.length > 26 ? name.slice(0, name.lastIndexOf(' ', 26)) : name}</text>
+        {name.length > 26 && <text class="b" x="600" y={y + 72}>{name.slice(name.lastIndexOf(' ', 26) + 1)}</text>}
+        <text class="m" x="880" y={y + 46}>{words.slice(0, mid).join(' ')}</text>
+        <text class="m" x="880" y={y + 72}>{words.slice(mid).join(' ')}</text>
+        <line class="hair" x1="600" y1={y + 118} x2="1160" y2={y + 118} />
+      </g>
+    );
+  })}
+</svg>

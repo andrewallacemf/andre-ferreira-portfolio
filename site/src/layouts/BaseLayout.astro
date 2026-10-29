@@ -2,7 +2,7 @@
 import '../../../shared/tokens.css';
 import '../styles/global.css';
 import type { Content, Lang } from '../lib/content';
-import { pageHref, type Page } from '../lib/paths';
+import { href, pageHref, type Page } from '../lib/paths';
 import Header from '../components/Header.astro';
 import DotGrid from '../components/DotGrid.astro';
 import Cursor from '../components/Cursor.astro';
@@ -18,11 +18,14 @@ interface Props {
 const { lang, page, t, title, slug, description } = Astro.props;
 const pageTitle = title ? `${title} · ${t.meta.title}` : t.meta.title;
 
-// hreflang alternates: absolute when SITE_URL is configured, relative otherwise.
-const alt = (l: Lang) => {
-  const p = pageHref(l, page, '', slug);
-  return Astro.site ? new URL(p, Astro.site).href : p;
-};
+// Absolute URLs for canonical, hreflang and Open Graph (Astro.site is always set).
+const abs = (p: string) => new URL(p.replace(/^\//, ''), Astro.site).href;
+const alt = (l: Lang) => abs(pageHref(l, page, '', slug));
+const canonical = abs(pageHref(lang, page, '', slug));
+// One Open Graph card per page, rendered by scripts/og.mjs into public/og/.
+const ogKey = page === 'case' && slug ? slug : page;
+const ogImage = abs(`og/${lang}-${ogKey}.png`);
+const metaDescription = description ?? t.meta.description;
 ---
 
 <!doctype html>
@@ -31,7 +34,28 @@ const alt = (l: Lang) => {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description ?? t.meta.description} />
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={href('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={href('favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={href('apple-touch-icon.png')} />
+    <meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)" />
+    <meta property="og:type" content={page === 'case' ? 'article' : 'website'} />
+    <meta property="og:site_name" content={t.meta.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={pageTitle} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'pt' ? 'en_US' : 'pt_BR'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="alternate" hreflang="en" href={alt('en')} />
     <link rel="alternate" hreflang="pt-BR" href={alt('pt')} />
     <link rel="alternate" hreflang="x-default" href={alt('en')} />

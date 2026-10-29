@@ -27,7 +27,7 @@ npm run preview    # serves dist/ locally
 Optional environment variables for `build`:
 
 - `BASE_PATH=/andre-ferreira-portfolio/` — Astro base. Not required: `postbuild` rewrites every root-absolute URL in `dist/**/*.{html,css,js}` into a path relative to the file (`./`, `../`), so the same `dist/` works from any sub-path, a nested folder or `file://`.
-- `SITE_URL=https://example.com` — makes the `<link hreflang>` alternates absolute (search engines require absolute URLs there). Without it they are relative.
+- `SITE_URL=https://example.com/` — overrides the site origin used for canonical, `hreflang`, Open Graph image URLs and the sitemap. Default: the GitHub Pages address (`astro.config.mjs`). Set it when the custom domain arrives.
 
 ## Where things live
 
@@ -69,7 +69,7 @@ To change copy: edit `shared/content/*.json`. To change colors/type/space: edit 
 ## Known gaps / decisions to review
 
 1. ~~Three labels not in the shared JSON~~ Resolved: `cases.roleLabel`, `cases.scopeLabel` and `nav.menu` now live in `shared/content/*.json`; `fallback-strings.ts` was removed.
-2. `hreflang` links are relative unless `SITE_URL` is set at build time.
+2. Canonical, `hreflang`, Open Graph and sitemap URLs use the origin from `astro.config.mjs` (`SITE_URL` overrides it). Open Graph cards in `public/og/` are pre-rendered by `scripts/og.mjs`; rerun it when titles change.
 3. The dot-grid pointer interaction runs on the whole page, not only in the hero (the canvas is one fixed layer; sections with their own background, like Contact, cover it).
 4. Résumé links to `#` and "Source on GitHub" to `https://github.com/` (placeholders per spec).
 5. Unused JSON keys: `nav.allWork`, `cases.ctaAll`, `cases.sectionLabel`, `work.filterAll` (no section in SPEC.md uses them).

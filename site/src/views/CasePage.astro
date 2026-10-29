@@ -41,7 +41,7 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
 
     {body.hero && (
       <div class="case-hero">
-        <CaseFigure caption={body.hero.figure} aspect={body.hero.aspect} label={ui.image} />
+        <CaseFigure caption={body.hero.figure} aspect={body.hero.aspect} label={ui.image} src={body.hero.src} alt={body.hero.alt} component={body.hero.component} lang={lang} />
       </div>
     )}
 
@@ -91,7 +91,7 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
               </dl>
             )}
             {s.figure && (
-              <div><CaseFigure caption={s.figure} aspect={s.aspect} label={ui.image} /></div>
+              <div><CaseFigure caption={s.figure} aspect={s.aspect} label={ui.image} src={s.src} alt={s.alt} component={s.component} lang={lang} /></div>
             )}
           </section>
         ))}
@@ -133,7 +133,7 @@ const nextHref = next ? caseHref(lang, next.slug, hasCasePage(lang, next.slug)) 
   .case-hero > :global(.figure) { max-width: var(--slide-max); margin-inline: auto; }
   /* Until the real image exists, the hero panel is capped so it never becomes a
      screen-tall empty block on wide displays; the real image will set its own height. */
-  .case-hero :global(.figure__panel) { max-height: min(56vh, 34rem); }
+  .case-hero :global(.figure__panel.dotted-panel) { max-height: min(56vh, 34rem); }
 
   /* Body: index + sections */
   .case-body {

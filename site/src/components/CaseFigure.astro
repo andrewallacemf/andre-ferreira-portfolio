@@ -1,15 +1,30 @@
 ---
-/* Image slot of a case page. Until the real asset exists it renders a dotted
-   placeholder panel with the caption describing what goes there, so the page
-   layout and rhythm are final before any image is produced. */
-interface Props { caption: string; aspect?: string; label: string }
-const { caption, aspect = '16 / 9', label } = Astro.props;
+/* Image slot of a case page. Three states:
+   - `component`: an inline SVG figure (src/figures/<name>.astro), drawn with the
+     site's tokens so it follows the theme; bilingual through `lang`.
+   - `src`: a raster image from public/ (recreated screens, published material).
+   - neither: the dotted placeholder with the caption describing what goes there,
+     so the page's layout and rhythm are final before any image is produced. */
+import type { Lang } from '../lib/content';
+import { href } from '../lib/paths';
+interface Props { caption: string; aspect?: string; label: string; src?: string; alt?: string; component?: string; lang?: Lang }
+const { caption, aspect = '16 / 9', label, src, alt, component, lang = 'en' } = Astro.props;
+
+const figures = import.meta.glob<{ default: any }>('../figures/*.astro', { eager: true });
+const Figure = component ? figures[`../figures/${component}.astro`]?.default : undefined;
+if (component && !Figure) throw new Error(`Figure component not found: ${component}`);
 ---
 
 <figure class="figure">
-  <div class="figure__panel dotted-panel" style={`aspect-ratio: ${aspect}`} role="img" aria-label={`${label}: ${caption}`}>
-    <span class="label figure__tag">{label}</span>
-  </div>
+  {Figure ? (
+    <div class="figure__panel figure__panel--drawn"><Figure lang={lang} /></div>
+  ) : src ? (
+    <div class="figure__panel figure__panel--image"><img src={href(src)} alt={alt ?? caption} loading="lazy" decoding="async" /></div>
+  ) : (
+    <div class="figure__panel dotted-panel" style={`aspect-ratio: ${aspect}`} role="img" aria-label={`${label}: ${caption}`}>
+      <span class="label figure__tag">{label}</span>
+    </div>
+  )}
   <figcaption class="figure__caption muted">{caption}</figcaption>
 </figure>
 
@@ -22,6 +37,13 @@ const { caption, aspect = '16 / 9', label } = Astro.props;
     border-radius: var(--radius-md);
     overflow: hidden;
   }
+  /* Drawn figures sit on the elevated ground and carry the dot grid faintly. */
+  .figure__panel--drawn { background: var(--bg-elev); padding: 1rem; }
+  @media (min-width: 1024px) { .figure__panel--drawn { padding: 1.5rem; } }
+  .figure__panel--drawn :global(svg) { display: block; width: 100%; height: auto; font-family: inherit; }
+  /* Published material keeps its own ground and edges; no second frame around it. */
+  .figure__panel--image { background: none; border: 0; }
+  .figure__panel--image img { display: block; width: 100%; height: auto; }
   .figure__tag {
     position: absolute;
     top: var(--space-3);

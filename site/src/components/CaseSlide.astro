@@ -13,7 +13,8 @@ const href = caseHref(lang, item.slug, hasPage);
 const titleId = `case-${item.slug}-title`;
 /* The slide's visual is the case's hero image; until it exists, the same
    placeholder as the case page, with the caption describing what goes there. */
-const heroFigure = getCaseBody(lang, item.slug)?.hero?.figure ?? item.title;
+const hero = getCaseBody(lang, item.slug)?.hero;
+const heroFigure = hero?.figure ?? item.title;
 ---
 
 <section class="slide case" id={`case-${item.slug}`} aria-labelledby={titleId}>
@@ -39,7 +40,7 @@ const heroFigure = getCaseBody(lang, item.slug)?.hero?.figure ?? item.title;
     </div>
 
     <div class="case__visual">
-      <CaseFigure caption={heroFigure} aspect="4 / 3" label={t.casePage.image} />
+      <CaseFigure caption={heroFigure} aspect="4 / 3" label={t.casePage.image} src={hero?.src} alt={hero?.alt} component={hero?.component} lang={lang} />
     </div>
   </article>
 </section>
