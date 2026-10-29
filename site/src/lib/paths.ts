@@ -15,6 +15,14 @@ export function href(path = ''): string {
   return base + path.replace(/^\/+/, '');
 }
 
+/** Absolute URL for canonical, hreflang, Open Graph and the sitemap. `site` already
+ *  ends with the deployed base, so a root-absolute path from href() has its base
+ *  stripped first; a bare relative path ("og/x.png") resolves under `site` as is. */
+export function absHref(path: string, site: URL | string): string {
+  const rel = path.startsWith(base) ? path.slice(base.length) : path.replace(/^\/+/, '');
+  return new URL(rel, site).href;
+}
+
 /** URL of a page in a given language: "/", "/work/", "/pt/", "/pt/work/", "/work/<slug>/". */
 export function pageHref(lang: Lang, page: Page, hash = '', slug?: string): string {
   const langPart = lang === 'en' ? '' : `${lang}/`;

@@ -3,12 +3,12 @@
 import type { APIRoute } from 'astro';
 import type { Lang } from '../lib/content';
 import { caseSlugsWithPage } from '../lib/content';
-import { pageHref, type Page } from '../lib/paths';
+import { absHref, pageHref, type Page } from '../lib/paths';
 
 const langs: Lang[] = ['en', 'pt'];
 
 export const GET: APIRoute = ({ site }) => {
-  const abs = (p: string) => new URL(p.replace(/^\//, ''), site).href;
+  const abs = (p: string) => absHref(p, site!);
   const entries: { page: Page; slug?: string }[] = [{ page: 'home' }, { page: 'work' }, { page: 'method' }];
   const slugs = caseSlugsWithPage('en').filter((s) => caseSlugsWithPage('pt').includes(s));
   for (const slug of slugs) entries.push({ page: 'case', slug });

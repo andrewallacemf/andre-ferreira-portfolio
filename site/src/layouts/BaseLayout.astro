@@ -2,7 +2,7 @@
 import '../../../shared/tokens.css';
 import '../styles/global.css';
 import type { Content, Lang } from '../lib/content';
-import { href, pageHref, type Page } from '../lib/paths';
+import { absHref, href, pageHref, type Page } from '../lib/paths';
 import Header from '../components/Header.astro';
 import DotGrid from '../components/DotGrid.astro';
 import Cursor from '../components/Cursor.astro';
@@ -17,9 +17,8 @@ interface Props {
 }
 const { lang, page, t, title, slug, description } = Astro.props;
 const pageTitle = title ? `${title} · ${t.meta.title}` : t.meta.title;
-
 // Absolute URLs for canonical, hreflang and Open Graph (Astro.site is always set).
-const abs = (p: string) => new URL(p.replace(/^\//, ''), Astro.site).href;
+const abs = (p: string) => absHref(p, Astro.site!);
 const alt = (l: Lang) => abs(pageHref(l, page, '', slug));
 const canonical = abs(pageHref(lang, page, '', slug));
 // One Open Graph card per page, rendered by scripts/og.mjs into public/og/.
