@@ -3,8 +3,9 @@
   "kicker": "Case",
   "lede": "I started out trying to change the color of a button in an internal system at Caixa. I ended up designing the first design system of Brazil's largest social bank, and the governance structure that keeps it alive today.",
   "hero": {
-    "figure": "The design system structure as it was drawn: design and development rules, principles and practices; brand visual guide and style guide; pattern library in design and in code; strategic design.",
-    "component": "caixa-architecture"
+    "figure": "Two pages of the DS CAIXA portal: \"Colors\", with the fixed palette and its codes, and \"Text HTML tags\", with the type scale documented for design and development.",
+    "src": "img/caixa/portal-cores-tags.webp",
+    "alt": "Two screens of the DS CAIXA portal side by side: the Colors page, with the Caixa palette in a table, and the Text HTML tags page, with the heading hierarchy"
   },
   "sections": [
     {
@@ -41,7 +42,9 @@
       "paragraphs": [
         "I was the one who identified the problem, built the proof of concept, took the proposal to the executive board and led the design team. I also designed the governance structure that would let the design system survive a corporate, bureaucratic environment.",
         "The core team had four in-house Caixa designers and me, the only contractor in the group. On the code side, the process was driven by a partner developer with whom I had already built the proof of concept; the two of us were the builders and leads of the process. Adoption was handled by a network of ambassadors per business area, designers and developers from the teams themselves."
-      ]
+      ],
+      "figure": "The federated model I designed: a core team maintains the design system; ambassadors in each area adapt it, help adoption and implement; product teams use it and return patterns.",
+      "component": "caixa-federated"
     },
     {
       "id": "process",
@@ -105,8 +108,8 @@
           "text": "Separating brand and principles, StyleGuide, practices and libraries made it clear where each decision lived. A component could change without touching a principle; a principle could be debated without opening the code."
         }
       ],
-      "figure": "The federated model: a core team maintains the design system; ambassadors in each area adapt it, help adoption and implement; product teams use it and return patterns.",
-      "component": "caixa-federated"
+      "figure": "The design system structure as it was drawn: design and development rules, principles and practices; brand visual guide and style guide; pattern library in design and in code; strategic design.",
+      "component": "caixa-architecture"
     },
     {
       "id": "result",

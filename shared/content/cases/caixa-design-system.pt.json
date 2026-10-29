@@ -3,8 +3,9 @@
   "kicker": "Case",
   "lede": "Comecei tentando mudar a cor de um botão num sistema interno da Caixa. Terminei desenhando o primeiro design system do maior banco social do Brasil, e a estrutura de governança que o mantém vivo até hoje.",
   "hero": {
-    "figure": "A estrutura do design system como foi desenhada: regras, princípios e boas práticas de design e desenvolvimento; guia visual da marca e guia de estilos; biblioteca de padrões em design e em código; design estratégico.",
-    "component": "caixa-architecture"
+    "figure": "Duas páginas do portal do DS CAIXA: \"Cores\", com a paleta fixa e seus códigos, e \"Tags HTML de texto\", com a escala tipográfica documentada para design e desenvolvimento.",
+    "src": "img/caixa/portal-cores-tags.webp",
+    "alt": "Duas telas do portal do DS CAIXA lado a lado: a página Cores, com a paleta de cores da Caixa em tabela, e a página Tags HTML de texto, com a hierarquia de títulos"
   },
   "sections": [
     {
@@ -41,7 +42,9 @@
       "paragraphs": [
         "Fui quem identificou o problema, construiu a prova de conceito, levou a proposta à diretoria e liderou o time de concepção. Desenhei também a estrutura de governança que permitiria ao design system sobreviver a um ambiente corporativo e burocrático.",
         "O time de concepção tinha quatro designers internos da Caixa e eu, o único terceirizado do grupo. Do lado do código, o processo foi capitaneado por um desenvolvedor parceiro, com quem eu já tinha construído a prova de conceito; fomos os dois construtores e lideranças do processo. A adoção ficou a cargo de uma rede de embaixadores por área, designers e desenvolvedores das próprias equipes."
-      ]
+      ],
+      "figure": "O modelo federado que desenhei: um núcleo mantém o design system; embaixadores em cada área adaptam, ajudam na adoção e implementam; os times de produto usam e devolvem padrões.",
+      "component": "caixa-federated"
     },
     {
       "id": "processo",
@@ -105,8 +108,8 @@
           "text": "Separar marca e princípios, StyleGuide, boas práticas e bibliotecas deixou claro onde cada decisão morava. Um componente podia mudar sem mexer no princípio; um princípio podia ser discutido sem abrir o código."
         }
       ],
-      "figure": "O modelo federado: um núcleo mantém o design system; embaixadores em cada área adaptam, ajudam na adoção e implementam; os times de produto usam e devolvem padrões.",
-      "component": "caixa-federated"
+      "figure": "A estrutura do design system como foi desenhada: regras, princípios e boas práticas de design e desenvolvimento; guia visual da marca e guia de estilos; biblioteca de padrões em design e em código; design estratégico.",
+      "component": "caixa-architecture"
     },
     {
       "id": "resultado",
