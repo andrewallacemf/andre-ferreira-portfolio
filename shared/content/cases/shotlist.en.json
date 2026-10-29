@@ -4,7 +4,9 @@
   "lede": "We inherited a production-planning platform with 34 open bugs, half-built features and a project module that was a single block. First, diagnosis and stabilization. Then a rebuild in three layers, from the quick shotlist to the agency workspace.",
   "hero": {
     "figure": "The three layers of the new architecture: Quick Shotlist (shotlist + moodboard, shareable), Simple Project, and Workflows and Workspaces for teams and agencies.",
-    "aspect": "16 / 9"
+    "aspect": "16 / 9",
+    "src": "img/shotlist/tres-camadas.webp",
+    "alt": "Three Shotlist screens in steps: a Quick Shotlist page, the widget-based project page and a workspace project list with the workflow stages."
   },
   "sections": [
     {
@@ -28,8 +30,9 @@
         "No payment processing: there was no way to charge for a subscription.",
         "A structural problem underneath it all: the project module was a monolithic block. Anything new had to be carved into it."
       ],
-      "figure": "Summary table of the audit: the 34 bugs by severity and urgency, with the 11 critical ones highlighted.",
-      "aspect": "16 / 9"
+      "figure": "Summary of the diagnosis: the 34 mapped bugs, with the 11 critical ones highlighted, the problems users felt most and the two structural gaps.",
+      "aspect": "16 / 9",
+      "component": "shotlist-audit"
     },
     {
       "id": "role",
@@ -48,17 +51,42 @@
         "The first phase, from January to May 2025, was a four-month project to diagnose, stabilize and prepare the platform for launch. Its result led to a second contract, from June to December, with a six-month roadmap to rebuild the platform."
       ],
       "steps": [
-        { "title": "Audit", "text": "Full interface audit, analysis of user feedback, heuristic analysis with mapping of the problematic flows, component inventory and documentation of visual inconsistencies. Out of it came the recommendations table by severity and urgency. In parallel, engineering audited code and infrastructure." },
-        { "title": "Stabilization", "text": "Redesign of the critical components, visual guides for error states, mobile navigation, standardized responsive components, loading states and micro-feedback, and usability tests of the fixes." },
-        { "title": "Monetization", "text": "Payment and subscription system with plan-based permissions: checkout, subscriber onboarding, transaction feedback states, permission and sharing management." },
-        { "title": "Refinement and launch preparation", "text": "Optimization of the shotlist + moodboard pair, the number one feature for the target audience, in-product support, final tests and documentation." },
-        { "title": "Workshops in Brazil", "text": "For the second phase, the client came to Brazil, and we defined goals and scope in in-person workshops." },
-        { "title": "New architecture", "text": "Three layers aligned with his vision: Quick Shotlist, Simple Project, and Workflows and Workspaces for teams and agencies. Hierarchy Workspace → Workflow → Project." },
-        { "title": "Design system and screens", "text": "Redesigned design system (buttons, inputs, icons, selectors, menu, header, avatar, selection controls, stepper, verification code), refactoring of the basic structure, login and sign-up, Shotlist and Quick Shotlist for web and mobile, the Workspaces concept." },
-        { "title": "Requirements and reviews", "text": "Scope and requirements documents per feature, with business rules, states, permissions, creation wizard and edge cases, plus design reviews recorded for each package of the roadmap." }
+        {
+          "title": "Audit",
+          "text": "Full interface audit, analysis of user feedback, heuristic analysis with mapping of the problematic flows, component inventory and documentation of visual inconsistencies. Out of it came the recommendations table by severity and urgency. In parallel, engineering audited code and infrastructure."
+        },
+        {
+          "title": "Stabilization",
+          "text": "Redesign of the critical components, visual guides for error states, mobile navigation, standardized responsive components, loading states and micro-feedback, and usability tests of the fixes."
+        },
+        {
+          "title": "Monetization",
+          "text": "Payment and subscription system with plan-based permissions: checkout, subscriber onboarding, transaction feedback states, permission and sharing management."
+        },
+        {
+          "title": "Refinement and launch preparation",
+          "text": "Optimization of the shotlist + moodboard pair, the number one feature for the target audience, in-product support, final tests and documentation."
+        },
+        {
+          "title": "Workshops in Brazil",
+          "text": "For the second phase, the client came to Brazil, and we defined goals and scope in in-person workshops."
+        },
+        {
+          "title": "New architecture",
+          "text": "Three layers aligned with his vision: Quick Shotlist, Simple Project, and Workflows and Workspaces for teams and agencies. Hierarchy Workspace → Workflow → Project."
+        },
+        {
+          "title": "Design system and screens",
+          "text": "Redesigned design system (buttons, inputs, icons, selectors, menu, header, avatar, selection controls, stepper, verification code), refactoring of the basic structure, login and sign-up, Shotlist and Quick Shotlist for web and mobile, the Workspaces concept."
+        },
+        {
+          "title": "Requirements and reviews",
+          "text": "Scope and requirements documents per feature, with business rules, states, permissions, creation wizard and edge cases, plus design reviews recorded for each package of the roadmap."
+        }
       ],
       "figure": "Timeline of the two phases: the four stages of early 2025 in the first, the monthly roadmap packages in the second.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "shotlist-timeline"
     },
     {
       "id": "decisions",
@@ -78,8 +106,10 @@
           "text": "Permissions named after what a person can do (view, edit, moderate) instead of role nouns; standardized project stages from Pending to Complete; a visual distinction between guests with and without an account; archiving. Rules that fit in a document and that the team implements without interpreting."
         }
       ],
-      "figure": "The modular project page, with the 13 available widgets and an example composition.",
-      "aspect": "16 / 9"
+      "figure": "The modular project page, composed of widgets chosen when the project is created; an example composition here.",
+      "aspect": "16 / 9",
+      "src": "img/shotlist/projeto-widgets.webp",
+      "alt": "Shotlist project page composed of widgets: header with photo, description, deliverables, event schedule, shotlists, moodboard and, on the right, progress, stage, logistics and team."
     },
     {
       "id": "result",
@@ -91,7 +121,9 @@
       ],
       "showFacts": true,
       "figure": "Quick Shotlist on a phone: shotlist, moodboard and description, shareable without a project.",
-      "aspect": "3 / 4"
+      "aspect": "3 / 4",
+      "src": "img/shotlist/quick-shotlist-mobile.webp",
+      "alt": "Three screens of the Shotlist app: the Quick Shotlist list, a Quick Shotlist with description, date, venue and shot checklists, and the same shotlist's moodboard."
     },
     {
       "id": "learnings",

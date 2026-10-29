@@ -1,0 +1,109 @@
+---
+/* Shotlist · what the diagnosis found. Left: the 34 mapped bugs as a grid, the 11
+   critical ones in accent. Right: the problems people hit most, then the two
+   structural gaps underneath them. Numbers are the ones validated for the case. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    k: 'Diagnóstico · início de 2025',
+    total: '34', totalLabel: 'bugs mapeados',
+    crit: '11 críticos', rest: '23 médios e baixos',
+    visible: 'O que quem usava sentia',
+    items: [
+      'O botão de adicionar um shot falhava com frequência',
+      'Metade da interface sumia no modo responsivo',
+      'O upload de imagens era instável',
+      'A performance era ruim',
+    ],
+    structural: 'Por baixo de tudo',
+    struct: [
+      ['Sem processamento de pagamento', 'nenhuma forma de cobrar uma assinatura'],
+      ['Módulo de projetos monolítico', 'qualquer coisa nova precisava ser esculpida nele'],
+    ],
+  },
+  en: {
+    k: 'Diagnosis · early 2025',
+    total: '34', totalLabel: 'bugs mapped',
+    crit: '11 critical', rest: '23 medium and low',
+    visible: 'What users ran into',
+    items: [
+      'The add-shot button failed often',
+      'Half the interface vanished in responsive mode',
+      'Image upload was unstable',
+      'Performance was poor',
+    ],
+    structural: 'Underneath it all',
+    struct: [
+      ['No payment processing', 'no way to charge for a subscription'],
+      ['A monolithic projects module', 'anything new had to be carved into it'],
+    ],
+  },
+}[lang];
+/* 34 cells, 17 per row; the first 11 are the critical ones. */
+const cells = Array.from({ length: 34 }, (_, i) => ({ col: i % 17, row: Math.floor(i / 17), crit: i < 11 }));
+const gx = 40, gy = 268, cs = 24, gap = 6;
+---
+
+<svg class="fg-shotlist-audit" viewBox="0 0 1200 540" role="img" aria-label={`${L.total} ${L.totalLabel}, ${L.crit}. ${L.visible}: ${L.items.join('; ')}. ${L.structural}: ${L.struct.map((s) => s[0]).join('; ')}.`}>
+  <style>
+    .fg-shotlist-audit .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-shotlist-audit .n { fill: var(--fg); font-weight: 700; font-size: 120px; letter-spacing: -0.04em; }
+    .fg-shotlist-audit .nl { fill: var(--fg-muted); font-size: 22px; }
+    .fg-shotlist-audit .cell { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-shotlist-audit .cell-crit { fill: var(--accent); stroke: var(--accent); stroke-width: 1.5; }
+    .fg-shotlist-audit .leg { fill: var(--fg); font-size: 17px; font-weight: 500; }
+    .fg-shotlist-audit .leg-m { fill: var(--fg-muted); font-size: 17px; }
+    .fg-shotlist-audit .h { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-shotlist-audit .p { fill: var(--fg); font-size: 18px; }
+    .fg-shotlist-audit .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-shotlist-audit .rule { stroke: var(--line); stroke-width: 1; }
+    .fg-shotlist-audit .dot { fill: var(--fg-muted); }
+    .fg-shotlist-audit .dot-acc { fill: var(--accent); }
+    .fg-shotlist-audit .div { stroke: var(--line-strong); stroke-width: 1.5; }
+  </style>
+
+  <text class="k" x="40" y="48">{L.k}</text>
+
+  <!-- the count -->
+  <text class="n" x="36" y="204">{L.total}</text>
+  <text class="nl" x="232" y="202">{L.totalLabel}</text>
+  {cells.map((c) => (
+    <rect class={c.crit ? 'cell-crit' : 'cell'} x={gx + c.col * (cs + gap)} y={gy + c.row * (cs + gap)} width={cs} height={cs} rx="4" />
+  ))}
+  <rect class="cell-crit" x="40" y="358" width="14" height="14" rx="3" />
+  <text class="leg" x="64" y="371">{L.crit}</text>
+  <rect class="cell" x="220" y="358" width="14" height="14" rx="3" />
+  <text class="leg-m" x="244" y="371">{L.rest}</text>
+
+  <!-- divider -->
+  <line class="div" x1="600" y1="40" x2="600" y2="500" />
+
+  <!-- visible problems -->
+  <text class="h" x="660" y="54">{L.visible}</text>
+  {L.items.map((t, i) => {
+    const y = 96 + i * 48;
+    return (
+      <g>
+        <circle class="dot" cx="668" cy={y - 6} r="4" />
+        <text class="p" x="690" y={y}>{t}</text>
+        <line class="rule" x1="660" y1={y + 20} x2="1160" y2={y + 20} />
+      </g>
+    );
+  })}
+
+  <!-- structural -->
+  <text class="h" x="660" y="340">{L.structural}</text>
+  {L.struct.map(([t, s], i) => {
+    const y = 384 + i * 82;
+    return (
+      <g>
+        <circle class="dot-acc" cx="668" cy={y - 6} r="5" />
+        <text class="p" x="690" y={y} font-weight="500">{t}</text>
+        <text class="s" x="690" y={y + 28}>{s}</text>
+        {i === 0 && <line class="rule" x1="660" y1={y + 48} x2="1160" y2={y + 48} />}
+      </g>
+    );
+  })}
+</svg>

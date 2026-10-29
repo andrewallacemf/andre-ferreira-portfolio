@@ -103,3 +103,8 @@ Refinement pass with the Impeccable design skill and detector (impeccable.style)
 ### Absolute URL fix (2026-10-29)
 
 On GitHub Pages the canonical, hreflang and sitemap URLs doubled the base path (`/<repo>/<repo>/...`): `pageHref()` already includes the base and `Astro.site` ends with it too. `absHref(path, site)` in `src/lib/paths.ts` strips the base from root-absolute paths before resolving against `site`, so the output is the same whether the build runs with `BASE_PATH=/` (local) or `/<repo>/` (Pages). Open Graph image URLs were already correct.
+
+
+### Shotlist figures (2026-10-29)
+
+Five figures from the eleven Shotlist design files. Hero `img/shotlist/tres-camadas.webp` (Quick Shotlist page, widget-based project page and the workspace project list, as a stair of three screens), Decisions `projeto-widgets.webp` (project page, top 1190px), Result `quick-shotlist-mobile.webp` (three phone moments at 1x). Drawn: `shotlist-audit` (34 bugs grid, 11 critical in accent, visible problems and structural gaps; only the validated numbers, no invented severity breakdown) and `shotlist-timeline` (phase 1 in four stages, re-hire bridge, phase 2 roadmap packages in order without month pins). Captures anonymized before compositing: the owner's first name blurred and the signed-in avatar replaced by a flat glyph, per the case's secrecy rules.

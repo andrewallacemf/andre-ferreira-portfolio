@@ -4,7 +4,9 @@
   "lede": "Herdamos uma plataforma de planejamento de filmagens com 34 bugs abertos, features pela metade e um módulo de projetos que era um bloco só. Primeiro, diagnóstico e estabilização. Depois, uma reconstrução em três camadas, do shotlist rápido ao workspace de agência.",
   "hero": {
     "figure": "As três camadas da nova arquitetura: Quick Shotlist (shotlist + moodboard, compartilhável), Projeto simples e Workflows e Workspaces para times e agências.",
-    "aspect": "16 / 9"
+    "aspect": "16 / 9",
+    "src": "img/shotlist/tres-camadas.webp",
+    "alt": "Três telas da Shotlist em degraus: a página de um Quick Shotlist, a página de projeto com widgets e a lista de projetos de um workspace com os estágios do workflow."
   },
   "sections": [
     {
@@ -28,8 +30,9 @@
         "Sem processamento de pagamento: não havia como cobrar por uma assinatura.",
         "Um problema estrutural por baixo de tudo: o módulo de projetos era um bloco monolítico. Qualquer coisa nova precisava ser esculpida dentro dele."
       ],
-      "figure": "Tabela resumida da auditoria: os 34 bugs por severidade e urgência, com os 11 críticos destacados.",
-      "aspect": "16 / 9"
+      "figure": "Resumo do diagnóstico: os 34 bugs mapeados, com os 11 críticos em destaque, os problemas mais sentidos por quem usava e as duas lacunas estruturais.",
+      "aspect": "16 / 9",
+      "component": "shotlist-audit"
     },
     {
       "id": "papel",
@@ -48,17 +51,42 @@
         "A primeira fase, de janeiro a maio de 2025, foi um projeto de quatro meses para diagnosticar, estabilizar e preparar a plataforma para ser lançada. O resultado dela gerou a recontratação para a segunda fase, de junho a dezembro, com um roadmap de seis meses para reconstruir a plataforma."
       ],
       "steps": [
-        { "title": "Auditoria", "text": "Auditoria completa da interface, análise dos feedbacks de usuários, análise heurística com mapeamento dos fluxos problemáticos, inventário de componentes e documentação das inconsistências visuais. Saiu daí a tabela de recomendações por severidade e urgência. Em paralelo, a engenharia auditou código e infraestrutura." },
-        { "title": "Estabilização", "text": "Redesign dos componentes críticos, guias visuais para estados de erro, navegação mobile, componentes responsivos padronizados, estados de carregamento e microfeedbacks, e testes de usabilidade das correções." },
-        { "title": "Monetização", "text": "Sistema de pagamento e assinatura com permissões por plano: checkout, onboarding de assinante, estados de feedback de transação, gestão de permissões e compartilhamento." },
-        { "title": "Refinamento e preparação de lançamento", "text": "Otimização do par shotlist + moodboard, a funcionalidade número um para o público-alvo, suporte dentro do produto, testes finais e documentação." },
-        { "title": "Workshops no Brasil", "text": "Para a segunda fase, o cliente veio ao Brasil, e definimos objetivos e escopo em workshops presenciais." },
-        { "title": "Nova arquitetura", "text": "Três camadas alinhadas com a visão dele: Quick Shotlist, Projeto simples e Workflows e Workspaces para times e agências. Hierarquia Workspace → Workflow → Projeto." },
-        { "title": "Design system e telas", "text": "Design system redesenhado (botões, inputs, ícones, seletores, menu, header, avatar, seleção, stepper, código de verificação), refatoração da estrutura básica, login e cadastro, Shotlist e Quick Shotlist para web e mobile, conceito de Workspaces." },
-        { "title": "Requisitos e revisões", "text": "Documentos de escopo e requisitos por funcionalidade, com regras de negócio, estados, permissões, wizard de criação e casos-limite, mais revisões de design registradas a cada pacote do roadmap." }
+        {
+          "title": "Auditoria",
+          "text": "Auditoria completa da interface, análise dos feedbacks de usuários, análise heurística com mapeamento dos fluxos problemáticos, inventário de componentes e documentação das inconsistências visuais. Saiu daí a tabela de recomendações por severidade e urgência. Em paralelo, a engenharia auditou código e infraestrutura."
+        },
+        {
+          "title": "Estabilização",
+          "text": "Redesign dos componentes críticos, guias visuais para estados de erro, navegação mobile, componentes responsivos padronizados, estados de carregamento e microfeedbacks, e testes de usabilidade das correções."
+        },
+        {
+          "title": "Monetização",
+          "text": "Sistema de pagamento e assinatura com permissões por plano: checkout, onboarding de assinante, estados de feedback de transação, gestão de permissões e compartilhamento."
+        },
+        {
+          "title": "Refinamento e preparação de lançamento",
+          "text": "Otimização do par shotlist + moodboard, a funcionalidade número um para o público-alvo, suporte dentro do produto, testes finais e documentação."
+        },
+        {
+          "title": "Workshops no Brasil",
+          "text": "Para a segunda fase, o cliente veio ao Brasil, e definimos objetivos e escopo em workshops presenciais."
+        },
+        {
+          "title": "Nova arquitetura",
+          "text": "Três camadas alinhadas com a visão dele: Quick Shotlist, Projeto simples e Workflows e Workspaces para times e agências. Hierarquia Workspace → Workflow → Projeto."
+        },
+        {
+          "title": "Design system e telas",
+          "text": "Design system redesenhado (botões, inputs, ícones, seletores, menu, header, avatar, seleção, stepper, código de verificação), refatoração da estrutura básica, login e cadastro, Shotlist e Quick Shotlist para web e mobile, conceito de Workspaces."
+        },
+        {
+          "title": "Requisitos e revisões",
+          "text": "Documentos de escopo e requisitos por funcionalidade, com regras de negócio, estados, permissões, wizard de criação e casos-limite, mais revisões de design registradas a cada pacote do roadmap."
+        }
       ],
       "figure": "Linha do tempo das duas fases: as quatro etapas de 2025 na primeira, os pacotes mensais do roadmap na segunda.",
-      "aspect": "16 / 9"
+      "aspect": "16 / 9",
+      "component": "shotlist-timeline"
     },
     {
       "id": "decisoes",
@@ -78,8 +106,10 @@
           "text": "Permissões nomeadas pelo que a pessoa pode fazer (ver, editar, moderar) em vez de substantivos de papel; estágios de projeto padronizados de Pendente a Concluído; distinção visual entre convidados com e sem conta; arquivamento. Regras que cabem num documento e que o time implementa sem interpretar."
         }
       ],
-      "figure": "A página de projeto modular, com os 13 widgets disponíveis e uma composição de exemplo.",
-      "aspect": "16 / 9"
+      "figure": "A página de projeto modular, composta por widgets escolhidos na criação do projeto; aqui, uma composição de exemplo.",
+      "aspect": "16 / 9",
+      "src": "img/shotlist/projeto-widgets.webp",
+      "alt": "Página de projeto da Shotlist composta por widgets: cabeçalho com foto, descrição, entregáveis, agenda de eventos, shotlists, moodboard e, à direita, progresso, estágio, logística e time."
     },
     {
       "id": "resultado",
@@ -91,7 +121,9 @@
       ],
       "showFacts": true,
       "figure": "Quick Shotlist no celular: shotlist, moodboard e descrição, compartilhável sem projeto.",
-      "aspect": "3 / 4"
+      "aspect": "3 / 4",
+      "src": "img/shotlist/quick-shotlist-mobile.webp",
+      "alt": "Três telas do app da Shotlist: lista de Quick Shotlists, um Quick Shotlist com descrição, data, local e checklists de shots, e o moodboard do mesmo shotlist."
     },
     {
       "id": "aprendizados",

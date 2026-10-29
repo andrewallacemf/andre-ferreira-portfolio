@@ -1,0 +1,117 @@
+---
+/* Shotlist · the two phases of 2025. Phase one (January to May) as four stages,
+   the hand-off through the in-person workshops, and phase two (June to December)
+   as the roadmap packages in order, without pinning each one to a month. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    y: '2025',
+    p1: ['Fase 1 · janeiro a maio', 'diagnosticar, estabilizar e preparar o lançamento'],
+    stages: [
+      ['Auditoria', ['interface, feedbacks,', 'heurística, componentes']],
+      ['Estabilização', ['componentes críticos,', 'mobile, estados']],
+      ['Monetização', ['assinatura, checkout,', 'permissões por plano']],
+      ['Refinamento', ['shotlist + moodboard,', 'suporte, testes']],
+    ],
+    bridge: ['Recontratação', 'workshops presenciais', 'no Brasil'],
+    p2: ['Fase 2 · junho a dezembro', 'reconstruir a plataforma, em pacotes mensais'],
+    packs: [
+      ['Projects 3.0.1', ['estágios', 'do projeto']],
+      ['Projects 3.1', ['Quick Shotlists,', 'calendários,', 'arquitetura modular']],
+      ['Projects 3.1.1', ['notificações,', 'templates']],
+      ['Projects 3.2', ['shotlist,', 'chat mobile']],
+      ['Gamificação', ['e dashboard']],
+      ['Comunidades', ['e recursos legais']],
+      ['IA', ['copilotos']],
+    ],
+    under: 'Cada funcionalidade só entra em desenvolvimento depois do documento de requisitos e do protótipo aprovados.',
+  },
+  en: {
+    y: '2025',
+    p1: ['Phase 1 · January to May', 'diagnose, stabilize and prepare the launch'],
+    stages: [
+      ['Audit', ['interface, feedback,', 'heuristics, components']],
+      ['Stabilization', ['critical components,', 'mobile, states']],
+      ['Monetization', ['subscription, checkout,', 'plan permissions']],
+      ['Refinement', ['shotlist + moodboard,', 'support, testing']],
+    ],
+    bridge: ['Re-hired', 'in-person workshops', 'in Brazil'],
+    p2: ['Phase 2 · June to December', 'rebuild the platform, in monthly packages'],
+    packs: [
+      ['Projects 3.0.1', ['project', 'stages']],
+      ['Projects 3.1', ['Quick Shotlists,', 'calendars,', 'modular architecture']],
+      ['Projects 3.1.1', ['notifications,', 'templates']],
+      ['Projects 3.2', ['shotlist,', 'mobile chat']],
+      ['Gamification', ['and dashboard']],
+      ['Communities', ['and legal features']],
+      ['AI', ['copilots']],
+    ],
+    under: 'Each feature enters development only after its requirements document and prototype are approved.',
+  },
+}[lang];
+const x0 = 40, W = 1120;
+const y1 = 112, y2 = 336, bh = 124;
+const sw = 200, sg = 12; // phase 1 stage boxes
+const bx = x0 + 4 * sw + 3 * sg + 44; // bridge box
+const pw = W / 7; // phase 2 columns
+---
+
+<svg class="fg-shotlist-timeline" viewBox="0 0 1200 560" role="img" aria-label={`${L.p1[0]}: ${L.stages.map((s) => s[0]).join(', ')}. ${L.bridge.join(' ')}. ${L.p2[0]}: ${L.packs.map((p) => p[0]).join(', ')}.`}>
+  <style>
+    .fg-shotlist-timeline .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-shotlist-timeline .h { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-shotlist-timeline .s { fill: var(--fg-muted); font-size: 17px; }
+    .fg-shotlist-timeline .box { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-shotlist-timeline .box-acc { fill: var(--accent); }
+    .fg-shotlist-timeline .band { fill: var(--accent-soft); opacity: 0.55; }
+    .fg-shotlist-timeline .tick { stroke: var(--line-strong); stroke-width: 1; }
+    .fg-shotlist-timeline .arrow { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-shotlist-timeline .t { fill: var(--fg); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+    .fg-shotlist-timeline .d { fill: var(--fg-muted); font-size: 14px; }
+    .fg-shotlist-timeline .t-acc { fill: var(--accent-fg); font-weight: 700; font-size: 18px; }
+    .fg-shotlist-timeline .d-acc { fill: var(--accent-fg); font-size: 14px; opacity: 0.85; }
+    .fg-shotlist-timeline .note { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+
+  <text class="k" x={x0} y="40">{L.y}</text>
+
+  <!-- phase 1: four stages, one box each -->
+  <text class="h" x={x0} y="80">{L.p1[0]}</text>
+  <text class="s" x={x0 + 290} y="80">{L.p1[1]}</text>
+  {L.stages.map(([t, lines], i) => {
+    const x = x0 + i * (sw + sg);
+    return (
+      <g>
+        <rect class="box" x={x} y={y1} width={sw} height={bh} rx="10" />
+        <text class="t" x={x + 16} y={y1 + 36}>{t}</text>
+        {(lines as string[]).map((l, j) => <text class="d" x={x + 16} y={y1 + 66 + j * 20}>{l}</text>)}
+      </g>
+    );
+  })}
+
+  <!-- bridge: phase 1 earned phase 2 -->
+  <path class="arrow" d={`M ${x0 + 4 * sw + 3 * sg + 4} ${y1 + bh / 2} h 30 m -8 -6 l 8 6 l -8 6`} />
+  <rect class="box-acc" x={bx} y={y1} width={1160 - bx} height={bh} rx="10" />
+  <text class="t-acc" x={bx + 18} y={y1 + 36}>{L.bridge[0]}</text>
+  <text class="d-acc" x={bx + 18} y={y1 + 66}>{L.bridge[1]}</text>
+  <text class="d-acc" x={bx + 18} y={y1 + 86}>{L.bridge[2]}</text>
+
+  <!-- phase 2: the roadmap packages, in order -->
+  <text class="h" x={x0} y={y2 - 14}>{L.p2[0]}</text>
+  <text class="s" x={x0 + 330} y={y2 - 14}>{L.p2[1]}</text>
+  <rect class="band" x={x0} y={y2} width={W} height={bh} rx="10" />
+  {L.packs.map(([t, lines], i) => {
+    const x = x0 + i * pw;
+    return (
+      <g>
+        {i > 0 && <line class="tick" x1={x} y1={y2 + 12} x2={x} y2={y2 + bh - 12} />}
+        <text class="t" x={x + 14} y={y2 + 36} font-size="16">{t}</text>
+        {(lines as string[]).map((l, j) => <text class="d" x={x + 14} y={y2 + 62 + j * 19} font-size="13.5">{l}</text>)}
+      </g>
+    );
+  })}
+
+  <text class="note" x={x0} y="530">{L.under}</text>
+</svg>
