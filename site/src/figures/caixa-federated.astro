@@ -1,6 +1,7 @@
 ---
-/* CAIXA Design System · federated governance: a core team, ambassadors in each
-   business area, product teams implementing in their own territory. */
+/* CAIXA Design System · federated governance. A core keeps the system; one
+   group of ambassadors per business area adapts it and drives adoption; product
+   teams use it and send needs back. Hub at left, the three roles explained at right. */
 import type { Lang } from '../lib/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -9,76 +10,110 @@ const L = {
     core: ['Núcleo do', 'design system'],
     coreSub: 'StyleGuide · bibliotecas · portal',
     amb: 'Embaixadores',
-    teams: 'Times de produto',
     areas: ['Habitação', 'Cartões', 'Conta Corrente', 'Aplicativos'],
-    legend: ['mantém e evolui', 'adaptam, ajudam na adoção, implementam na própria área', 'usam e devolvem padrões'],
+    roles: [
+      ['Núcleo do design system', ['Mantém o StyleGuide, as bibliotecas', 'e o portal; decide o que entra.']],
+      ['Embaixadores por área', ['Adaptam o sistema, ajudam na adoção', 'e implementam no próprio território.']],
+      ['Times de produto', ['Usam os padrões e devolvem ao núcleo', 'o que falta ou o que não funciona.']],
+    ],
+    flow: ['padrões', 'necessidades'],
   },
   en: {
     core: ['Design system', 'core'],
     coreSub: 'StyleGuide · libraries · portal',
     amb: 'Ambassadors',
-    teams: 'Product teams',
     areas: ['Housing', 'Cards', 'Checking accounts', 'Apps'],
-    legend: ['maintains and evolves', 'adapt, help adoption, implement in their own area', 'use and return patterns'],
+    roles: [
+      ['Design system core', ['Keeps the StyleGuide, the libraries', 'and the portal; decides what gets in.']],
+      ['Ambassadors per area', ['Adapt the system, drive adoption', 'and implement it in their own territory.']],
+      ['Product teams', ['Use the patterns and send back', 'what is missing or does not work.']],
+    ],
+    flow: ['patterns', 'needs'],
   },
 }[lang];
-const cx = 600, cy = 300, dx = 300, dy = 150, r = 74;
-const nodes = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+
+const cx = 400, cy = 360, coreR = 122;
+const pill = { w: 190, h: 64, d: 226 };
+/* N, E, S, W */
+const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 ---
 
-<svg viewBox="0 0 1200 700" role="img" aria-label={`${L.core.join(' ')} → ${L.amb} (${L.areas.join(', ')}) → ${L.teams}`}>
+<svg viewBox="0 0 1200 720" role="img" aria-label={`${L.core.join(' ')} → ${L.amb}: ${L.areas.join(', ')} → ${L.roles[2][0]}`}>
   <style>
-    .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .t { fill: var(--fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
-    .s { fill: var(--fg-muted); font-size: 16px; }
-    .a { fill: var(--fg); font-weight: 500; font-size: 19px; }
-    .core { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
-    .node { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .k { fill: var(--fg-muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .core { fill: var(--accent); }
+    .core-t { fill: var(--accent-fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .core-s { fill: var(--accent-fg); font-size: 12px; opacity: 0.85; letter-spacing: 0.02em; }
+    .pill { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .pill-t { fill: var(--fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
     .spoke { stroke: var(--line-strong); stroke-width: 1.5; }
-    .leaf { fill: var(--fg-muted); }
-    .leafline { stroke: var(--line); stroke-width: 1; }
-    .core-t { fill: var(--accent); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .team { fill: var(--fg-muted); }
+    .teamline { stroke: var(--line); stroke-width: 1; }
+    .ring { fill: none; stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 7; }
+    .h { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .p { fill: var(--fg-muted); font-size: 17px; }
+    .flow { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .arrow { fill: none; stroke: var(--fg-muted); stroke-width: 1.25; }
   </style>
 
-  <!-- spokes from the core to each area's ambassadors -->
-  {nodes.map(([sx, sy]) => {
-    const x = cx + sx * dx, y = cy + sy * dy;
-    const len = Math.hypot(dx, dy); const ux = (sx * dx) / len, uy = (sy * dy) / len;
-    return <line class="spoke" x1={cx + ux * 112} y1={cy + uy * 112} x2={x - ux * r} y2={y - uy * r} />;
-  })}
+  <!-- faint ring where the product teams sit -->
+  <circle class="ring" cx={cx} cy={cy} r="300" />
+
+  <!-- spokes core → ambassadors -->
+  {dirs.map(([dx, dy]) => (
+    <line class="spoke" x1={cx + dx * coreR} y1={cy + dy * coreR} x2={cx + dx * (pill.d - (dx ? pill.w / 2 : pill.h / 2))} y2={cy + dy * (pill.d - (dx ? pill.w / 2 : pill.h / 2))} />
+  ))}
+
+  <!-- the two-way flow, shown once on the north spoke -->
+  <g>
+    <path class="arrow" d={`M ${cx - 14} ${cy - coreR - 14} v -44 m -5 8 l 5 -8 l 5 8`} />
+    <path class="arrow" d={`M ${cx + 14} ${cy - coreR - 58} v 44 m -5 -8 l 5 8 l 5 -8`} />
+    <text class="flow" x={cx - 24} y={cy - coreR - 32} text-anchor="end">{L.flow[1]}</text>
+    <text class="flow" x={cx + 24} y={cy - coreR - 32}>{L.flow[0]}</text>
+  </g>
 
   <!-- core -->
-  <circle class="core" cx={cx} cy={cy} r="112" />
-  <text class="core-t" x={cx} y={cy - 12} text-anchor="middle">{L.core[0]}</text>
-  <text class="core-t" x={cx} y={cy + 18} text-anchor="middle">{L.core[1]}</text>
-  <text class="s" x={cx} y={cy + 50} text-anchor="middle">{L.coreSub}</text>
+  <circle class="core" cx={cx} cy={cy} r={coreR} />
+  <text class="core-t" x={cx} y={cy - 14} text-anchor="middle">{L.core[0]}</text>
+  <text class="core-t" x={cx} y={cy + 12} text-anchor="middle">{L.core[1]}</text>
+  <text class="core-s" x={cx} y={cy + 42} text-anchor="middle">{L.coreSub}</text>
 
-  <!-- ambassadors per area, each with its product teams -->
-  {nodes.map(([sx, sy], i) => {
-    const x = cx + sx * dx, y = cy + sy * dy;
-    const leaves = [-40, 0, 40];
+  <!-- ambassadors per area, with their product teams beyond -->
+  {dirs.map(([dx, dy], i) => {
+    const x = cx + dx * pill.d, y = cy + dy * pill.d;
+    const far = dx ? pill.w / 2 : pill.h / 2;
+    const teams = [-1, 0, 1];
     return (
       <g>
-        {leaves.map((off) => (
-          <g>
-            <line class="leafline" x1={x + sx * r} y1={y} x2={x + sx * (r + 70)} y2={y + off} />
-            <circle class="leaf" cx={x + sx * (r + 76)} cy={y + off} r="6" />
-          </g>
-        ))}
-        <circle class="node" cx={x} cy={y} r={r} />
-        <text class="k" x={x} y={y - 8} text-anchor="middle">{L.amb}</text>
-        <text class="a" x={x} y={y + 18} text-anchor="middle">{L.areas[i]}</text>
+        {teams.map((t) => {
+          const tx = x + dx * (far + 48) + (dy ? t * 40 : 0);
+          const ty = y + dy * (far + 48) + (dx ? t * 40 : 0);
+          return (
+            <g>
+              <line class="teamline" x1={x + dx * far} y1={y + dy * far} x2={tx - dx * 8} y2={ty - dy * 8} />
+              <circle class="team" cx={tx} cy={ty} r="5.5" />
+            </g>
+          );
+        })}
+        <rect class="pill" x={x - pill.w / 2} y={y - pill.h / 2} width={pill.w} height={pill.h} rx="32" />
+        <text class="k" x={x} y={y - 7} text-anchor="middle">{L.amb}</text>
+        <text class="pill-t" x={x} y={y + 18} text-anchor="middle">{L.areas[i]}</text>
       </g>
     );
   })}
 
-  <!-- legend -->
-  <g>
-    <circle cx="48" cy="596" r="7" fill="var(--accent)" />
-    <text class="s" x="64" y="601">{L.core.join(' ')}: {L.legend[0]}</text>
-    <circle cx="48" cy="632" r="7" class="node" />
-    <text class="s" x="64" y="637">{L.amb}: {L.legend[1]}</text>
-    <circle cx="48" cy="668" r="6" class="leaf" />
-    <text class="s" x="64" y="673">{L.teams}: {L.legend[2]}</text>
-  </g>
+  <!-- the three roles -->
+  {L.roles.map(([title, lines], i) => {
+    const y = 164 + i * 180;
+    return (
+      <g>
+        {i === 0 && <circle cx="836" cy={y - 8} r="11" class="core" />}
+        {i === 1 && <rect x="822" y={y - 17} width="28" height="18" rx="9" class="pill" />}
+        {i === 2 && <circle cx="836" cy={y - 8} r="5.5" class="team" />}
+        <text class="h" x="870" y={y}>{title}</text>
+        {lines.map((l, j) => <text class="p" x="870" y={y + 32 + j * 26}>{l}</text>)}
+        {i < 2 && <line class="teamline" x1="822" y1={y + 108} x2="1168" y2={y + 108} />}
+      </g>
+    );
+  })}
 </svg>
