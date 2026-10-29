@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "Where do the plan, the credit and the wallet live in a platform where one person can have several workspaces? And how does a free tier that blocked creation become a growth engine without breaking anyone who has already published? This case is about the foundation, not the prices.",
   "hero": {
-    "figure": "Account architecture map: the wallet on the person, plan and credit on the workspace, a hub aggregating, the project as a filter.",
-    "aspect": "16 / 9"
+    "figure": "Where each concept lives: the wallet with the person, plan and credit in the workspace, a hub aggregating the view for people with several, the project as a filter.",
+    "component": "clickmax-account"
   },
   "sections": [
     {
@@ -27,8 +27,8 @@
         "In the code there was no yes-or-no permission per plan; only quantitative limits. Allowing or denying a whole feature to a plan had nowhere to be expressed.",
         "Billing work was scattered: 173 issues across 12 projects and 8 teams, with no dependencies between them, and 29 gaps with no issue at all."
       ],
-      "figure": "Inventory of what existed in the code: 27 billable metrics, 8 of them recountable, 7 kinds of paywall in the interface and no per-plan permission.",
-      "aspect": "16 / 9"
+      "figure": "What reading the code found: 27 billable metrics (8 recountable), 7 kinds of paywall, all at creation time, and no per-plan permissions.",
+      "component": "clickmax-inventory"
     },
     {
       "id": "role",
@@ -44,16 +44,37 @@
       "label": "Process",
       "title": "From reading the code to a unifying principle",
       "steps": [
-        { "title": "Reading the code and the issues", "text": "Inventory of what the platform measured, charged and blocked, and mapping of the 173 billing issues scattered across teams." },
-        { "title": "Account architecture decisions", "text": "Where each concept lives: the wallet moves to the person; plan and credit stay on the workspace; a hub aggregates the view for people with several; the project becomes a filter, not a billing unit." },
-        { "title": "Credit as a single currency", "text": "Instead of one quota per feature, one credit spent across several, with rules and staged warnings as the balance runs low." },
-        { "title": "Conceptual matrix", "text": "Four self-serve plans described across 24 dimensions, plus an enterprise plan, to know what each plan allows before discussing what it costs." },
-        { "title": "Gating inventory in three buckets", "text": "Every existing block classified: quantitative limit, feature permission or publish gate. Only then can you decide what stays and what changes." },
-        { "title": "Cluster reorganization", "text": "The 173 issues reorganized into five parts under a single principle: every access question becomes a call of the form \"can this account do this action on this feature?\"." },
-        { "title": "Map of new features", "text": "Nine new features assessed on four factors, to know which plan each one enters and why." }
+        {
+          "title": "Reading the code and the issues",
+          "text": "Inventory of what the platform measured, charged and blocked, and mapping of the 173 billing issues scattered across teams."
+        },
+        {
+          "title": "Account architecture decisions",
+          "text": "Where each concept lives: the wallet moves to the person; plan and credit stay on the workspace; a hub aggregates the view for people with several; the project becomes a filter, not a billing unit."
+        },
+        {
+          "title": "Credit as a single currency",
+          "text": "Instead of one quota per feature, one credit spent across several, with rules and staged warnings as the balance runs low."
+        },
+        {
+          "title": "Conceptual matrix",
+          "text": "Four self-serve plans described across 24 dimensions, plus an enterprise plan, to know what each plan allows before discussing what it costs."
+        },
+        {
+          "title": "Gating inventory in three buckets",
+          "text": "Every existing block classified: quantitative limit, feature permission or publish gate. Only then can you decide what stays and what changes."
+        },
+        {
+          "title": "Cluster reorganization",
+          "text": "The 173 issues reorganized into five parts under a single principle: every access question becomes a call of the form \"can this account do this action on this feature?\"."
+        },
+        {
+          "title": "Map of new features",
+          "text": "Nine new features assessed on four factors, to know which plan each one enters and why."
+        }
       ],
-      "figure": "The conceptual matrix: four plans across 24 dimensions, with abstract cells (allows, limits, not included).",
-      "aspect": "16 / 9"
+      "figure": "The conceptual matrix in the abstract: four self-serve plans across 24 dimensions, each cell as allows, limits or not included. Generic labels on purpose; the real matrix is not public.",
+      "component": "clickmax-matrix"
     },
     {
       "id": "decisions",
@@ -77,8 +98,8 @@
           "text": "The plan-by-dimension matrix was written without a single value. First what each plan allows; the price comes later, and it is not the subject of this case."
         }
       ],
-      "figure": "The three gating buckets (limit, permission, publish) and how each existing block was classified.",
-      "aspect": "16 / 9"
+      "figure": "The three gating buckets (quantitative limit, feature permission, publishing gate) and the thesis that moves the barrier from creation to publishing, all answering the same question.",
+      "component": "clickmax-gating"
     },
     {
       "id": "result",
@@ -89,8 +110,8 @@
         "The rest is work in progress, and this case will grow with it. The numbers below come from the inventory, not from results."
       ],
       "showFacts": true,
-      "figure": "Map of the five parts of the billing cluster under the unifying principle.",
-      "aspect": "16 / 9"
+      "figure": "The 173 issues scattered across 12 projects and 8 teams reorganized into five parts under a single principle. The parts are unnamed here on purpose.",
+      "component": "clickmax-cluster"
     },
     {
       "id": "learnings",

@@ -1,0 +1,76 @@
+---
+/* Clickmax · offer inheritance: the data model before and after. One new
+   exclusions table and the offer's own items; the product stays the only source. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    before: 'Antes', after: 'Depois',
+    product: ['Produto', ['id', 'nome', '…']], deliverable: ['Entregável', ['id', 'produto_id', 'tipo']],
+    offer: ['Oferta', ['id', 'produto_id', 'preço, condições']],
+    excl: ['Exclusão da oferta', ['oferta_id', 'entregavel_id']], own: ['Entregável próprio', ['id', 'oferta_id', 'tipo']],
+    readsBefore: 'a oferta lê os entregáveis do produto, sem poder divergir',
+    readsAfter: 'resolver: produto − exclusões + próprios, calculado na leitura',
+    api: ['3 endpoints novos', '5 alterados', 'zero migração de dados'],
+    newTag: 'nova',
+  },
+  en: {
+    before: 'Before', after: 'After',
+    product: ['Product', ['id', 'name', '…']], deliverable: ['Deliverable', ['id', 'product_id', 'type']],
+    offer: ['Offer', ['id', 'product_id', 'price, terms']],
+    excl: ['Offer exclusion', ['offer_id', 'deliverable_id']], own: ['Own deliverable', ['id', 'offer_id', 'type']],
+    readsBefore: 'the offer reads the product’s deliverables and cannot diverge',
+    readsAfter: 'resolver: product − exclusions + own items, computed on read',
+    api: ['3 new endpoints', '5 changed', 'zero data migration'],
+    newTag: 'new',
+  },
+}[lang];
+const Table = (x: number, y: number, t: [string, string[]], acc = false) => ({ x, y, t, acc, h: 34 + t[1].length * 24 + 10 });
+const b = { product: Table(40, 110, L.product as any), deliv: Table(40, 300, L.deliverable as any), offer: Table(300, 110, L.offer as any) };
+const a = { product: Table(640, 110, L.product as any), deliv: Table(640, 300, L.deliverable as any), offer: Table(910, 110, L.offer as any), excl: Table(910, 300, L.excl as any, true), own: Table(910, 440, L.own as any, true) };
+const W = 236;
+---
+
+<svg class="fg-clickmax-datamodel" viewBox="0 0 1200 664" role="img" aria-label={`${L.before}: ${L.readsBefore}. ${L.after}: ${L.readsAfter}`}>
+  <style>
+    .fg-clickmax-datamodel .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-datamodel .tb { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-datamodel .tb-acc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .fg-clickmax-datamodel .th { fill: var(--fg); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+    .fg-clickmax-datamodel .td { fill: var(--fg-muted); font-size: 15px; font-family: var(--font-mono); }
+    .fg-clickmax-datamodel .hair { stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-datamodel .rel { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-datamodel .rel-acc { fill: var(--accent); }
+    .fg-clickmax-datamodel .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-datamodel .tag { fill: var(--accent); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-datamodel .api { fill: var(--fg); font-size: 16px; font-weight: 500; }
+  </style>
+
+  {[...Object.values(b), ...Object.values(a)].map((tb) => (
+    <g>
+      <rect class={tb.acc ? 'tb-acc' : 'tb'} x={tb.x} y={tb.y} width={W} height={tb.h} rx="8" />
+      <text class="th" x={tb.x + 14} y={tb.y + 24}>{tb.t[0]}</text>
+      {tb.acc && <text class="tag" x={tb.x + W} y={tb.y - 8} text-anchor="end">{L.newTag}</text>}
+      <line class="hair" x1={tb.x} y1={tb.y + 34} x2={tb.x + W} y2={tb.y + 34} />
+      {tb.t[1].map((f: string, i: number) => <text class="td" x={tb.x + 14} y={tb.y + 58 + i * 24}>{f}</text>)}
+    </g>
+  ))}
+
+  <!-- before: relations -->
+  <text class="k" x="40" y="60">{L.before}</text>
+  <path class="rel" d={`M ${b.product.x + W / 2} ${b.product.y + b.product.h} V ${b.deliv.y}`} />
+  <path class="rel" d={`M ${b.product.x + W} ${b.product.y + 60} H ${b.offer.x}`} />
+  <path class="rel" d={`M ${b.offer.x + 40} ${b.offer.y + b.offer.h} V ${b.deliv.y + 40} H ${b.deliv.x + W}`} stroke-dasharray="4 5" />
+  <text class="s" x="40" y="470">{L.readsBefore}</text>
+
+  <!-- after: relations -->
+  <text class="k" x="640" y="60">{L.after}</text>
+  <path class="rel" d={`M ${a.product.x + W / 2} ${a.product.y + a.product.h} V ${a.deliv.y}`} />
+  <path class="rel" d={`M ${a.product.x + W} ${a.product.y + 60} H ${a.offer.x}`} />
+  <path class="rel" d={`M ${a.offer.x + W / 2} ${a.offer.y + a.offer.h} V ${a.excl.y}`} />
+  <path class="rel" d={`M ${a.excl.x + W / 2} ${a.excl.y + a.excl.h} V ${a.own.y}`} />
+  <path class="rel" d={`M ${a.excl.x} ${a.excl.y + 50} H ${a.deliv.x + W}`} stroke-dasharray="4 5" />
+  <text class="s" x="640" y="596">{L.readsAfter}</text>
+  {L.api.map((t, i) => <text class="api" x={640 + [0, 185, 320][i]} y="634">{t}</text>)}
+</svg>

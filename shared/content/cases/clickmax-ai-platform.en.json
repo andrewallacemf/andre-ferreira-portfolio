@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "When the product's AI answers with interface, someone has to decide what it may say, what it may render and how an outside agent gets into the platform. This case is about designing those rules.",
   "hero": {
-    "figure": "The three entry points of the AI-operated platform (the in-product assistant, external agents via MCP, insights) and the contract layer that governs what each may render.",
-    "aspect": "16 / 9"
+    "figure": "The three entry doors of the AI-operated platform (assistant in the product, external agents via MCP, insights), the contract layer that governs what each may render and say, and the platform tools underneath.",
+    "component": "clickmax-doors"
   },
   "sections": [
     {
@@ -26,8 +26,8 @@
         "The response policy and the assistant's real behavior did not always match: the document said one thing, practice showed another.",
         "The documentation for connecting an external agent sat outside the product's navigation and was out of date."
       ],
-      "figure": "Inventory of the 88 component tags emitted by the platform, grouped into the 4 families, highlighting the only family the AI actually emitted.",
-      "aspect": "16 / 9"
+      "figure": "The inventory: 88 component tags emitted by the platform, grouped into four families; only one was actually emitted by the AI.",
+      "component": "clickmax-tags"
     },
     {
       "id": "role",
@@ -43,15 +43,33 @@
       "label": "Process",
       "title": "From inventory to onboarding",
       "steps": [
-        { "title": "Scope of the contract", "text": "The first decision: the contract covers every generative surface, not only the chat. Wherever the AI renders, the contract applies." },
-        { "title": "Inventory", "text": "The 88 component tags the platform emitted were grouped into 4 families. The finding: only one family was actually emitted by the AI. The problem was smaller and more concentrated than it looked." },
-        { "title": "Widget manifest", "text": "A single, two-layer registry of the 14 widgets the assistant may render, each consuming the design system's tokens. On the human side, the same component lexicon; on the AI side, a closed list." },
-        { "title": "Response guidelines", "text": "A project with a cross-cutting base and one chapter per product domain. The canonical shape of an answer: note, data, card, call to action. Cases covered: inability, error, partial data, empty base and language for non-technical people." },
-        { "title": "Panel components", "text": "In the design system: the assistant button with four states, the glass panel, the prompt field, the suggestion chips and the session list." },
-        { "title": "Connection wizard", "text": "Four steps to connect an external agent to the platform through MCP, inside the product's navigation, with the documentation where the person needs it. In production." }
+        {
+          "title": "Scope of the contract",
+          "text": "The first decision: the contract covers every generative surface, not only the chat. Wherever the AI renders, the contract applies."
+        },
+        {
+          "title": "Inventory",
+          "text": "The 88 component tags the platform emitted were grouped into 4 families. The finding: only one family was actually emitted by the AI. The problem was smaller and more concentrated than it looked."
+        },
+        {
+          "title": "Widget manifest",
+          "text": "A single, two-layer registry of the 14 widgets the assistant may render, each consuming the design system's tokens. On the human side, the same component lexicon; on the AI side, a closed list."
+        },
+        {
+          "title": "Response guidelines",
+          "text": "A project with a cross-cutting base and one chapter per product domain. The canonical shape of an answer: note, data, card, call to action. Cases covered: inability, error, partial data, empty base and language for non-technical people."
+        },
+        {
+          "title": "Panel components",
+          "text": "In the design system: the assistant button with four states, the glass panel, the prompt field, the suggestion chips and the session list."
+        },
+        {
+          "title": "Connection wizard",
+          "text": "Four steps to connect an external agent to the platform through MCP, inside the product's navigation, with the documentation where the person needs it. In production."
+        }
       ],
-      "figure": "The two-layer widget manifest: product components at the bottom, the assistant's 14 widgets on top, all pointing to the same tokens.",
-      "aspect": "16 / 9"
+      "figure": "The two-layer manifest: product components below, the 14 widgets the assistant may render above, all reading the same design system tokens.",
+      "component": "clickmax-manifest"
     },
     {
       "id": "decisions",
@@ -75,8 +93,9 @@
           "text": "The platform serves people who sell online, not developers. The guidelines ban system jargon from answers and define how to explain an error or an empty base in business language."
         }
       ],
-      "figure": "The four steps of the external agent connection wizard, with fictional data.",
-      "aspect": "16 / 9"
+      "figure": "The connection flow in the product: under \"Connections\", the step by step to use Clickmax in another AI via MCP (add the server, sign in and authorize in the browser), with the documentation where the person needs it. Server address blurred.",
+      "src": "img/clickmax/mcp-conectar.webp",
+      "alt": "\"Use Clickmax in other AIs\" modal with two numbered blocks: Add the MCP, with the server URL field, and Sign in and authorize in the browser"
     },
     {
       "id": "result",
@@ -87,8 +106,9 @@
         "This is ongoing work in a live product. The numbers below are counts of what exists, not impact metrics."
       ],
       "showFacts": true,
-      "figure": "The assistant panel with the design system components: four-state button, glass panel, prompt, suggestion chips and sessions.",
-      "aspect": "16 / 9"
+      "figure": "The assistant panel open over the Overview: access button, glass panel, opening question, suggestion chips, prompt field and an insight card, all design system components.",
+      "src": "img/clickmax/assistente-painel.webp",
+      "alt": "Floating Max assistant panel over the Clickmax dashboard, with suggestion chips, a prompt field and a card about uncontacted leads"
     },
     {
       "id": "learnings",

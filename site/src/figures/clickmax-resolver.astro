@@ -1,0 +1,86 @@
+---
+/* Clickmax · offer inheritance: the resolver in one line, then a worked example
+   with the three item states (inherited, removed, own). */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    f: ['entregáveis(oferta)', '=', 'entregáveis(produto)', '−', 'excluídos(oferta)', '+', 'próprios(oferta)'],
+    cols: ['Produto', 'Oferta exclui', 'Oferta adiciona', 'O que o comprador recebe'],
+    product: ['Curso em vídeo', 'Apostila', 'Comunidade', 'Mentoria em grupo'],
+    excl: ['Mentoria em grupo'], own: ['Sessão individual'],
+    states: { inherited: 'herdado', removed: 'removido', own: 'próprio' },
+    note: 'derivado na leitura: se o produto muda, a oferta acompanha; nada é copiado, nada é migrado',
+  },
+  en: {
+    f: ['deliverables(offer)', '=', 'deliverables(product)', '−', 'excluded(offer)', '+', 'own(offer)'],
+    cols: ['Product', 'Offer excludes', 'Offer adds', 'What the buyer gets'],
+    product: ['Video course', 'Workbook', 'Community', 'Group mentoring'],
+    excl: ['Group mentoring'], own: ['One-to-one session'],
+    states: { inherited: 'inherited', removed: 'removed', own: 'own' },
+    note: 'derived on read: if the product changes, the offer follows; nothing is copied, nothing is migrated',
+  },
+}[lang];
+const result = [
+  ...L.product.map((p) => ({ name: p, state: L.excl.includes(p) ? 'removed' : 'inherited' })),
+  ...L.own.map((p) => ({ name: p, state: 'own' })),
+];
+const colX = [40, 340, 620, 880];
+---
+
+<svg class="fg-clickmax-resolver" viewBox="0 0 1200 460" role="img" aria-label={L.f.join(' ')}>
+  <style>
+    .fg-clickmax-resolver .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-resolver .f { fill: var(--fg); font-weight: 700; font-size: 23px; letter-spacing: -0.02em; font-family: var(--font-mono); }
+    .fg-clickmax-resolver .op { fill: var(--accent); font-weight: 700; font-size: 26px; }
+    .fg-clickmax-resolver .item { fill: var(--fg); font-size: 18px; }
+    .fg-clickmax-resolver .muted { fill: var(--fg-muted); font-size: 18px; }
+    .fg-clickmax-resolver .strike { stroke: var(--fg-muted); stroke-width: 1.5; }
+    .fg-clickmax-resolver .row { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-resolver .pill { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fg-clickmax-resolver .p-inh { fill: var(--fg-muted); }
+    .fg-clickmax-resolver .p-rem { fill: var(--fg-muted); }
+    .fg-clickmax-resolver .p-own { fill: var(--accent); }
+    .fg-clickmax-resolver .note { fill: var(--fg-muted); font-size: 15px; }
+    .fg-clickmax-resolver .arrow { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+  </style>
+
+  <!-- the rule: one text, operators in accent -->
+  <text class="f" x="40" y="80">
+    {L.f.map((tok, i) => (i % 2 === 1 ? <tspan class="op" dx="12">{tok}</tspan> : <tspan dx={i ? 12 : 0}>{tok}</tspan>))}
+  </text>
+  <line class="strike" x1="40" y1="116" x2="1160" y2="116" opacity="0.4" />
+
+  <!-- worked example -->
+  {L.cols.map((c, i) => <text class="k" x={colX[i]} y="160">{c}</text>)}
+  {L.product.map((p, i) => (
+    <g>
+      <rect class="row" x={colX[0]} y={178 + i * 46} width="250" height="36" rx="8" />
+      <text class="item" x={colX[0] + 14} y={178 + i * 46 + 24}>{p}</text>
+    </g>
+  ))}
+  {L.excl.map((p, i) => (
+    <g>
+      <rect class="row" x={colX[1]} y={178 + i * 46} width="250" height="36" rx="8" stroke-dasharray="4 4" />
+      <text class="muted" x={colX[1] + 14} y={178 + i * 46 + 24}>{p}</text>
+      <line class="strike" x1={colX[1] + 14} y1={178 + i * 46 + 18} x2={colX[1] + 14 + p.length * 9.2} y2={178 + i * 46 + 18} />
+    </g>
+  ))}
+  {L.own.map((p, i) => (
+    <g>
+      <rect class="row" x={colX[2]} y={178 + i * 46} width="230" height="36" rx="8" stroke="var(--accent)" />
+      <text class="item" x={colX[2] + 14} y={178 + i * 46 + 24}>{p}</text>
+    </g>
+  ))}
+  <path class="arrow" d={`M ${colX[2] + 240} 196 h 20 m -6 -6 l 6 6 l -6 6`} />
+  {result.map((r, i) => (
+    <g opacity={r.state === 'removed' ? 0.55 : 1}>
+      <rect class="row" x={colX[3]} y={178 + i * 46} width="280" height="36" rx="8" stroke={r.state === 'own' ? 'var(--accent)' : undefined} />
+      <text class={r.state === 'removed' ? 'muted' : 'item'} x={colX[3] + 14} y={178 + i * 46 + 24}>{r.name}</text>
+      {r.state === 'removed' && <line class="strike" x1={colX[3] + 14} y1={178 + i * 46 + 18} x2={colX[3] + 14 + r.name.length * 9.2} y2={178 + i * 46 + 18} />}
+      <text class={`pill p-${r.state === 'inherited' ? 'inh' : r.state === 'removed' ? 'rem' : 'own'}`} x={colX[3] + 266} y={178 + i * 46 + 23} text-anchor="end">{L.states[r.state as 'own']}</text>
+    </g>
+  ))}
+  <text class="note" x="40" y="436">{L.note}</text>
+</svg>

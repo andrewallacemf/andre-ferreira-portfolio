@@ -1,0 +1,60 @@
+---
+/* Clickmax · offer inheritance: the three states an item can be in, always
+   labeled in the interface, and what happens when the product changes. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    cols: ['Estado', 'O que significa', 'Se o produto mudar', 'Ação de quem vende'],
+    rows: [
+      ['Herdado', 'Vem do produto; a oferta não guarda nada sobre ele', 'A oferta acompanha', '—'],
+      ['Removido', 'Está no produto, mas a oferta registrou uma exclusão', 'A exclusão continua valendo; se o item sair do produto, some com ele', 'Remover'],
+      ['Próprio', 'Existe só nesta oferta', 'Nada muda', 'Conceder'],
+    ],
+    foot: 'Sete regras de proteção cobrem os casos-limite, como excluir um item que o produto depois remove.',
+  },
+  en: {
+    cols: ['State', 'What it means', 'If the product changes', 'Seller action'],
+    rows: [
+      ['Inherited', 'Comes from the product; the offer stores nothing about it', 'The offer follows', '—'],
+      ['Removed', 'Is in the product, but the offer recorded an exclusion', 'The exclusion still holds; if the item leaves the product, it goes with it', 'Remove'],
+      ['Own', 'Exists only in this offer', 'Nothing changes', 'Grant'],
+    ],
+    foot: 'Seven guard-rails cover the edge cases, such as excluding an item the product later removes.',
+  },
+}[lang];
+const colX = [40, 260, 640, 1010];
+const wrap = (t: string, n: number) => { const w: string[] = []; let line = ''; for (const word of t.split(' ')) { if ((line + ' ' + word).trim().length > n) { w.push(line.trim()); line = word; } else line += ' ' + word; } if (line.trim()) w.push(line.trim()); return w; };
+---
+
+<svg class="fg-clickmax-states" viewBox="0 0 1200 520" role="img" aria-label={L.rows.map((r) => r[0]).join(', ')}>
+  <style>
+    .fg-clickmax-states .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-states .st { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-clickmax-states .s { fill: var(--fg); font-size: 17px; }
+    .fg-clickmax-states .m { fill: var(--fg-muted); font-size: 17px; }
+    .fg-clickmax-states .act { fill: var(--accent); font-weight: 700; font-size: 17px; }
+    .fg-clickmax-states .hair { stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-states .strong { stroke: var(--line-strong); stroke-width: 1; }
+    .fg-clickmax-states .dot { fill: var(--accent); }
+    .fg-clickmax-states .note { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+  {L.cols.map((c, i) => <text class="k" x={colX[i]} y="48">{c}</text>)}
+  <line class="strong" x1="40" y1="66" x2="1160" y2="66" />
+  {L.rows.map((r, i) => {
+    const y = 66 + i * 120;
+    const what = wrap(r[1], 38), change = wrap(r[2], 38);
+    return (
+      <g>
+        {i === 2 && <circle class="dot" cx={colX[0] + 6} cy={y + 40} r="5" />}
+        <text class="st" x={colX[0] + (i === 2 ? 20 : 0)} y={y + 48}>{r[0]}</text>
+        {what.map((l, j) => <text class="s" x={colX[1]} y={y + 44 + j * 24}>{l}</text>)}
+        {change.map((l, j) => <text class="m" x={colX[2]} y={y + 44 + j * 24}>{l}</text>)}
+        <text class={r[3] === '—' ? 'm' : 'act'} x={colX[3]} y={y + 48}>{r[3]}</text>
+        <line class="hair" x1="40" y1={y + 120} x2="1160" y2={y + 120} />
+      </g>
+    );
+  })}
+  <text class="note" x="40" y="490">{L.foot}</text>
+</svg>

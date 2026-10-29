@@ -1,0 +1,68 @@
+---
+/* Clickmax design system · the Figma library before and after: ~90 loose nodes on
+   a single page, against eight pages organized by layer, with the counts. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    before: 'Antes', beforeSub: 'Uma página, cerca de 90 nós soltos', beforeNote: 'sem hierarquia, sem estados, sem documentação',
+    after: 'Depois', afterSub: 'Oito páginas, por camada de composição',
+    pages: [['Comece aqui', ''], ['Change log', ''], ['Foundations', 'tokens, tipografia, grid'], ['Átomos', '17'], ['Moléculas', '47'], ['Organismos', '8'], ['Templates', '1'], ['Exemplos de uso', '12']],
+    rule: 'pronto só quando documentado',
+  },
+  en: {
+    before: 'Before', beforeSub: 'One page, about 90 loose nodes', beforeNote: 'no hierarchy, no states, no documentation',
+    after: 'After', afterSub: 'Eight pages, by composition layer',
+    pages: [['Start here', ''], ['Change log', ''], ['Foundations', 'tokens, type, grid'], ['Atoms', '17'], ['Molecules', '47'], ['Organisms', '8'], ['Templates', '1'], ['Usage examples', '12']],
+    rule: 'done only when documented',
+  },
+}[lang];
+/* Deterministic scatter for the loose nodes. */
+const rnd = (i: number) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+const nodes = Array.from({ length: 88 }, (_, i) => ({
+  x: 70 + rnd(i) * 400, y: 130 + rnd(i + 100) * 440,
+  w: 18 + rnd(i + 200) * 70, h: 10 + rnd(i + 300) * 30,
+}));
+---
+
+<svg class="fg-clickmax-library" viewBox="0 0 1200 680" role="img" aria-label={`${L.before}: ${L.beforeSub}. ${L.after}: ${L.afterSub}.`}>
+  <style>
+    .fg-clickmax-library .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-library .t { fill: var(--fg); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+    .fg-clickmax-library .s { fill: var(--fg-muted); font-size: 17px; }
+    .fg-clickmax-library .panel { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-library .node { fill: none; stroke: var(--fg-muted); stroke-width: 1; opacity: 0.7; }
+    .fg-clickmax-library .row { stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-library .p { fill: var(--fg); font-size: 19px; font-weight: 500; }
+    .fg-clickmax-library .c { fill: var(--fg-muted); font-size: 17px; }
+    .fg-clickmax-library .num { fill: var(--fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-clickmax-library .dot { fill: var(--accent); }
+    .fg-clickmax-library .tag { fill: var(--accent); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+  </style>
+
+  <!-- before -->
+  <text class="k" x="40" y="44">{L.before}</text>
+  <text class="t" x="40" y="80">{L.beforeSub}</text>
+  <rect class="panel" x="40" y="104" width="500" height="500" rx="12" />
+  {nodes.map((n) => <rect class="node" x={n.x} y={n.y} width={n.w} height={n.h} rx="2" />)}
+  <text class="s" x="40" y="640">{L.beforeNote}</text>
+
+  <!-- after -->
+  <text class="k" x="640" y="44">{L.after}</text>
+  <text class="t" x="640" y="80">{L.afterSub}</text>
+  <rect class="panel" x="640" y="104" width="520" height="500" rx="12" />
+  {L.pages.map(([name, count], i) => {
+    const y = 104 + 32 + i * 58;
+    const isLayer = ['17', '47', '8', '1', '12'].includes(count);
+    return (
+      <g>
+        {i > 0 && <line class="row" x1="664" y1={y - 20} x2="1136" y2={y - 20} />}
+        <circle class="dot" cx="676" cy={y + 8} r={isLayer ? 5 : 3} opacity={isLayer ? 1 : 0.5} />
+        <text class="p" x="696" y={y + 14}>{name}</text>
+        {isLayer ? <text class="num" x="1136" y={y + 15} text-anchor="end">{count}</text> : <text class="c" x="1136" y={y + 14} text-anchor="end">{count}</text>}
+      </g>
+    );
+  })}
+  <text class="tag" x="640" y="640">{L.rule}</text>
+</svg>

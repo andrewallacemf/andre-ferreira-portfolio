@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "O pedido chegou como \"vamos ter que duplicar o produto\". A leitura do código mostrou três mecanismos incompatíveis fazendo quase a mesma coisa. A resposta foi uma regra de herança de quatro linhas, sem cópia e sem migrar um dado sequer.",
   "hero": {
-    "figure": "A regra do resolver em uma linha: entregáveis da oferta = (conjunto do produto menos os excluídos) mais os próprios da oferta. Ao lado, os três estados de um item: herdado, removido, próprio.",
-    "aspect": "16 / 9"
+    "figure": "A regra do resolver em uma linha e um exemplo: o produto tem quatro entregáveis, a oferta exclui um e adiciona outro; o comprador recebe a lista derivada, com cada item rotulado como herdado, removido ou próprio.",
+    "component": "clickmax-resolver"
   },
   "sections": [
     {
@@ -24,8 +24,8 @@
         "Duplicar o produto criaria cópias que divergem com o tempo, dobraria o trabalho de manutenção de quem vende e tornaria impossível saber, meses depois, por que duas cópias do mesmo produto entregavam coisas diferentes.",
         "Antes de desenhar qualquer coisa, li o código com apoio de IA. Encontrei três mecanismos incompatíveis de configuração compartilhada convivendo no sistema, e um único caso de herança de verdade. Encontrei também um efeito colateral: um cupom criado para \"todas as ofertas\" não alcançava as ofertas criadas depois dele. O problema era mais estrutural do que o pedido sugeria."
       ],
-      "figure": "Os três mecanismos existentes lado a lado, em leitura abstrata, e o único caso em que a herança acontecia de verdade.",
-      "aspect": "16 / 9"
+      "figure": "O que a leitura do código encontrou, em abstrato: três mecanismos de configuração compartilhada incompatíveis entre si, um único caso de herança de verdade e um efeito colateral no cupom.",
+      "component": "clickmax-mechanisms"
     },
     {
       "id": "papel",
@@ -41,15 +41,34 @@
       "label": "Processo",
       "title": "Ler, modelar, provar, empacotar",
       "steps": [
-        { "title": "Ler o código antes de opinar", "text": "Toda afirmação sobre como o sistema funcionava foi verificada na fonte, com IA ajudando a percorrer o repositório. Daí saíram os três mecanismos, o caso único de herança e o bug do cupom." },
-        { "title": "Uma regra, não um snapshot", "text": "Em vez de copiar os entregáveis para a oferta no momento da criação, a oferta passa a derivar a lista em tempo de leitura: o que o produto tem, menos o que a oferta exclui, mais o que a oferta adiciona. Se o produto muda, a oferta acompanha." },
-        { "title": "Três estados e sete guard-rails", "text": "Cada item de uma oferta está em um de três estados, com rótulo explícito na interface: herdado, removido ou próprio. Sete regras de proteção definem o que acontece nos casos-limite, como excluir um item que o produto depois remove." },
-        { "title": "Modelo de dados e API", "text": "Uma tabela nova de exclusões, justificada campo a campo, e a especificação de três endpoints novos e cinco alterados. Zero migração de dados: tudo o que existia continua válido." },
-        { "title": "Protótipo executável", "text": "Um protótipo HTML autocontido, com quatro telas e um interruptor entre o comportamento de hoje e o proposto, rodando a mesma regra que o backend precisaria implementar, em quatro linhas. Quem clicava no protótipo via a derivação acontecer." },
-        { "title": "Pacote", "text": "Trinta tarefas reorganizadas em 18 issues e quatro milestones, com o vocabulário da interface fechado (Conceder e Remover) e a decisão técnica em aberto registrada como tal." }
+        {
+          "title": "Ler o código antes de opinar",
+          "text": "Toda afirmação sobre como o sistema funcionava foi verificada na fonte, com IA ajudando a percorrer o repositório. Daí saíram os três mecanismos, o caso único de herança e o bug do cupom."
+        },
+        {
+          "title": "Uma regra, não um snapshot",
+          "text": "Em vez de copiar os entregáveis para a oferta no momento da criação, a oferta passa a derivar a lista em tempo de leitura: o que o produto tem, menos o que a oferta exclui, mais o que a oferta adiciona. Se o produto muda, a oferta acompanha."
+        },
+        {
+          "title": "Três estados e sete guard-rails",
+          "text": "Cada item de uma oferta está em um de três estados, com rótulo explícito na interface: herdado, removido ou próprio. Sete regras de proteção definem o que acontece nos casos-limite, como excluir um item que o produto depois remove."
+        },
+        {
+          "title": "Modelo de dados e API",
+          "text": "Uma tabela nova de exclusões, justificada campo a campo, e a especificação de três endpoints novos e cinco alterados. Zero migração de dados: tudo o que existia continua válido."
+        },
+        {
+          "title": "Protótipo executável",
+          "text": "Um protótipo HTML autocontido, com quatro telas e um interruptor entre o comportamento de hoje e o proposto, rodando a mesma regra que o backend precisaria implementar, em quatro linhas. Quem clicava no protótipo via a derivação acontecer."
+        },
+        {
+          "title": "Pacote",
+          "text": "Trinta tarefas reorganizadas em 18 issues e quatro milestones, com o vocabulário da interface fechado (Conceder e Remover) e a decisão técnica em aberto registrada como tal."
+        }
       ],
-      "figure": "As quatro telas do protótipo executável, com o interruptor \"hoje / proposto\" no topo.",
-      "aspect": "16 / 9"
+      "figure": "A estrutura no produto: cada produto com suas ofertas (preço, condições, afiliação) numa lista expansível. É sobre esta relação que o resolver passa a agir.",
+      "src": "img/clickmax/produtos-ofertas.webp",
+      "alt": "Tela Produtos do Clickmax com a lista de produtos e, num deles, quatro ofertas expandidas com preço, status e afiliação"
     },
     {
       "id": "decisoes",
@@ -73,8 +92,8 @@
           "text": "Protótipo estático mostra telas; protótipo executável prova a lógica. Escrever o resolver no protótipo tirou ambiguidade da spec e encurtou a conversa com a engenharia."
         }
       ],
-      "figure": "Modelo de dados antes e depois: a tabela de exclusões nova e as relações produto → oferta → entregáveis.",
-      "aspect": "16 / 9"
+      "figure": "Os três estados de um item na oferta, sempre com rótulo na interface, e o que acontece com cada um quando o produto muda; as ações de quem vende se chamam Conceder e Remover.",
+      "component": "clickmax-states"
     },
     {
       "id": "resultado",
@@ -85,8 +104,8 @@
         "O efeito colateral do cupom, encontrado na leitura do código, entrou no pacote como correção."
       ],
       "showFacts": true,
-      "figure": "Plano de trabalho: 18 issues distribuídas nos quatro milestones.",
-      "aspect": "16 / 9"
+      "figure": "O modelo de dados entregue: antes, a oferta só lia os entregáveis do produto; depois, uma tabela de exclusões e os entregáveis próprios da oferta, com o produto seguindo como única fonte. Três endpoints novos, cinco alterados, zero migração.",
+      "component": "clickmax-datamodel"
     },
     {
       "id": "aprendizados",

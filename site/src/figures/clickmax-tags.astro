@@ -1,0 +1,43 @@
+---
+/* Clickmax · AI-operated platform: the inventory. 88 component tags the platform
+   emitted, grouped into 4 families; only one family was actually emitted by the AI. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: { n: '88', nl: 'tags de componentes emitidas pela plataforma', f: '4', fl: 'famílias depois do inventário', one: 'a única família que a IA emitia de fato', others: 'emitidas pelo produto, não pela IA', note: 'o problema era menor e mais concentrado do que parecia: o contrato precisava cobrir uma família, não 88 tags' },
+  en: { n: '88', nl: 'component tags emitted by the platform', f: '4', fl: 'families after the inventory', one: 'the only family the AI actually emitted', others: 'emitted by the product, not by the AI', note: 'the problem was smaller and more concentrated than it looked: the contract had to cover one family, not 88 tags' },
+}[lang];
+const rnd = (i: number) => { const x = Math.sin(i * 7.31) * 10000; return x - Math.floor(x); };
+---
+
+<svg class="fg-clickmax-tags" viewBox="0 0 1200 560" role="img" aria-label={`${L.n} ${L.nl} → ${L.f} ${L.fl}; ${L.one}`}>
+  <style>
+    .fg-clickmax-tags .big { fill: var(--fg); font-weight: 700; font-size: 96px; letter-spacing: -0.04em; }
+    .fg-clickmax-tags .s { fill: var(--fg-muted); font-size: 17px; }
+    .fg-clickmax-tags .tag { fill: none; stroke: var(--fg-muted); stroke-width: 1; }
+    .fg-clickmax-tags .fam { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-tags .fam-acc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .fg-clickmax-tags .lbl { fill: var(--fg); font-size: 15px; font-weight: 500; }
+    .fg-clickmax-tags .acc { fill: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fg-clickmax-tags .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-tags .note { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+  <!-- 88 tag chips, scattered -->
+  <text class="big" x="40" y="120">{L.n}</text>
+  <text class="s" x="40" y="152">{L.nl}</text>
+  {Array.from({ length: 88 }, (_, i) => <rect class="tag" x={40 + (i % 11) * 44} y={190 + Math.floor(i / 11) * 30} width={16 + rnd(i) * 18} height="16" rx="8" />)}
+
+  <path class="wire" d="M 560 300 h 60 m -8 -8 l 8 8 l -8 8" />
+
+  <!-- four families -->
+  <text class="big" x="680" y="120">{L.f}</text>
+  <text class="s" x="680" y="152">{L.fl}</text>
+  {[0, 1, 2, 3].map((i) => (
+    <g>
+      <rect class={i === 0 ? 'fam-acc' : 'fam'} x="680" y={190 + i * 70} width="480" height="56" rx="10" />
+      {i === 0 ? <text class="acc" x="700" y={190 + i * 70 + 34}>{L.one}</text> : <text class="lbl" x="700" y={190 + i * 70 + 34} opacity="0.7">{L.others}</text>}
+    </g>
+  ))}
+  <text class="note" x="40" y="530">{L.note}</text>
+</svg>

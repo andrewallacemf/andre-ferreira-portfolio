@@ -40,15 +40,15 @@ const L = {
 }[lang];
 ---
 
-<svg viewBox="0 0 1200 640" role="img" aria-label={`${L.survey}: ${L.facts.map((f) => f[0] + ' ' + f[1]).join('; ')}. ${L.bench}.`}>
+<svg class="fg-caixa-process" viewBox="0 0 1200 640" role="img" aria-label={`${L.survey}: ${L.facts.map((f) => f[0] + ' ' + f[1]).join('; ')}. ${L.bench}.`}>
   <style>
-    .k { fill: var(--fg-muted); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .n { fill: var(--fg); font-weight: 700; font-size: 64px; letter-spacing: -0.03em; }
-    .s { fill: var(--fg); font-size: 19px; }
-    .m { fill: var(--fg-muted); font-size: 17px; }
-    .b { fill: var(--fg); font-weight: 500; font-size: 19px; }
-    .hair { stroke: var(--line); stroke-width: 1; }
-    .strong { stroke: var(--line-strong); stroke-width: 1; }
+    .fg-caixa-process .k { fill: var(--fg-muted); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fg-caixa-process .n { fill: var(--fg); font-weight: 700; font-size: 64px; letter-spacing: -0.03em; }
+    .fg-caixa-process .s { fill: var(--fg); font-size: 19px; }
+    .fg-caixa-process .m { fill: var(--fg-muted); font-size: 17px; }
+    .fg-caixa-process .b { fill: var(--fg); font-weight: 500; font-size: 19px; }
+    .fg-caixa-process .hair { stroke: var(--line); stroke-width: 1; }
+    .fg-caixa-process .strong { stroke: var(--line-strong); stroke-width: 1; }
   </style>
 
   <!-- Survey: three figures as hairline rows -->

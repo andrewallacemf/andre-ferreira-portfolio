@@ -1,0 +1,56 @@
+---
+/* Clickmax · monetization foundation: where each concept lives. Wallet with the
+   person; plan and credit in the workspace; a hub aggregates; the project is a filter. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: { person: ['Pessoa', 'carteira'], hub: ['Hub', 'agrega a visão de quem tem vários workspaces'], ws: ['Workspace', 'plano · crédito'], proj: 'projeto como filtro', legend: ['carteira na pessoa', 'plano e crédito no workspace', 'projeto não é unidade de cobrança'] },
+  en: { person: ['Person', 'wallet'], hub: ['Hub', 'aggregates the view for people with several workspaces'], ws: ['Workspace', 'plan · credit'], proj: 'project as a filter', legend: ['wallet with the person', 'plan and credit in the workspace', 'the project is not a billing unit'] },
+}[lang];
+const wsX = [120, 470, 820];
+---
+
+<svg class="fg-clickmax-account" viewBox="0 0 1200 640" role="img" aria-label={`${L.person.join(': ')} → ${L.hub[0]} → ${L.ws.join(': ')} → ${L.proj}`}>
+  <style>
+    .fg-clickmax-account .t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-clickmax-account .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-account .box { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-account .acc { fill: var(--accent); }
+    .fg-clickmax-account .acc-t { fill: var(--accent-fg); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+    .fg-clickmax-account .acc-s { fill: var(--accent-fg); font-size: 15px; opacity: 0.85; }
+    .fg-clickmax-account .hub { fill: none; stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 6 6; }
+    .fg-clickmax-account .chip { fill: var(--bg-elev); stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-account .chip-t { fill: var(--fg-muted); font-size: 13px; }
+    .fg-clickmax-account .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-account .pill { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1; }
+    .fg-clickmax-account .pill-t { fill: var(--fg); font-size: 14px; font-weight: 500; }
+    .fg-clickmax-account .note { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+  <!-- person with wallet -->
+  <rect class="acc" x="470" y="40" width="260" height="90" rx="12" />
+  <text class="acc-t" x="494" y="78">{L.person[0]}</text>
+  <text class="acc-s" x="494" y="106">{L.person[1]}</text>
+  <path class="wire" d="M 600 130 v 40" />
+  <!-- hub -->
+  <rect class="hub" x="80" y="170" width="1040" height="400" rx="14" />
+  <text class="t" x="104" y="206">{L.hub[0]}</text>
+  <text class="s" x="170" y="206">{L.hub[1]}</text>
+  <!-- workspaces -->
+  {wsX.map((x, i) => (
+    <g>
+      <rect class="box" x={x} y="240" width="260" height="300" rx="12" />
+      <text class="t" x={x + 20} y="278">{L.ws[0]} {i + 1}</text>
+      <rect class="pill" x={x + 20} y="296" width={L.ws[1].length * 8 + 24} height="30" rx="15" />
+      <text class="pill-t" x={x + 32} y="316">{L.ws[1]}</text>
+      {[0, 1, 2].map((j) => (
+        <g>
+          <rect class="chip" x={x + 20} y={352 + j * 48} width="220" height="36" rx="8" />
+          <text class="chip-t" x={x + 34} y={352 + j * 48 + 23}>{L.proj} {j + 1}</text>
+        </g>
+      ))}
+      <path class="wire" d={`M 600 170 L ${x + 130} 240`} />
+    </g>
+  ))}
+  {L.legend.map((l, i) => <text class="note" x={80 + i * 380} y="612">{l}</text>)}
+</svg>

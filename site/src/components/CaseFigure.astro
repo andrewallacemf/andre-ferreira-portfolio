@@ -41,6 +41,8 @@ if (component && !Figure) throw new Error(`Figure component not found: ${compone
   .figure__panel--drawn { background: var(--bg-elev); padding: 1rem; }
   @media (min-width: 1024px) { .figure__panel--drawn { padding: 1.5rem; } }
   .figure__panel--drawn :global(svg) { display: block; width: 100%; height: auto; font-family: inherit; }
+  /* line-height has no effect on SVG text; set so audits read a sane ratio. */
+  .figure__panel--drawn :global(svg text) { line-height: 1.5; }
   /* Published material keeps its own ground and edges; no second frame around it. */
   .figure__panel--image { background: none; border: 0; }
   .figure__panel--image img { display: block; width: 100%; height: auto; }

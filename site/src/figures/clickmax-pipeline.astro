@@ -1,0 +1,85 @@
+---
+/* Clickmax design system · one token source, three consumers. The DTCG file on
+   the left; Figma variables, the product's code and the AI widgets on the right,
+   the widgets standing on the components (the two-layer contract). */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    source: ['Arquivo de tokens', 'DTCG'],
+    sourceSub: ['7 paletas primitivas', '58 semânticos · 2 modos', '15 escalas tipográficas'],
+    figma: ['Figma', 'Variáveis geradas do arquivo'], figmaN: '238', figmaS: 'variáveis · modo escuro sem edição manual',
+    code: ['Código', 'Tailwind e componentes'], codeN: '1:1', codeS: 'paridade com o Storybook, por componente',
+    ai: ['Assistente de IA', 'Widgets que o produto renderiza'], aiN: '14', aiS: 'widgets, sobre os mesmos componentes',
+    layer: 'camada 2 sobre camada 1',
+    one: 'uma fonte', three: 'três consumidores',
+  },
+  en: {
+    source: ['Token file', 'DTCG'],
+    sourceSub: ['7 primitive palettes', '58 semantic · 2 modes', '15 type scales'],
+    figma: ['Figma', 'Variables generated from the file'], figmaN: '238', figmaS: 'variables · dark mode with no manual edits',
+    code: ['Code', 'Tailwind and components'], codeN: '1:1', codeS: 'parity with Storybook, per component',
+    ai: ['AI assistant', 'Widgets the product renders'], aiN: '14', aiS: 'widgets, built on the same components',
+    layer: 'layer 2 on layer 1',
+    one: 'one source', three: 'three consumers',
+  },
+}[lang];
+const src = { x: 60, y: 210, w: 300, h: 250 };
+const cols = [
+  { key: 'figma', y: 60 }, { key: 'code', y: 290 }, { key: 'ai', y: 470 },
+] as const;
+const colX = 640, colW = 500, colH = 150;
+---
+
+<svg class="fg-clickmax-pipeline" viewBox="0 0 1200 680" role="img" aria-label={`${L.source.join(' ')} → ${L.figma[0]}, ${L.code[0]}, ${L.ai[0]}`}>
+  <style>
+    .fg-clickmax-pipeline .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-pipeline .t { fill: var(--fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+    .fg-clickmax-pipeline .s { fill: var(--fg-muted); font-size: 17px; }
+    .fg-clickmax-pipeline .n { fill: var(--fg); font-weight: 700; font-size: 44px; letter-spacing: -0.03em; }
+    .fg-clickmax-pipeline .src { fill: var(--accent); }
+    .fg-clickmax-pipeline .src-t { fill: var(--accent-fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+    .fg-clickmax-pipeline .src-s { fill: var(--accent-fg); font-size: 16px; opacity: 0.85; }
+    .fg-clickmax-pipeline .box { fill: var(--bg-elev); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-pipeline .ai { stroke-dasharray: 6 6; }
+    .fg-clickmax-pipeline .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-pipeline .wire-acc { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+    .fg-clickmax-pipeline .tag { fill: var(--accent); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+  </style>
+
+  <!-- source -->
+  <rect class="src" x={src.x} y={src.y} width={src.w} height={src.h} rx="14" />
+  <text class="src-t" x={src.x + 28} y={src.y + 54}>{L.source[0]}</text>
+  <text class="src-t" x={src.x + 28} y={src.y + 86}>{L.source[1]}</text>
+  {L.sourceSub.map((l, i) => <text class="src-s" x={src.x + 28} y={src.y + 136 + i * 28}>{l}</text>)}
+  <text class="k" x={src.x} y={src.y - 16}>{L.one}</text>
+
+  <!-- wires: from the source's right edge to each consumer -->
+  {cols.map((c) => {
+    const y1 = src.y + src.h / 2, y2 = c.y + colH / 2;
+    const x1 = src.x + src.w, x2 = colX;
+    const mx = (x1 + x2) / 2;
+    return <path class={c.key === 'ai' ? 'wire' : 'wire-acc'} d={`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`} stroke-dasharray={c.key === 'ai' ? '6 6' : undefined} />;
+  })}
+  <text class="k" x={colX} y="40">{L.three}</text>
+
+  <!-- consumers -->
+  {cols.map((c) => {
+    const d = L[c.key] as [string, string];
+    const n = L[(c.key + 'N') as 'figmaN'];
+    const s = L[(c.key + 'S') as 'figmaS'];
+    return (
+      <g>
+        <rect class={`box ${c.key === 'ai' ? 'ai' : ''}`} x={colX} y={c.y} width={colW} height={colH} rx="12" />
+        <text class="t" x={colX + 28} y={c.y + 46}>{d[0]}</text>
+        <text class="s" x={colX + 28} y={c.y + 74}>{d[1]}</text>
+        <text class="n" x={colX + 28} y={c.y + 126}>{n}</text>
+        <text class="s" x={colX + 28 + (n.length > 2 ? 86 : 70)} y={c.y + 124}>{s}</text>
+      </g>
+    );
+  })}
+  <!-- the AI widgets stand on the components: short vertical tie with a label -->
+  <line class="wire" x1={colX + colW / 2} y1={cols[1].y + colH} x2={colX + colW / 2} y2={cols[2].y} />
+  <text class="tag" x={colX + colW / 2 + 12} y={cols[1].y + colH + 22}>{L.layer}</text>
+</svg>

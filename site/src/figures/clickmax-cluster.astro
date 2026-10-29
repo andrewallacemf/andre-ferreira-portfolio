@@ -1,0 +1,41 @@
+---
+/* Clickmax · monetization foundation: 173 scattered billing issues reorganized
+   into five parts under one principle. The parts are unnamed on purpose. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: { before: ['173 issues', '12 projetos · 8 times · 29 lacunas sem issue'], after: ['5 partes', 'sob um único princípio'], q: '“esta conta pode fazer esta ação nesta funcionalidade?”', part: 'Parte' },
+  en: { before: ['173 issues', '12 projects · 8 teams · 29 gaps with no issue'], after: ['5 parts', 'under a single principle'], q: '“can this account do this action in this feature?”', part: 'Part' },
+}[lang];
+const rnd = (i: number) => { const x = Math.sin(i * 3.7 + 1) * 10000; return x - Math.floor(x); };
+---
+
+<svg class="fg-clickmax-cluster" viewBox="0 0 1200 560" role="img" aria-label={`${L.before.join(' · ')} → ${L.after.join(' ')}: ${L.q}`}>
+  <style>
+    .fg-clickmax-cluster .t { fill: var(--fg); font-weight: 700; font-size: 30px; letter-spacing: -0.03em; }
+    .fg-clickmax-cluster .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-cluster .issue { fill: var(--fg-muted); opacity: 0.8; }
+    .fg-clickmax-cluster .part { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-cluster .pt { fill: var(--fg); font-weight: 500; font-size: 16px; }
+    .fg-clickmax-cluster .acc { fill: var(--accent); }
+    .fg-clickmax-cluster .acc-t { fill: var(--accent-fg); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .fg-clickmax-cluster .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+  </style>
+  <text class="t" x="40" y="60">{L.before[0]}</text>
+  <text class="s" x="40" y="88">{L.before[1]}</text>
+  {Array.from({ length: 173 }, (_, i) => <rect class="issue" x={40 + rnd(i) * 440} y={120 + rnd(i + 500) * 400} width="9" height="9" rx="1.5" />)}
+  <path class="wire" d="M 520 320 h 70 m -8 -8 l 8 8 l -8 8" />
+  <text class="t" x="640" y="60">{L.after[0]}</text>
+  <text class="s" x="640" y="88">{L.after[1]}</text>
+  <rect class="acc" x="640" y="112" width="520" height="70" rx="10" />
+  <text class="acc-t" x="900" y="155" text-anchor="middle">{L.q}</text>
+  {[0, 1, 2, 3, 4].map((i) => (
+    <g>
+      <rect class="part" x={640 + i * 106} y="230" width="96" height="150" rx="10" />
+      <text class="pt" x={640 + i * 106 + 14} y="258">{L.part} {i + 1}</text>
+      {Array.from({ length: 12 }, (_, k) => <rect class="issue" x={640 + i * 106 + 14 + (k % 4) * 18} y={274 + Math.floor(k / 4) * 18} width="11" height="11" rx="2" />)}
+      <path class="wire" d={`M ${640 + i * 106 + 48} 182 V 230`} />
+    </g>
+  ))}
+</svg>

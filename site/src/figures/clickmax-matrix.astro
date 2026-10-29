@@ -1,0 +1,46 @@
+---
+/* Clickmax · monetization foundation: the conceptual matrix, four self-serve
+   plans by 24 dimensions, cells in the abstract (allows, limits, not included).
+   Labels are generic on purpose: the real matrix is not public. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: { plan: 'Plano', dim: 'Dimensão', legend: [['permite', 'full'], ['limita', 'half'], ['não inclui', 'none']], ent: '+ 1 plano corporativo', note: 'escrita sem nenhum valor: primeiro o que cada plano permite, o preço vem depois' },
+  en: { plan: 'Plan', dim: 'Dimension', legend: [['allows', 'full'], ['limits', 'half'], ['not included', 'none']], ent: '+ 1 enterprise plan', note: 'written with no values: first what each plan allows, the price comes later' },
+}[lang];
+/* Deterministic abstract pattern: higher plans include more. */
+const state = (d: number, p: number) => { const th = [0.55, 0.72, 0.88, 1.0][p]; const v = ((d * 37 + 11) % 100) / 100; return v < th * 0.6 ? 'full' : v < th ? 'half' : 'none'; };
+const x0 = 230, y0 = 70, cw = 52, ch = 18;
+---
+
+<svg class="fg-clickmax-matrix" viewBox="0 0 1200 560" role="img" aria-label={`4 ${L.plan} × 24 ${L.dim}`}>
+  <style>
+    .fg-clickmax-matrix .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-matrix .lbl { fill: var(--fg-muted); font-size: 13px; }
+    .fg-clickmax-matrix .full { fill: var(--accent); }
+    .fg-clickmax-matrix .half { fill: var(--accent); opacity: 0.4; }
+    .fg-clickmax-matrix .none { fill: none; stroke: var(--line); stroke-width: 1; }
+    .fg-clickmax-matrix .ph { fill: var(--fg); font-weight: 700; font-size: 16px; }
+    .fg-clickmax-matrix .note { fill: var(--fg-muted); font-size: 15px; }
+    .fg-clickmax-matrix .s { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+  {[0, 1, 2, 3].map((p) => <text class="ph" x={x0 + p * (cw * 4 + 24) + cw * 2} y="52" text-anchor="middle">{L.plan} {p + 1}</text>)}
+  {Array.from({ length: 24 }, (_, d) => (
+    <g>
+      <text class="lbl" x={x0 - 16} y={y0 + d * ch + 13} text-anchor="end">{L.dim} {d + 1}</text>
+      {[0, 1, 2, 3].map((p) => {
+        const st = state(d, p);
+        return <rect class={st} x={x0 + p * (cw * 4 + 24)} y={y0 + d * ch + 2} width={cw * 4 - 4} height={ch - 4} rx="3" />;
+      })}
+    </g>
+  ))}
+  <text class="s" x="1160" y="536" text-anchor="end">{L.ent}</text>
+  {L.legend.map(([l, c], i) => (
+    <g>
+      <rect class={c} x={x0 + i * 170} y="520" width="28" height="14" rx="3" />
+      <text class="s" x={x0 + i * 170 + 38} y="532">{l}</text>
+    </g>
+  ))}
+  <text class="k" x="40" y="52">4 × 24</text>
+</svg>

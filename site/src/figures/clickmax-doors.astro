@@ -1,0 +1,59 @@
+---
+/* Clickmax · AI-operated platform: three entry doors, one contract layer, the
+   platform's tools underneath. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    doors: [['Assistente no produto', 'responde, executa ações e renderiza interface no chat'], ['Agentes externos', 'conectados via MCP, pelo wizard em quatro passos'], ['Insights', 'leituras e sugestões geradas dentro das telas']],
+    contract: ['Contrato humano + IA', 'manifesto de 14 widgets · diretrizes de resposta · lista fechada, liderada pelo design'],
+    tools: ['Ferramentas da plataforma', '~250 tools · 34 módulos · 4 níveis de segurança'],
+    k: ['portas de entrada', 'o que cada porta pode renderizar e dizer', 'o que a IA pode fazer'],
+  },
+  en: {
+    doors: [['Assistant in the product', 'answers, runs actions and renders interface in chat'], ['External agents', 'connected via MCP, through the four-step wizard'], ['Insights', 'readings and suggestions generated inside the screens']],
+    contract: ['Human + AI contract', '14-widget manifest · response guidelines · closed list, design-led'],
+    tools: ['Platform tools', '~250 tools · 34 modules · 4 security levels'],
+    k: ['entry doors', 'what each door may render and say', 'what the AI can do'],
+  },
+}[lang];
+---
+
+<svg class="fg-clickmax-doors" viewBox="0 0 1200 640" role="img" aria-label={`${L.doors.map((d) => d[0]).join(', ')} → ${L.contract[0]} → ${L.tools[0]}`}>
+  <style>
+    .fg-clickmax-doors .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-doors .t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-clickmax-doors .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-doors .box { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-doors .acc { fill: var(--accent); }
+    .fg-clickmax-doors .acc-t { fill: var(--accent-fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-clickmax-doors .acc-s { fill: var(--accent-fg); font-size: 16px; opacity: 0.85; }
+    .fg-clickmax-doors .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-doors .grid { fill: var(--line-strong); }
+  </style>
+  <text class="k" x="40" y="44">{L.k[0]}</text>
+  {L.doors.map(([t, s], i) => {
+    const x = 40 + i * 380;
+    const words = s.split(' '); const mid = Math.ceil(words.length / 2);
+    return (
+      <g>
+        <rect class="box" x={x} y="60" width="360" height="150" rx="12" />
+        <text class="t" x={x + 24} y="104">{t}</text>
+        <text class="s" x={x + 24} y="138">{words.slice(0, mid).join(' ')}</text>
+        <text class="s" x={x + 24} y="162">{words.slice(mid).join(' ')}</text>
+        <path class="wire" d={`M ${x + 180} 210 v 50`} />
+      </g>
+    );
+  })}
+  <text class="k" x="40" y="292">{L.k[1]}</text>
+  <rect class="acc" x="40" y="304" width="1120" height="120" rx="12" />
+  <text class="acc-t" x="64" y="352">{L.contract[0]}</text>
+  <text class="acc-s" x="64" y="388">{L.contract[1]}</text>
+  <path class="wire" d="M 600 424 v 50" />
+  <text class="k" x="40" y="506">{L.k[2]}</text>
+  <rect class="box" x="40" y="518" width="1120" height="96" rx="12" />
+  <text class="t" x="64" y="558">{L.tools[0]}</text>
+  <text class="s" x="64" y="590">{L.tools[1]}</text>
+  {Array.from({ length: 34 }, (_, i) => <rect class="grid" x={720 + (i % 17) * 24} y={548 + Math.floor(i / 17) * 24} width="12" height="12" rx="2" opacity="0.7" />)}
+</svg>

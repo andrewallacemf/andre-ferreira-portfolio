@@ -1,0 +1,38 @@
+---
+/* Clickmax · monetization foundation: what the code held. 27 billable metrics
+   (8 of them recountable), 7 kinds of paywall in the UI, no per-plan permissions. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: { rows: [['27', 'métricas cobráveis no código', '8 delas recontáveis'], ['7', 'tipos de paywall na interface', 'todos no momento de criar; nenhum na publicação'], ['0', 'permissões por plano', 'só limites quantitativos; permitir ou negar uma funcionalidade inteira não tinha onde ser expresso']] },
+  en: { rows: [['27', 'billable metrics in the code', '8 of them recountable'], ['7', 'kinds of paywall in the interface', 'all at creation time; none at publishing'], ['0', 'per-plan permissions', 'only quantitative limits; allowing or denying a whole feature had nowhere to be expressed']] },
+}[lang];
+---
+
+<svg class="fg-clickmax-inventory" viewBox="0 0 1200 520" role="img" aria-label={L.rows.map((r) => `${r[0]} ${r[1]}`).join('; ')}>
+  <style>
+    .fg-clickmax-inventory .n { fill: var(--fg); font-weight: 700; font-size: 72px; letter-spacing: -0.04em; }
+    .fg-clickmax-inventory .t { fill: var(--fg); font-size: 20px; font-weight: 500; }
+    .fg-clickmax-inventory .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-inventory .dot { fill: var(--fg-muted); }
+    .fg-clickmax-inventory .dot-acc { fill: var(--accent); }
+    .fg-clickmax-inventory .sq { fill: none; stroke: var(--fg-muted); stroke-width: 1.5; }
+    .fg-clickmax-inventory .empty { fill: none; stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .fg-clickmax-inventory .hair { stroke: var(--line); stroke-width: 1; }
+  </style>
+  {L.rows.map(([n, t, s], i) => {
+    const y = 40 + i * 160;
+    return (
+      <g>
+        <text class="n" x="40" y={y + 72}>{n}</text>
+        <text class="t" x="200" y={y + 46}>{t}</text>
+        <text class="s" x="200" y={y + 74}>{s}</text>
+        {i === 0 && Array.from({ length: 27 }, (_, k) => <circle class={k < 8 ? 'dot-acc' : 'dot'} cx={200 + k * 34} cy={y + 112} r="7" />)}
+        {i === 1 && Array.from({ length: 7 }, (_, k) => <rect class="sq" x={200 + k * 44} y={y + 100} width="28" height="24" rx="4" />)}
+        {i === 2 && <rect class="empty" x="200" y={y + 100} width="120" height="24" rx="4" />}
+        {i < 2 && <line class="hair" x1="40" y1={y + 150} x2="1160" y2={y + 150} />}
+      </g>
+    );
+  })}
+</svg>

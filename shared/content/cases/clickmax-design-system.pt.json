@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "A verdade viva do design system estava no código; o Figma era uma spec parada; e a IA do produto renderizava componentes que não conheciam os tokens. Reconstruí a fundação para que os três lessem a mesma fonte.",
   "hero": {
-    "figure": "Diagrama do pipeline: arquivo de tokens DTCG → variáveis do Figma → Tailwind no código → Storybook → widgets que a IA do produto renderiza. Uma fonte, três consumidores.",
-    "aspect": "16 / 9"
+    "figure": "Uma fonte, três consumidores: o arquivo de tokens DTCG gera as 238 variáveis do Figma, alimenta o Tailwind e os componentes no código e, sobre eles, os 14 widgets que o assistente de IA renderiza.",
+    "component": "clickmax-pipeline"
   },
   "sections": [
     {
@@ -30,8 +30,8 @@
         "Ícones custom espalhados: 268 em uso no código, com nomes e origens diferentes.",
         "Duas versões anteriores da reconstrução haviam ficado pela metade. Uma terceira precisava provar rápido que era diferente."
       ],
-      "figure": "Antes e depois do arquivo do Figma: os nós soltos numa página contra a biblioteca organizada em 8 páginas por camada.",
-      "aspect": "16 / 9"
+      "figure": "A biblioteca do Figma antes e depois: cerca de 90 nós soltos numa página só contra oito páginas por camada, com 17 átomos, 47 moléculas, 8 organismos, 1 template e 12 exemplos de uso.",
+      "component": "clickmax-library"
     },
     {
       "id": "papel",
@@ -47,16 +47,37 @@
       "label": "Processo",
       "title": "Núcleo primeiro, depois de baixo para cima",
       "steps": [
-        { "title": "Auditoria", "text": "Inventário do que existia em código e em Figma por nível de composição (átomos, moléculas, organismos), mais a reconciliação dos 268 ícones: 233 mapeados direto para uma biblioteca aberta, 35 mantidos por alias." },
-        { "title": "Fundação de tokens", "text": "Primeira versão do arquivo DTCG com 643 tokens; segunda versão enxuta: 7 paletas primitivas, 58 tokens semânticos em dois modos e 15 escalas tipográficas. O vocabulário semântico virou o léxico comum de humanos e IA." },
-        { "title": "Variáveis no Figma geradas do arquivo", "text": "238 variáveis criadas a partir da fonte: 132 primitivas, 58 semânticas e 48 de componente. O modo escuro foi gerado por automação: 58 valores, nenhum faltando." },
-        { "title": "Port de baixo para cima", "text": "Átomos, depois moléculas, compostos e navegação, com paridade um para um com o Storybook. O Button saiu de 7 variações para 140 (7 tipos × 5 tamanhos × 4 estados) com 3 slots; o Badge chegou a 84 variantes com 49 cores que trocam com o modo." },
-        { "title": "Biblioteca organizada", "text": "Oito páginas: 17 átomos, 47 moléculas, 8 organismos, 1 template e 12 exemplos de uso. Cada componente pronto só quando documentado." },
-        { "title": "Contrato humano + IA", "text": "As 88 tags de componentes próprios foram reduzidas a 4 famílias, e a família de widgets que o assistente renderiza ganhou um manifesto: 14 widgets, todos consumindo os mesmos tokens." },
-        { "title": "Shell e direção visual", "text": "Um App Shell canônico para a nova navegação e uma direção visual aplicada à fundação: superfícies em vidro em 22 pontos, linhas finas em conteúdo, sombra só em superfícies flutuantes." }
+        {
+          "title": "Auditoria",
+          "text": "Inventário do que existia em código e em Figma por nível de composição (átomos, moléculas, organismos), mais a reconciliação dos 268 ícones: 233 mapeados direto para uma biblioteca aberta, 35 mantidos por alias."
+        },
+        {
+          "title": "Fundação de tokens",
+          "text": "Primeira versão do arquivo DTCG com 643 tokens; segunda versão enxuta: 7 paletas primitivas, 58 tokens semânticos em dois modos e 15 escalas tipográficas. O vocabulário semântico virou o léxico comum de humanos e IA."
+        },
+        {
+          "title": "Variáveis no Figma geradas do arquivo",
+          "text": "238 variáveis criadas a partir da fonte: 132 primitivas, 58 semânticas e 48 de componente. O modo escuro foi gerado por automação: 58 valores, nenhum faltando."
+        },
+        {
+          "title": "Port de baixo para cima",
+          "text": "Átomos, depois moléculas, compostos e navegação, com paridade um para um com o Storybook. O Button saiu de 7 variações para 140 (7 tipos × 5 tamanhos × 4 estados) com 3 slots; o Badge chegou a 84 variantes com 49 cores que trocam com o modo."
+        },
+        {
+          "title": "Biblioteca organizada",
+          "text": "Oito páginas: 17 átomos, 47 moléculas, 8 organismos, 1 template e 12 exemplos de uso. Cada componente pronto só quando documentado."
+        },
+        {
+          "title": "Contrato humano + IA",
+          "text": "As 88 tags de componentes próprios foram reduzidas a 4 famílias, e a família de widgets que o assistente renderiza ganhou um manifesto: 14 widgets, todos consumindo os mesmos tokens."
+        },
+        {
+          "title": "Shell e direção visual",
+          "text": "Um App Shell canônico para a nova navegação e uma direção visual aplicada à fundação: superfícies em vidro em 22 pontos, linhas finas em conteúdo, sombra só em superfícies flutuantes."
+        }
       ],
-      "figure": "Grafo de aliases: paletas primitivas → tokens semânticos → tokens de componente, lado a lado nos modos claro e escuro.",
-      "aspect": "16 / 9"
+      "figure": "O grafo de aliases em cinco tokens de exemplo: paletas primitivas (valores reais da escala neutra e do verde da marca) alimentam tokens semânticos em dois modos, que alimentam tokens de componente.",
+      "component": "clickmax-tokens"
     },
     {
       "id": "decisoes",
@@ -80,8 +101,9 @@
           "text": "Um componente só conta como entregue quando está no Storybook, com paridade um para um com o Figma, e cada componente entra em uma alteração de código separada. Parece burocracia; é o que impede o terceiro design system de virar o quarto."
         }
       ],
-      "figure": "Matriz do Button: 7 tipos × 5 tamanhos × 4 estados, com os 3 slots marcados.",
-      "aspect": "16 / 9"
+      "figure": "A seção de botões da biblioteca no Figma: tipos (primário, escuro, claro, suave), cinco tamanhos, botões de ícone e botões-link, cada variante com slots de ícone.",
+      "src": "img/clickmax/buttons.webp",
+      "alt": "Grade de botões do design system Clickmax em verde-limão, preto e cinza, em cinco tamanhos, com botões de ícone e botões-link"
     },
     {
       "id": "resultado",
@@ -92,8 +114,9 @@
         "É um trabalho em produção, não um case fechado com laço. Os números abaixo são contagens do que existe; a medição de impacto, como tempo de handoff e defeitos de interface, vem com a adoção no código, em fases."
       ],
       "showFacts": true,
-      "figure": "App Shell canônico da nova navegação, com dados fictícios.",
-      "aspect": "16 / 9"
+      "figure": "O App Shell canônico da nova navegação, na tela Visão geral: menu lateral com áreas e projetos, busca, acesso ao assistente, funil de visão de águia e indicadores, com dados fictícios.",
+      "src": "img/clickmax/visao-geral.webp",
+      "alt": "Tela Visão geral do Clickmax: menu lateral com Marketing, Mensagens, Produtos e Entregas, Contatos e Comercial, Vendas e lista de projetos; funil em três etapas e cartões de indicadores"
     },
     {
       "id": "aprendizados",

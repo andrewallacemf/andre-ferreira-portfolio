@@ -3,8 +3,8 @@
   "kicker": "Case",
   "lede": "Quando a IA do produto responde com interface, alguém precisa decidir o que ela pode dizer, o que pode renderizar e como um agente de fora entra na plataforma. Este case é sobre desenhar essas regras.",
   "hero": {
-    "figure": "As três portas de entrada da plataforma operada por IA (assistente no produto, agentes externos via MCP, insights) e a camada de contrato que governa o que cada uma pode renderizar.",
-    "aspect": "16 / 9"
+    "figure": "As três portas de entrada da plataforma operada por IA (assistente no produto, agentes externos via MCP, insights), a camada de contrato que governa o que cada uma pode renderizar e dizer, e as ferramentas da plataforma por baixo.",
+    "component": "clickmax-doors"
   },
   "sections": [
     {
@@ -26,8 +26,8 @@
         "A política de resposta e o comportamento real do assistente nem sempre coincidiam: o documento dizia uma coisa, a prática mostrava outra.",
         "A documentação para conectar um agente externo estava fora da navegação do produto e desatualizada."
       ],
-      "figure": "Inventário das 88 tags de componentes emitidas pela plataforma, agrupadas nas 4 famílias, com destaque para a única família que a IA de fato emitia.",
-      "aspect": "16 / 9"
+      "figure": "O inventário: 88 tags de componentes emitidas pela plataforma, agrupadas em quatro famílias; só uma era emitida de fato pela IA.",
+      "component": "clickmax-tags"
     },
     {
       "id": "papel",
@@ -43,15 +43,33 @@
       "label": "Processo",
       "title": "Do inventário ao onboarding",
       "steps": [
-        { "title": "Escopo do contrato", "text": "A primeira decisão: o contrato cobre todas as superfícies gerativas, e não só o chat. Onde a IA renderiza, o contrato vale." },
-        { "title": "Inventário", "text": "As 88 tags de componentes que a plataforma emitia foram agrupadas em 4 famílias. O achado: só uma família era emitida de verdade pela IA. O problema era menor e mais concentrado do que parecia." },
-        { "title": "Manifesto de widgets", "text": "Um registro único, em duas camadas, dos 14 widgets que o assistente pode renderizar, cada um consumindo os tokens do design system. Do lado humano, o mesmo léxico de componentes; do lado da IA, uma lista fechada." },
-        { "title": "Diretrizes de resposta", "text": "Um projeto com uma base transversal e um capítulo por domínio do produto. A forma canônica de uma resposta: nota, dado, card, chamada para ação. Casos cobertos: incapacidade, erro, dado parcial, base vazia e linguagem para quem não é técnico." },
-        { "title": "Componentes do painel", "text": "No design system: o botão do assistente com quatro estados, o painel em vidro, o campo de prompt, os chips de sugestão e a lista de sessões." },
-        { "title": "Wizard de conexão", "text": "Quatro passos para conectar um agente externo à plataforma via MCP, dentro da navegação do produto, com a documentação no lugar em que a pessoa precisa dela. Em produção." }
+        {
+          "title": "Escopo do contrato",
+          "text": "A primeira decisão: o contrato cobre todas as superfícies gerativas, e não só o chat. Onde a IA renderiza, o contrato vale."
+        },
+        {
+          "title": "Inventário",
+          "text": "As 88 tags de componentes que a plataforma emitia foram agrupadas em 4 famílias. O achado: só uma família era emitida de verdade pela IA. O problema era menor e mais concentrado do que parecia."
+        },
+        {
+          "title": "Manifesto de widgets",
+          "text": "Um registro único, em duas camadas, dos 14 widgets que o assistente pode renderizar, cada um consumindo os tokens do design system. Do lado humano, o mesmo léxico de componentes; do lado da IA, uma lista fechada."
+        },
+        {
+          "title": "Diretrizes de resposta",
+          "text": "Um projeto com uma base transversal e um capítulo por domínio do produto. A forma canônica de uma resposta: nota, dado, card, chamada para ação. Casos cobertos: incapacidade, erro, dado parcial, base vazia e linguagem para quem não é técnico."
+        },
+        {
+          "title": "Componentes do painel",
+          "text": "No design system: o botão do assistente com quatro estados, o painel em vidro, o campo de prompt, os chips de sugestão e a lista de sessões."
+        },
+        {
+          "title": "Wizard de conexão",
+          "text": "Quatro passos para conectar um agente externo à plataforma via MCP, dentro da navegação do produto, com a documentação no lugar em que a pessoa precisa dela. Em produção."
+        }
       ],
-      "figure": "O manifesto de widgets em duas camadas: componentes do produto embaixo, os 14 widgets do assistente em cima, todos apontando para os mesmos tokens.",
-      "aspect": "16 / 9"
+      "figure": "O manifesto em duas camadas: os componentes do produto embaixo, os 14 widgets que o assistente pode renderizar em cima, todos lendo os mesmos tokens do design system.",
+      "component": "clickmax-manifest"
     },
     {
       "id": "decisoes",
@@ -75,8 +93,9 @@
           "text": "A plataforma atende quem vende online, não desenvolvedores. As diretrizes proíbem jargão de sistema nas respostas e definem como explicar um erro ou uma base vazia em linguagem de negócio."
         }
       ],
-      "figure": "Os quatro passos do wizard de conexão de um agente externo, com dados fictícios.",
-      "aspect": "16 / 9"
+      "figure": "O fluxo de conexão no produto: em \"Conexões\", o passo a passo para usar a Clickmax em outra IA via MCP (adicionar o servidor, entrar e autorizar pelo navegador), com a documentação no lugar em que a pessoa precisa dela. Endereço do servidor desfocado.",
+      "src": "img/clickmax/mcp-conectar.webp",
+      "alt": "Modal \"Usar a Clickmax em outras IAs\" com dois blocos numerados: Adicione o MCP, com o campo de URL do servidor, e Entre e autorize pelo navegador"
     },
     {
       "id": "resultado",
@@ -87,8 +106,9 @@
         "É um trabalho em curso num produto vivo. Os números abaixo são contagens do que existe, não métricas de impacto."
       ],
       "showFacts": true,
-      "figure": "O painel do assistente com os componentes do design system: botão com quatro estados, painel em vidro, prompt, chips de sugestão e sessões.",
-      "aspect": "16 / 9"
+      "figure": "O painel do assistente aberto sobre a Visão geral: botão de acesso, painel em vidro, pergunta de abertura, chips de sugestão, campo de prompt e um card de insight, todos componentes do design system.",
+      "src": "img/clickmax/assistente-painel.webp",
+      "alt": "Painel flutuante do assistente Max sobre o dashboard do Clickmax, com chips de sugestão, campo de prompt e um card sobre leads sem contato"
     },
     {
       "id": "aprendizados",

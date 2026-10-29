@@ -1,0 +1,51 @@
+---
+/* Clickmax · monetization foundation: the three gating buckets, and where the
+   thesis "create freely, publishing gates" moves the barrier. */
+import type { Lang } from '../lib/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = {
+  pt: {
+    buckets: [['Limite quantitativo', 'quantos funis, páginas, produtos, contatos'], ['Permissão', 'esta funcionalidade existe neste plano?'], ['Gate de publicação', 'criar é livre; publicar depende do plano']],
+    before: 'hoje: tudo no momento de criar', after: 'proposto: a barreira vai para a publicação',
+    q: '“esta conta pode fazer esta ação nesta funcionalidade?”',
+  },
+  en: {
+    buckets: [['Quantitative limit', 'how many funnels, pages, products, contacts'], ['Permission', 'does this feature exist in this plan?'], ['Publishing gate', 'creating is free; publishing depends on the plan']],
+    before: 'today: everything at creation time', after: 'proposed: the barrier moves to publishing',
+    q: '“can this account do this action in this feature?”',
+  },
+}[lang];
+---
+
+<svg class="fg-clickmax-gating" viewBox="0 0 1200 500" role="img" aria-label={L.buckets.map((b) => b[0]).join(', ')}>
+  <style>
+    .fg-clickmax-gating .t { fill: var(--fg); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+    .fg-clickmax-gating .s { fill: var(--fg-muted); font-size: 16px; }
+    .fg-clickmax-gating .box { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-gating .acc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+    .fg-clickmax-gating .blk { fill: var(--line-strong); }
+    .fg-clickmax-gating .blk-acc { fill: var(--accent); }
+    .fg-clickmax-gating .k { fill: var(--fg-muted); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .fg-clickmax-gating .q { fill: var(--fg); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+    .fg-clickmax-gating .wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .fg-clickmax-gating .muted { fill: var(--fg-muted); font-size: 15px; }
+  </style>
+  {L.buckets.map(([t, s], i) => {
+    const x = 40 + i * 380; const acc = i === 2;
+    return (
+      <g>
+        <rect class={acc ? 'acc' : 'box'} x={x} y="40" width="360" height="280" rx="12" />
+        <text class="t" x={x + 24} y="84">{t}</text>
+        <text class="s" x={x + 24} y="112">{s}</text>
+        {i === 0 && <g><rect x={x + 24} y="190" width="312" height="14" rx="7" fill="var(--line)" /><rect x={x + 24} y="190" width="230" height="14" rx="7" fill="var(--fg-muted)" /><rect x={x + 252} y="180" width="3" height="34" fill="var(--fg)" /></g>}
+        {i === 1 && <g><rect x={x + 24} y="184" width="64" height="32" rx="16" fill="var(--line)" /><circle cx={x + 40} cy="200" r="12" fill="var(--bg)" stroke="var(--line-strong)" /><rect x={x + 104} y="184" width="64" height="32" rx="16" fill="var(--fg-muted)" /><circle cx={x + 152} cy="200" r="12" fill="var(--bg)" /></g>}
+        {i === 2 && <g><rect x={x + 24} y="176" width="150" height="48" rx="24" fill="var(--accent)" /><text x={x + 99} y="206" text-anchor="middle" fill="var(--accent-fg)" font-weight="700" font-size="16">{lang === 'pt' ? 'Publicar' : 'Publish'}</text><rect x={x + 190} y="186" width="22" height="18" rx="3" fill="none" stroke="var(--fg)" stroke-width="1.5" /><path d={`M ${x + 194} 186 v -6 a 7 7 0 0 1 14 0 v 6`} fill="none" stroke="var(--fg)" stroke-width="1.5" /></g>}
+        <text class="k" x={x + 24} y="300">{i < 2 ? L.before : L.after}</text>
+      </g>
+    );
+  })}
+  <path class="wire" d="M 600 320 v 40" />
+  <text class="q" x="600" y="410" text-anchor="middle">{L.q}</text>
+  <text class="muted" x="600" y="444" text-anchor="middle">{lang === 'pt' ? 'um princípio para limites, permissões e gates de publicação' : 'one principle for limits, permissions and publishing gates'}</text>
+</svg>
