@@ -36,7 +36,7 @@ const c = t.contact;
         </li>
         <!-- External destinations open in a new tab so the portfolio stays where it was. -->
         <li><span class="label">{c.linkedinLabel}</span><a class="link" href={`https://${c.linkedin}`} target="_blank" rel="noopener noreferrer" data-cursor={t.cursor.open}>{c.linkedin} <span aria-hidden="true">↗</span></a></li>
-        <li><span class="label">{c.resumeLabel}</span><a class="link" href={href('andre-ferreira-resume.pdf')} target="_blank" rel="noopener" type="application/pdf" data-cursor={t.cursor.open}>{c.resumeLabel} <span aria-hidden="true">↗</span></a></li>
+        <li><span class="label">{c.resumeLabel}</span><a class="link" href={href(c.resumeFile)} target="_blank" rel="noopener" type="application/pdf" data-cursor={t.cursor.open}>{c.resumeLabel} <span aria-hidden="true">↗</span></a></li>
       </ul>
       <Footer t={t} />
     </div>

@@ -409,7 +409,8 @@
     "linkedinLabel": "LinkedIn",
     "resumeLabel": "Currículo (PDF)",
     "copy": "Copiar",
-    "copied": "Copiado ✓"
+    "copied": "Copiado ✓",
+    "resumeFile": "andre-ferreira-curriculo.pdf"
   },
   "footer": {
     "line": "Desenhado e construído por mim, em trabalho conjunto humano + IA.",

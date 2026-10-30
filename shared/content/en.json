@@ -409,7 +409,8 @@
     "linkedinLabel": "LinkedIn",
     "resumeLabel": "Résumé (PDF)",
     "copy": "Copy",
-    "copied": "Copied ✓"
+    "copied": "Copied ✓",
+    "resumeFile": "andre-ferreira-resume.pdf"
   },
   "footer": {
     "line": "Designed and built by me, as a human + AI collaboration.",
